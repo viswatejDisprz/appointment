@@ -4,19 +4,15 @@ components:
       title: Appointment
       type: object
       properties:
-        appointmentData:
-          type: object
-          properties:
-            startTime:
-              type: string
-              format: date-time
-            endTime:
-              type: string
-              format: date-time
-            title:
-              type: string
-              nullable: false
-          additionalProperties: false
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        title:
+          type: string
+          nullable: false
         id:
          type: string
          format: uuid
@@ -24,7 +20,15 @@ components:
     
     CreateAppointmentDto:
      title: CreateAppointmentDto
-     $ref: "#/components/schemas/Appointment/properties/appointmentData"
+     type: object
+     properties:
+      startTime1:
+       $ref: '#/components/schemas/Appointment/properties/startTime'
+      endTime1:
+       $ref: '#/components/schemas/Appointment/properties/endTime'
+      title1:
+       $ref: '#/components/schemas/Appointment/properties/title'
+     additionalProperties: false
 
 
       

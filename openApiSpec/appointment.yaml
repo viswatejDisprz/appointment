@@ -33,24 +33,13 @@ paths:
              description: to get the tasks for the date given
        responses:
          '200':
-           description: Successfull -- It will return Tasks array
-           content:
-             application/json:
-               schema:
-                type: array
-                items:  
-                 $ref: 'schemas/appointment.yaml#/components/schemas/Appointment'
+           $ref: 'schemas/common.yaml#/responses/schemas/AppointmentFetchRequest'
 
-         '400': #### naya schema with required fields
+         '400': 
             $ref: 'schemas/common.yaml#/responses/schemas/BadReqError'
-          #  description: Bad Request error
-          #  content:
-          #     application/json:
-          #       schema:
-          #         $ref: 'common/common-schemas.yaml#/responses/schemas/BadReqError'
 
          '500':
-           description: Internal server error 
+           $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError'
              
      
     post:
@@ -65,28 +54,16 @@ paths:
               $ref: 'schemas/appointment.yaml#/components/schemas/CreateAppointmentDto'
       responses:
         '201':
-          description: Successfull --> It will return id of task created
-          content:
-            application/json:
-              schema:
-                $ref: 'schemas/common.yaml#/responses/schemas/AppointmentGuid'
-
+          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentGuid'
+          
         '400':
-          description: Bad Request Error
-          content:
-            application/json:
-              schema:
-                $ref: 'schemas/common.yaml#/responses/schemas/BadReqError'
+          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentError'
 
         '409':
-          description: Returns a Conflict message there is already an appointment at specified time interval
-          content:
-           application/json:
-            schema:
-              $ref: 'schemas/common.yaml#/responses/schemas/Conflict'
+          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentError'
         
         '500':
-           description: Internal server error 
+          $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError' 
       
 
   /v1/appointments/{id}:
@@ -109,9 +86,9 @@ paths:
             description: Task successfully delete
             
          '404':
-            description: Appointment not found
+            $ref: 'schemas/common.yaml#/responses/schemas/BadReqError'
 
          '500':
-           description: Internal server error
+           $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError'
   
     
