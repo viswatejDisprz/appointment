@@ -1,0 +1,41 @@
+responses:
+  schemas:
+            
+    AppointmentGuid:  ## CreatedAppointmentId
+      description: ID of the appointment created
+      type: object
+      properties:   
+        id:
+         $ref: 'appointment.yaml#/components/schemas/Appointment/properties/id'
+      additionalProperties: false
+      
+
+    BadReqError:          
+      type: object
+      properties:
+        message:
+          type: string
+        errorCode:
+          description: This is to identify where the error has occured
+          type: boolean
+          example: false
+      additionalProperties: false
+
+     
+    Conflict:
+     title: Conflict Start and End time
+     type: object
+     properties:
+       message:
+         description: There is already an appointment present at this time slot
+         type: string
+         example: Please enter a different time slot
+      #  startTime:
+      #    type: string
+      #    format: date-time
+      #  endTime:
+      #    type: string
+      #    format: date-time
+     additionalProperties: false
+      
+    
