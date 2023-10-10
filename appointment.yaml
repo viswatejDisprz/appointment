@@ -1,0 +1,94 @@
+openapi: 3.0.3
+
+info:
+   title: Open API Spec Calendar Appointments App
+   version: "1.0"
+   description: This OpenAPI Specification will Display Tasks of an individual on any particular day
+
+externalDocs:
+  description: More info about Restful API
+  url: https://aws.amazon.com/what-is/restful-api/#:~:text=RESTful%20API%20is%20an%20interface,applications%20to%20perform%20various%20tasks.
+
+servers:
+   - url: https://calendar.appointments.net/api/v1
+
+tags:
+   - name: Appointments
+     description: Appointments on a day
+
+paths:
+  /v1/appointments:
+    get:
+       operationId: GetAppointments
+       tags:
+         - Appointments
+       summary: Get appointments of the day
+       parameters:
+         - name: date
+           in: query
+           description: to get the particular date
+           required: true
+           schema:
+             type: string
+             description: to get the tasks for the date given
+       responses:
+         '200':
+           $ref: 'schemas/common.yaml#/responses/schemas/AppointmentFetchRequest'
+
+         '400': 
+            $ref: 'schemas/common.yaml#/responses/schemas/BadReqError'
+
+         '500':
+           $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError'
+             
+     
+    post:
+      operationId: CreateAppointment
+      tags:
+      - Appointments
+      summary: Create an Appointment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas/appointment.yaml#/components/schemas/CreateAppointmentDto'
+      responses:
+        '201':
+          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentGuid'
+          
+        '400':
+          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentError'
+
+        '409':
+          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentError'
+        
+        '500':
+          $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError' 
+      
+
+  /v1/appointments/{id}:
+    delete:
+       operationId: DeleteAppointment
+       tags:
+        - Appointments
+       summary: Delete an appointment
+       parameters:
+       - name: id
+         in: path
+         required: true
+         description: Id of the appointment to be deleted
+         schema:
+           type: string
+           description: to update an appointment
+           format: uuid
+       responses:
+         '204':
+            description: Task successfully delete
+            
+         '404':
+            $ref: 'schemas/common.yaml#/responses/schemas/BadReqError'
+
+         '500':
+           $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError'
+  
+    

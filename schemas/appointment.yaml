@@ -1,0 +1,31 @@
+components:
+  schemas:    
+    Appointment:
+      title: Appointment
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        title:
+          type: string
+          nullable: false
+        id:
+         type: string
+         format: uuid
+      additionalProperties: false
+    
+    CreateAppointmentDto:
+     title: CreateAppointmentDto
+     type: object
+     properties:
+      startTime1:
+       $ref: '#/components/schemas/Appointment/properties/startTime'
+      endTime1:
+       $ref: '#/components/schemas/Appointment/properties/endTime'
+      title1:
+       $ref: '#/components/schemas/Appointment/properties/title'
+     additionalProperties: false
