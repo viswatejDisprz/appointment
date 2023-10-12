@@ -75,7 +75,7 @@ namespace AppointmentApi.Controllers
        /// <returns>The Id of the appointment created</returns>
        [HttpPost]
        [SwaggerOperation(Summary = "Create an Appointment")]
-       public ActionResult<IPostDto> CreateAppointment(AppointmentDto appointmentDto)
+       public ActionResult<ResponseDto> CreateAppointment(AppointmentDto appointmentDto)
        {
             try{
                         if(appointmentDto.IsValid()){

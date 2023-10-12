@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 namespace AppointmentApi.Dtos
 {
-    public class  AppointmentDto:IPostDto
+    public class  AppointmentDto:ResponseDto
 {
     public DateTime StartTime {get; set;}
 
@@ -22,6 +22,10 @@ namespace AppointmentApi.Dtos
                 return true;
             }
             if(EndTime <= DateTime.MinValue && EndTime >= DateTime.MaxValue)
+            {
+                return true;
+            }
+            if(EndTime < StartTime)
             {
                 return true;
             }

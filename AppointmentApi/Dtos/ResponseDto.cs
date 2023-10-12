@@ -1,6 +1,6 @@
 namespace AppointmentApi.Dtos
 {
-    public interface IPostDto
+    public interface ResponseDto
     {
     }
 }
