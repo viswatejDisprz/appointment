@@ -1,11 +1,8 @@
+using System.Text.RegularExpressions;
 using AppointmentApi.Dtos;
 using AppointmentApi.Models;
 using AppointmentApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.Language;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using Microsoft.VisualBasic;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace AppointmentApi.Controllers
@@ -33,19 +30,39 @@ namespace AppointmentApi.Controllers
        /// <returns>List of appointments as List</returns>
        [HttpGet("date")]
        [SwaggerOperation(Summary = "Get appointments for a particular date")]
-       public IEnumerable<Appointment> GetAppointments(string dt1)
+       public IActionResult GetAppointments(string dt1)
        {
-           var appointments = repository.GetAppointments();
-           List<Appointment> filteredAppointments = new();
-           DateTime dt = DateTime.ParseExact(dt1, "dd-MM-yyyy", null);
-           foreach(var item in repository.GetAppointments())
-           {
-                if(item.StartTime.Date == dt.Date)
-                {
-                    filteredAppointments.Add(item);
+                try{
+
+                    // checking a for a valid input
+                    string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
+                    Regex regex = new Regex(regexPattern);
+                    if(!regex.Match(dt1).Success)
+                    {
+                        ErrorDto BadReq  = new ErrorDto {Error = "Bad Request", ErrorCode = 00};
+                        return BadRequest(BadReq);
+                    }
+
+
+                    var appointments = repository.GetAppointments();
+                    List<Appointment> filteredAppointments = new();
+                    DateTime dt = DateTime.ParseExact(dt1, "dd-MM-yyyy", null);
+                    
+                    foreach(var item in repository.GetAppointments())
+                    {
+                            if(item.StartTime.Date == dt.Date)
+                            {
+                                filteredAppointments.Add(item);
+                            }
+                    }
+                    return Ok(filteredAppointments);
                 }
-           }
-           return filteredAppointments;
+                catch (Exception ex)
+                {
+                    // Return a custom 500 response
+                    return StatusCode(500, "Internal Server Error: " + ex.Message);
+                }
+
        }
 
        // Post / appointments
@@ -60,43 +77,50 @@ namespace AppointmentApi.Controllers
        [SwaggerOperation(Summary = "Create an Appointment")]
        public ActionResult<IPostDto> CreateAppointment(AppointmentDto appointmentDto)
        {
-
-                if(appointmentDto.IsValid()){
-                    AppointmentDto app = new AppointmentDto{
-                        Title = "Title of the appointment",
-                        StartTime = new DateTime(),
-                        EndTime = new DateTime()
-                    };
-                    return BadRequest(app);
-                }
-                var appointment = new Appointment
-                {
-                    Title = appointmentDto.Title,
-                    StartTime = appointmentDto.StartTime,
-                    EndTime = appointmentDto.EndTime,
-                    Id = Guid.NewGuid()
-                };
-
-        
-         // 409 response when there is a conflict
-                foreach(var item in repository.GetAppointments())
-                {
-                    
-                    if(item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date)
-                    {
-                        if((item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime) || (appointment.EndTime>item.StartTime  && appointment.EndTime<item.StartTime))
-                        {
-                            return StatusCode(409, appointment.AsDto());
-                        }
-
+            try{
+                        if(appointmentDto.IsValid()){
+                        AppointmentDto app = new AppointmentDto{
+                            Title = "Title of the appointment",
+                            StartTime = new DateTime(),
+                            EndTime = new DateTime()
+                        };
+                        return BadRequest(app);
                     }
-                }
+                    var appointment = new Appointment
+                    {
+                        Title = appointmentDto.Title,
+                        StartTime = appointmentDto.StartTime,
+                        EndTime = appointmentDto.EndTime,
+                        Id = Guid.NewGuid()
+                    };
 
-                repository.CreateAppointment(appointment);
-           
-                // 201 response for post 
-                IdDto id  = new IdDto {Id = appointment.Id};
-                return CreatedAtAction(nameof(GetAppointments), new { id = appointment.Id }, id);
+            
+            // 409 response when there is a conflict
+                    foreach(var item in repository.GetAppointments())
+                    {
+                        
+                        if(item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date)
+                        {
+                            if((item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime) || (appointment.EndTime>item.StartTime  && appointment.EndTime<item.StartTime))
+                            {
+                                return StatusCode(409, appointment.AsDto());
+                            }
+
+                        }
+                    }
+
+                    repository.CreateAppointment(appointment);
+            
+                    // 201 response for post 
+                    IdDto id  = new IdDto {Id = appointment.Id};
+                    return CreatedAtAction(nameof(GetAppointments), new { id = appointment.Id }, id);
+                }
+                catch (Exception ex)
+                {
+  
+                    // Return a custom 500 response
+                    return StatusCode(500, "Internal Server Error: " + ex.Message);
+                }
 
        }
 
@@ -112,12 +136,19 @@ namespace AppointmentApi.Controllers
        [SwaggerOperation(Summary = "Delete an Appointment")]
        public ActionResult DeleteAppointment(Guid id)
        {
-          var appointment = repository.GetAppointment(id);
-          if( appointment is null){
-             return NotFound();
-          }
-          repository.DeleteAppointment(id);
-          return NoContent();
+                try{
+                    var appointment = repository.GetAppointment(id);
+                    if( appointment is null){
+                        return NotFound();
+                    }
+                    repository.DeleteAppointment(id);
+                    return NoContent();
+                }
+                catch (Exception ex)
+                {
+                    // Return a custom 500 response
+                    return StatusCode(500, "Internal Server Error: " + ex.Message);
+                }
        }
     }
 }

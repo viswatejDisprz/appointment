@@ -29,7 +29,7 @@ if (app.Environment.IsDevelopment())
     else
     {
         // Use custom error handling for non-development environments
-        app.UseExceptionHandler("/appointment/Error");
+        // app.UseExceptionHandler("/appointment/Error");
         app.UseHsts();
     }
 
