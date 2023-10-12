@@ -24,5 +24,11 @@ namespace AppointmentApi.Repositories
       public void CreateAppointment(Appointment appointment){
         appointments.Add(appointment);
       }
-   }
+
+        public void DeleteAppointment(Guid id)
+        {
+            var index = appointments.FindIndex( existingItem => existingItem.Id == id);
+            appointments.RemoveAt(index);
+        }
+    }
 }

@@ -4,12 +4,15 @@ using AppointmentApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.VisualBasic;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace AppointmentApi.Controllers
 {
     // GET /appointments
     [ApiController]
-    [Route("appointments")]
+    [Route("v1/appointments")]
     public class AppointmentsController : ControllerBase
     {
        private readonly IAppointmentRepository repository;
@@ -23,69 +26,98 @@ namespace AppointmentApi.Controllers
 
 
        // GET / appointments
-       [HttpGet]
-       public IEnumerable<Appointment> GetAppointments()
+       /// <summary>
+       /// Gets the list of appointments.
+       /// </summary>
+       /// <param date="12-12-2023">Date string to fetch appointments for a particular day</param>
+       /// <returns>List of appointments as List</returns>
+       [HttpGet("date")]
+       [SwaggerOperation(Summary = "Get appointments for a particular date")]
+       public IEnumerable<Appointment> GetAppointments(string dt1)
        {
            var appointments = repository.GetAppointments();
-           return appointments;
+           List<Appointment> filteredAppointments = new();
+           DateTime dt = DateTime.ParseExact(dt1, "dd-MM-yyyy", null);
+           foreach(var item in repository.GetAppointments())
+           {
+                if(item.StartTime.Date == dt.Date)
+                {
+                    filteredAppointments.Add(item);
+                }
+           }
+           return filteredAppointments;
        }
-
-       // Get / appointments/{id}
-       [HttpGet("{id}")]
-       public ActionResult<AppointmentDto> GetAppointment(Guid id)
-       {
-            try{var appointment = repository.GetAppointment(id);
-            if(appointment is null){
-                return NotFound();
-            }
-            return appointment.AsDto();}
-            catch (Exception ex)
-            {
-            
-                return StatusCode(500, "Internal Server Error: " + ex.Message);
-            }
-       }
-
 
        // Post / appointments
+       /// <summary>
+       /// Creates an appointment
+       /// </summary>
+       /// <param startTime="2023-10-12T09:09:09.619Z"> Start time in DateTime format to register appointment start time </param>
+       /// <param  EndTime = "2023-10-12T09:09:09.619Z"> EndTime in DateTime format to register the endTime </param>
+       /// <param  Title = "Appointment Title string"> Title of the appointment </param>
+       /// <returns>The Id of the appointment created</returns>
        [HttpPost]
+       [SwaggerOperation(Summary = "Create an Appointment")]
        public ActionResult<IPostDto> CreateAppointment(AppointmentDto appointmentDto)
        {
 
-           
-           var appointment = new Appointment
-           {
-               Title = appointmentDto.Title,
-               StartTime = appointmentDto.StartTime,
-               EndTime = appointmentDto.EndTime,
-               Id = Guid.NewGuid()
-           };
-           
-           if(appointmentDto.IsValid()){
-            return StatusCode(500, "Internal server error");
-           }
+                if(appointmentDto.IsValid()){
+                    AppointmentDto app = new AppointmentDto{
+                        Title = "Title of the appointment",
+                        StartTime = new DateTime(),
+                        EndTime = new DateTime()
+                    };
+                    return BadRequest(app);
+                }
+                var appointment = new Appointment
+                {
+                    Title = appointmentDto.Title,
+                    StartTime = appointmentDto.StartTime,
+                    EndTime = appointmentDto.EndTime,
+                    Id = Guid.NewGuid()
+                };
 
         
          // 409 response when there is a conflict
-           foreach(var item in repository.GetAppointments())
-           {
-             
-              if(item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date)
-              {
-                if((item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime) || (appointment.EndTime>item.StartTime  && appointment.EndTime<item.StartTime))
+                foreach(var item in repository.GetAppointments())
                 {
-                    return StatusCode(409, appointment.AsDto());
+                    
+                    if(item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date)
+                    {
+                        if((item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime) || (appointment.EndTime>item.StartTime  && appointment.EndTime<item.StartTime))
+                        {
+                            return StatusCode(409, appointment.AsDto());
+                        }
+
+                    }
                 }
 
-              }
-           }
-
-           repository.CreateAppointment(appointment);
+                repository.CreateAppointment(appointment);
            
-           // 201 response for post 
-           IdDto id  = new IdDto {Id = appointment.Id};
-           return CreatedAtAction(nameof(GetAppointment), new { id = appointment.Id }, id);
+                // 201 response for post 
+                IdDto id  = new IdDto {Id = appointment.Id};
+                return CreatedAtAction(nameof(GetAppointments), new { id = appointment.Id }, id);
 
+       }
+
+
+       // Delete / appointments
+       // GET / appointments
+       /// <summary>
+       /// Delete the selected appointment
+       /// </summary>
+       /// <param Guid="3fa85f64-5717-4562-b3fc-2c963f66afa6">Guid to delete a particular appointment</param>
+       /// <returns>No Content</returns>
+       [HttpDelete("{id}")]
+       [SwaggerOperation(Summary = "Delete an Appointment")]
+       public ActionResult DeleteAppointment(Guid id)
+       {
+          var appointment = repository.GetAppointment(id);
+          if( appointment is null){
+             return NotFound();
+          }
+          repository.DeleteAppointment(id);
+          return NoContent();
        }
     }
 }

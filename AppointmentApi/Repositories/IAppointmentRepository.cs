@@ -9,5 +9,7 @@ namespace AppointmentApi.Repositories
     IEnumerable<Appointment> GetAppointments();
 
     void CreateAppointment(Appointment appointment);
+
+    void DeleteAppointment(Guid id);
   }
 }

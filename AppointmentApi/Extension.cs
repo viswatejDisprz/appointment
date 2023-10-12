@@ -14,7 +14,6 @@ namespace AppointmentApi
                StartTime = appointment.StartTime,
                EndTime = appointment.EndTime,
                Title = appointment.Title,
-            //    Id = appointment.Id
            };
         }
     }

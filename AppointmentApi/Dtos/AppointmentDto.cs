@@ -5,13 +5,10 @@ namespace AppointmentApi.Dtos
 {
     public class  AppointmentDto:IPostDto
 {
-    [Required]
     public DateTime StartTime {get; set;}
 
-    [Required]
     public DateTime EndTime {get; set;}
 
-    [Required]
     public string  Title {get; set;}
 
     // public Guid Id {get; set;}
