@@ -28,16 +28,16 @@ namespace AppointmentApi.Controllers
        /// </summary>
        /// <param date="12-12-2023">Date string to fetch appointments for a particular day</param>
        /// <returns>List of appointments as List</returns>
-       [HttpGet("date")]
+       [HttpGet]
        [SwaggerOperation(Summary = "Get appointments for a particular date")]
-       public IActionResult GetAppointments(string dt1)
+       public IActionResult GetAppointments(string date)
        {
                 try{
 
                     // checking a for a valid input
                     string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
                     Regex regex = new Regex(regexPattern);
-                    if(!regex.Match(dt1).Success)
+                    if(!regex.Match(date).Success)
                     {
                         ErrorDto BadReq  = new ErrorDto {Error = "Bad Request", ErrorCode = 00};
                         return BadRequest(BadReq);
@@ -46,7 +46,7 @@ namespace AppointmentApi.Controllers
 
                     var appointments = repository.GetAppointments();
                     List<Appointment> filteredAppointments = new();
-                    DateTime dt = DateTime.ParseExact(dt1, "dd-MM-yyyy", null);
+                    DateTime dt = DateTime.ParseExact(date, "dd-MM-yyyy", null);
                     
                     foreach(var item in repository.GetAppointments())
                     {
