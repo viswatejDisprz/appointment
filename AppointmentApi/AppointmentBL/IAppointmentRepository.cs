@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-namespace AppointmentApi.Buisness
+namespace AppointmentApi.AppointmentBL
 {
   public interface IAppointmentRepository
   {

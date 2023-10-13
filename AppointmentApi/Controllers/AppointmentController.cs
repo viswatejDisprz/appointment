@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
-using AppointmentApi.DataAcces;
-using AppointmentApi.Buisness;
+using AppointmentApi.AppointmentDL;
+using AppointmentApi.AppointmentBL;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -9,12 +9,12 @@ namespace AppointmentApi.Controllers
     // GET /appointments
     [ApiController]
     [Route("v1/appointments")]
-    public class AppointmentsController : ControllerBase
+    public class AppointmentController : ControllerBase
     {
        private readonly IAppointmentRepository repository;
-       private readonly ILogger<AppointmentsController> _logger;
+       private readonly ILogger<AppointmentController> _logger;
 
-       public AppointmentsController(ILogger<AppointmentsController> logger,IAppointmentRepository repository){
+       public AppointmentController(ILogger<AppointmentController> logger,IAppointmentRepository repository){
          this.repository = repository;
          _logger = logger;
        }

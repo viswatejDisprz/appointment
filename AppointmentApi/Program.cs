@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using AppointmentApi.Buisness;
+using AppointmentApi.AppointmentBL;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

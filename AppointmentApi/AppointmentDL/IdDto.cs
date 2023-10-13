@@ -1,5 +1,5 @@
 using System;
-namespace AppointmentApi.DataAcces
+namespace AppointmentApi.AppointmentDL
 {
     public class IdDto: ResponseDto
     {
