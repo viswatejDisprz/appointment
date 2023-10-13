@@ -1,0 +1,77 @@
+components:
+  responses:
+    AppointmentFetchRequest:
+      description: Successfull -- It will return Tasks array
+      content:
+       application/json:
+        schema:
+         type: array
+         items:
+          $ref: '../schemas/appointment.yaml#/components/schemas/Appointment'
+            
+    GuidValueResult:
+     description:  Successfull --> It will return id of task created
+     content:
+       application/json:
+        schema:
+         type: object
+         properties:
+          id:
+           type: string
+         additionalProperties: false
+      
+    ServerError:
+     description: Reason for the error and it should be localised
+     content:
+       application/json:
+        schema:
+         type: object
+         properties:
+           message:
+            type: string
+         additionalProperties: false
+ 
+
+    CustomError:
+      description: A list of users
+      content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                additionalProperties: false
+
+    
+    CreateAppointmentError:
+      content:
+          application/json:     
+            schema:             
+              $ref: '#/components/responses/CustomError'   # Reference to an object
+            examples:    
+              Title:   # Requirement 1
+                value:
+                  message: title cannot be empty
+              startTime:  # Requirement 2
+                value:
+                  message: startTime cannot be empty
+              endTime: # Requirement 3
+                value:
+                  message: endtTime cannot be empty
+    
+
+    FetchAppointmentError:
+      content:
+          application/json:     
+            schema:             
+              $ref: '#/components/responses/CustomError'   # Reference to an object
+            examples:    
+              Empty:   # Requirement 1
+                value:
+                  message: Date cannot be empty
+              Format:  # Requirement 2
+                value:
+                  message: Date Format is incorrect

@@ -33,13 +33,13 @@ paths:
              description: to get the tasks for the date given
        responses:
          '200':
-           $ref: 'schemas/common.yaml#/responses/schemas/AppointmentFetchRequest'
+           $ref: 'responses/common.yaml#/components/responses/AppointmentFetchRequest'
 
          '400': 
-            $ref: 'schemas/common.yaml#/responses/schemas/BadReqError'
+            $ref: 'responses/common.yaml#/components/responses/FetchAppointmentError'
 
          '500':
-           $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError'
+           $ref: 'responses/common.yaml#/components/responses/ServerError'
              
      
     post:
@@ -51,19 +51,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'schemas/appointment.yaml#/components/schemas/CreateAppointmentDto'
+              $ref: 'schemas/appointment.yaml#/components/schemas/AppointmentRequest'
       responses:
         '201':
-          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentGuid'
+          $ref: 'responses/common.yaml#/components/responses/GuidValueResult'
           
         '400':
-          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentError'
+          $ref: 'responses/common.yaml#/components/responses/CreateAppointmentError'
 
         '409':
-          $ref: 'schemas/common.yaml#/responses/schemas/AppointmentError'
+          $ref: 'responses/common.yaml#/components/responses/ServerError'
         
         '500':
-          $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError' 
+          $ref: 'responses/common.yaml#/components/responses/ServerError' 
       
 
   /v1/appointments/{id}:
@@ -86,9 +86,9 @@ paths:
             description: Task successfully delete
             
          '404':
-            $ref: 'schemas/common.yaml#/responses/schemas/BadReqError'
+            $ref: 'responses/common.yaml#/components/responses/ServerError'
 
          '500':
-           $ref: 'schemas/common.yaml#/responses/schemas/InternalServerError'
+           $ref: 'responses/common.yaml#/components/responses/ServerError'
   
     

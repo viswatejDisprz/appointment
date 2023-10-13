@@ -1,7 +1,19 @@
 components:
-  schemas:    
+  components:
+  schemas:
     Appointment:
       title: Appointment
+      allOf:
+        - $ref: "#/components/schemas/AppointmentRequest"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+          additionalProperties: false
+
+    AppointmentRequest:
+      title: CreateAppointmentDto
       type: object
       properties:
         startTime:
@@ -13,19 +25,19 @@ components:
         title:
           type: string
           nullable: false
-        id:
-         type: string
-         format: uuid
       additionalProperties: false
-    
-    CreateAppointmentDto:
-     title: CreateAppointmentDto
-     type: object
-     properties:
-      startTime1:
-       $ref: '#/components/schemas/Appointment/properties/startTime'
-      endTime1:
-       $ref: '#/components/schemas/Appointment/properties/endTime'
-      title1:
-       $ref: '#/components/schemas/Appointment/properties/title'
-     additionalProperties: false
+
+
+
+      
+          
+        
+
+    # --Error
+    # --GuidValueResult
+    # --AppointmentRequest
+    # --Appointment
+  # reponses: 
+    # -- 400
+    # -- 500
+    # -- 409 conflict
