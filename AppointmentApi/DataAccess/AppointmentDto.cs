@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
-namespace AppointmentApi.Dtos
+namespace AppointmentApi.DataAcces
 {
     public class  AppointmentDto:ResponseDto
 {

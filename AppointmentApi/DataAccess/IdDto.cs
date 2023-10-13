@@ -1,6 +1,5 @@
 using System;
-using AppointmentApi.Models;
-namespace AppointmentApi.Dtos
+namespace AppointmentApi.DataAcces
 {
     public class IdDto: ResponseDto
     {
