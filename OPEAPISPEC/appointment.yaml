@@ -3,7 +3,7 @@ openapi: 3.0.3
 info:
    title: Open API Spec Calendar Appointments App
    version: "1.0"
-   description: This OpenAPI Specification will Display Tasks of an individual on any particular day
+   description: This OpenAPI Specification will Display Appointments of an individual on any particular day
 
 externalDocs:
   description: More info about Restful API
@@ -26,20 +26,25 @@ paths:
        parameters:
          - name: date
            in: query
-           description: to get the particular date
+           description: to get the appointments for a particular date
            required: true
            schema:
              type: string
-             description: to get the tasks for the date given
        responses:
          '200':
-           $ref: 'responses/common.yaml#/components/responses/AppointmentFetchRequest'
+           description: Successfull -- It will return Appointments array
+           content:
+            application/json:
+              schema:
+               type: array
+               items:
+                 $ref: 'schemas/appointment.yaml#/components/schemas/Appointment'
 
          '400': 
-            $ref: 'responses/common.yaml#/components/responses/FetchAppointmentError'
+            $ref: 'responses/common.yaml#/components/responses/BadRequest'
 
          '500':
-           $ref: 'responses/common.yaml#/components/responses/ServerError'
+           $ref: 'responses/common.yaml#/components/responses/InternalServerError'
              
      
     post:
@@ -54,16 +59,16 @@ paths:
               $ref: 'schemas/appointment.yaml#/components/schemas/AppointmentRequest'
       responses:
         '201':
-          $ref: 'responses/common.yaml#/components/responses/GuidValueResult'
+          $ref: 'schemas/common.yaml#/components/schemas/GuidValueResult'
           
         '400':
-          $ref: 'responses/common.yaml#/components/responses/CreateAppointmentError'
+          $ref: 'responses/common.yaml#/components/responses/BadRequest'
 
         '409':
-          $ref: 'responses/common.yaml#/components/responses/ServerError'
+          $ref: 'responses/common.yaml#/components/responses/ConflictError'
         
         '500':
-          $ref: 'responses/common.yaml#/components/responses/ServerError' 
+          $ref: 'responses/common.yaml#/components/responses/InternalServerError' 
       
 
   /v1/appointments/{id}:
@@ -83,12 +88,12 @@ paths:
            format: uuid
        responses:
          '204':
-            description: Task successfully delete
+            description: Task successfully deleted
             
          '404':
-            $ref: 'responses/common.yaml#/components/responses/ServerError'
+            description: appointment not found
 
          '500':
-           $ref: 'responses/common.yaml#/components/responses/ServerError'
+           $ref: 'responses/common.yaml#/components/responses/InternalServerError'
   
     

@@ -1,5 +1,4 @@
 components:
-  components:
   schemas:
     Appointment:
       title: Appointment
@@ -13,7 +12,7 @@ components:
           additionalProperties: false
 
     AppointmentRequest:
-      title: CreateAppointmentDto
+      title: AppointmentRequest
       type: object
       properties:
         startTime:
