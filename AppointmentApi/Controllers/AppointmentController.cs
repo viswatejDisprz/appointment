@@ -1,8 +1,9 @@
 using System.Text.RegularExpressions;
-using AppointmentApi.DataAccess;
 using AppointmentApi.Buisness;
+using AppointmentApi.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using AppointmentApi.Models;
 
 namespace AppointmentApi.Controllers
 {

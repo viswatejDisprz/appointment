@@ -1,4 +1,4 @@
-namespace AppointmentApi.DataAccess
+namespace AppointmentApi.Buisness
 {
     public class ErrorDto:ResponseDto
     {

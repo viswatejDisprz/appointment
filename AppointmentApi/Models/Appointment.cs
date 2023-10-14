@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AppointmentApi.Buisness;
+namespace AppointmentApi.Models;
 
 public class  Appointment
 {
