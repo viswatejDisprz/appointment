@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AppointmentApi.Models;
 namespace AppointmentApi.DataAccess
 {
-  public interface IAppointmentRepository
+  public interface IAppointmentDL
   {
     Appointment GetAppointment(Guid id);
     IEnumerable<Appointment> GetAppointments();

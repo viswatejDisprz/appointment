@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
 });
-builder.Services.AddSingleton<IAppointmentRepository, InMemAppointmentRepository>();
+builder.Services.AddSingleton<IAppointmentDL, AppointmentDL>();
 builder.Services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();

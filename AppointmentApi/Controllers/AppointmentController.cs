@@ -12,10 +12,10 @@ namespace AppointmentApi.Controllers
     [Route("v1/appointments")]
     public class AppointmentController : ControllerBase
     {
-       private readonly IAppointmentRepository repository;
+       private readonly IAppointmentDL repository;
        private readonly ILogger<AppointmentController> _logger;
 
-       public AppointmentController(ILogger<AppointmentController> logger,IAppointmentRepository repository){
+       public AppointmentController(ILogger<AppointmentController> logger,IAppointmentDL repository){
          this.repository = repository;
          _logger = logger;
        }

@@ -5,7 +5,7 @@ using AppointmentApi.Models;
 
 namespace AppointmentApi.DataAccess
 {
-   public class InMemAppointmentRepository: IAppointmentRepository
+   public class AppointmentDL: IAppointmentDL
    {
       private readonly List<Appointment> appointments = new()
       {
