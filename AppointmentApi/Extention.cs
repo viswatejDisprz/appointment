@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using AppointmentApi.AppointmentBL;
-using AppointmentApi.AppointmentDL;
+using AppointmentApi.Buisness;
+using AppointmentApi.DataAccess;
 
 namespace AppointmentApi
 {

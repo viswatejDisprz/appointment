@@ -1,4 +1,4 @@
-namespace AppointmentApi.AppointmentDL
+namespace AppointmentApi.DataAccess
 {
     public interface ResponseDto
     {

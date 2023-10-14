@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using AppointmentApi.AppointmentBL;
+using AppointmentApi.Buisness;
 
-namespace AppointmentApi.AppointmentBL
+namespace AppointmentApi.Buisness
 {
    public class InMemAppointmentRepository: IAppointmentRepository
    {

@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
-using AppointmentApi.AppointmentDL;
-using AppointmentApi.AppointmentBL;
+using AppointmentApi.DataAccess;
+using AppointmentApi.Buisness;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -38,7 +38,7 @@ namespace AppointmentApi.Controllers
                     Regex regex = new Regex(regexPattern);
                     if(!regex.Match(date).Success)
                     {
-                        ErrorDto BadReq  = new ErrorDto {Error = "Bad Request", ErrorCode = 00};
+                        ErrorDto BadReq  = new ErrorDto {Message = "Bad Request"};
                         return BadRequest(BadReq);
                     }
 
