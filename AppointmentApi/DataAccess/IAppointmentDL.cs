@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AppointmentApi.Buisness;
 using AppointmentApi.Models;
 namespace AppointmentApi.DataAccess
 {
@@ -8,7 +9,9 @@ namespace AppointmentApi.DataAccess
     Appointment GetAppointment(Guid id);
     IEnumerable<Appointment> GetAppointments();
 
-    void CreateAppointment(Appointment appointment);
+    IEnumerable<Appointment> GetAppointmentsBydate(string date);
+
+    string CreateAppointment(AppointmentDto appointmentDto);
 
     void DeleteAppointment(Guid id);
   }

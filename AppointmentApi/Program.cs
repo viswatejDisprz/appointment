@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using AppointmentApi.DataAccess;
+using AppointmentApi.Buisness;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,7 +14,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
 });
-builder.Services.AddSingleton<IAppointmentDL, AppointmentDL>();
+builder.Services.AddSingleton<IAppointmentDL, AppointmentBL>();
 builder.Services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();

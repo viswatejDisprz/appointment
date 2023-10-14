@@ -25,7 +25,7 @@ namespace AppointmentApi.Buisness
             {
                 return true;
             }
-            if(EndTime < StartTime)
+            if(EndTime <= StartTime)
             {
                 return true;
             }

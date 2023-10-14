@@ -13,14 +13,13 @@ namespace AppointmentApi.Controllers
     public class AppointmentController : ControllerBase
     {
        private readonly IAppointmentDL repository;
+
        private readonly ILogger<AppointmentController> _logger;
 
        public AppointmentController(ILogger<AppointmentController> logger,IAppointmentDL repository){
          this.repository = repository;
          _logger = logger;
        }
-
-
 
        // GET / appointments
        /// <summary>
@@ -34,26 +33,11 @@ namespace AppointmentApi.Controllers
        {
                 try{
 
-                    // checking a for a valid input
-                    string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
-                    Regex regex = new Regex(regexPattern);
-                    if(!regex.Match(date).Success)
+                    var filteredAppointments = repository.GetAppointmentsBydate(date);
+                    if(filteredAppointments.Count() == 0)
                     {
-                        ErrorDto BadReq  = new ErrorDto {Message = "Bad Request"};
-                        return BadRequest(BadReq);
-                    }
-
-
-                    var appointments = repository.GetAppointments();
-                    List<Appointment> filteredAppointments = new();
-                    DateTime dt = DateTime.ParseExact(date, "dd-MM-yyyy", null);
-                    
-                    foreach(var item in repository.GetAppointments())
-                    {
-                            if(item.StartTime.Date == dt.Date)
-                            {
-                                filteredAppointments.Add(item);
-                            }
+                        var emptyList = new string[0];
+                        return NotFound(emptyList);
                     }
                     return Ok(filteredAppointments);
                 }
@@ -75,45 +59,25 @@ namespace AppointmentApi.Controllers
        /// <returns>The Id of the appointment created</returns>
        [HttpPost]
        [SwaggerOperation(Summary = "Create an Appointment")]
-       public ActionResult<ResponseDto> CreateAppointment(AppointmentDto appointmentDto)
+       public IActionResult CreateAppointment(AppointmentDto appointmentDto)
        {
             try{
-                        if(appointmentDto.IsValid()){
-                        AppointmentDto app = new AppointmentDto{
-                            Title = "Title of the appointment",
-                            StartTime = new DateTime(),
-                            EndTime = new DateTime()
-                        };
-                        return BadRequest(app);
-                    }
-                    var appointment = new Appointment
-                    {
-                        Title = appointmentDto.Title,
-                        StartTime = appointmentDto.StartTime,
-                        EndTime = appointmentDto.EndTime,
-                        Id = Guid.NewGuid()
-                    };
-
-            
-            // 409 response when there is a conflict
-                    foreach(var item in repository.GetAppointments())
-                    {
-                        
-                        if(item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date)
-                        {
-                            if((item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime) || (appointment.EndTime>item.StartTime  && appointment.EndTime<item.StartTime))
-                            {
-                                return StatusCode(409, appointment.AsDto());
-                            }
-
-                        }
-                    }
-
-                    repository.CreateAppointment(appointment);
-            
-                    // 201 response for post 
-                    IdDto id  = new IdDto {Id = appointment.Id};
-                    return CreatedAtAction(nameof(GetAppointments), new { id = appointment.Id }, id);
+                   var response = repository.CreateAppointment(appointmentDto);
+                   if(response == null)
+                   {
+                      ErrorDto error = new ErrorDto() { Message = "Bad Request"};
+                      return BadRequest(error); 
+                   }
+                   else if(response == "")
+                   {
+                       ErrorDto error = new ErrorDto() { Message = "Conflict Error"};
+                       return  StatusCode(409, error);;
+                   }else{
+                      // 201 response for post 
+                      Guid Id1 = new Guid(response);
+                      IdDto id  = new IdDto {Id = Id1};
+                      return CreatedAtAction(nameof(GetAppointments), new { id = Id1 }, id);
+                   }
                 }
                 catch (Exception ex)
                 {
