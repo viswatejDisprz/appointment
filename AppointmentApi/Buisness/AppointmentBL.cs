@@ -9,22 +9,22 @@ namespace AppointmentApi.Buisness
    {
       private readonly List<Appointment> appointments = new()
       {
-        new Appointment{ StartTime = DateTime.UtcNow, EndTime = DateTime.UtcNow, Title= "go to Gym", Id = Guid.NewGuid()},
-        new Appointment{ StartTime = DateTime.UtcNow, EndTime = DateTime.UtcNow, Title= "go for a walk", Id = Guid.NewGuid()},
-        new Appointment{ StartTime = DateTime.UtcNow, EndTime = DateTime.UtcNow, Title= "go for cohee", Id = Guid.NewGuid()}   
+        new Appointment{ StartTime = new DateTime(2023, 10, 15, 23, 00, 00), EndTime = new DateTime(2023, 10, 15, 23, 59, 00), Title= "go to Gym", Id = Guid.NewGuid()},
+        new Appointment{ StartTime = new DateTime(2023, 10, 15, 13, 00, 00), EndTime = new DateTime(2023, 10, 15, 13, 59, 00), Title= "go for a walk", Id = Guid.NewGuid()},
+        new Appointment{ StartTime = new DateTime(2023, 10, 15, 19, 00, 00), EndTime =new DateTime(2023, 10, 15, 19, 59, 00), Title= "go for cohee", Id = Guid.NewGuid()}   
       };
 
       public IEnumerable<Appointment> GetAppointments(){
-           return appointments;
+           var SortedAppointments = appointments.OrderBy(appointment => appointment.StartTime);
+           return SortedAppointments;
       }
 
       public IEnumerable<Appointment> GetAppointmentsBydate(string date)
       {
                     string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
                     Regex regex = new Regex(regexPattern);
-                    if(!regex.Match(date).Success)
+                    if(!regex.Match(date).Success || regexPattern == null)
                     {
-                        ErrorDto BadReq  = new ErrorDto {Message = "Bad Request"};
                         return [];
                     }
 
@@ -38,7 +38,7 @@ namespace AppointmentApi.Buisness
                                 filteredAppointments.Add(item);
                             }
                     }
-         return appointments;
+         return filteredAppointments.OrderBy(app => app.StartTime);
       }
 
       public Appointment GetAppointment(Guid id){
@@ -46,8 +46,9 @@ namespace AppointmentApi.Buisness
       }
 
       public string CreateAppointment(AppointmentDto appointmentDto){
-
-                if(appointmentDto.IsValid() || (appointmentDto.StartTime == appointmentDto.EndTime)){
+                
+                // check for Dto validity, same date of appointment and startTime!=endTime
+                if(appointmentDto.IsValid() || (appointmentDto.StartTime == appointmentDto.EndTime) || (appointmentDto.StartTime.Date != appointmentDto.EndTime.Date)){
                         return null;
                 }
                 

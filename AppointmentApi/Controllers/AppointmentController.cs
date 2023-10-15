@@ -36,8 +36,8 @@ namespace AppointmentApi.Controllers
                     var filteredAppointments = repository.GetAppointmentsBydate(date);
                     if(filteredAppointments.Count() == 0)
                     {
-                        var emptyList = new string[0];
-                        return NotFound(emptyList);
+                        ErrorDto error  = new ErrorDto(){Message = "Bad Request"};
+                        return BadRequest(error);
                     }
                     return Ok(filteredAppointments);
                 }
@@ -75,7 +75,7 @@ namespace AppointmentApi.Controllers
                    }else{
                       // 201 response for post 
                       Guid Id1 = new Guid(response);
-                      IdDto id  = new IdDto {Id = Id1};
+                      GuidValueResult id  = new GuidValueResult {Id = Id1};
                       return CreatedAtAction(nameof(GetAppointments), new { id = Id1 }, id);
                    }
                 }

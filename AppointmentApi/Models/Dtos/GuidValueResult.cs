@@ -1,5 +1,8 @@
-namespace AppointmentApi.Models;
-public class GuidValueResult
+using System;
+namespace AppointmentApi.Models
 {
-    public Guid Id{get; set;}
+    public class GuidValueResult: ResponseDto
+    {
+        public Guid Id { get; set; }
+    }
 }

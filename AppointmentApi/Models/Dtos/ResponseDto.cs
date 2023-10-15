@@ -1,4 +1,4 @@
-namespace AppointmentApi.Buisness
+namespace AppointmentApi.Models
 {
     public interface ResponseDto
     {
