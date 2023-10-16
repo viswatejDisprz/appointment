@@ -34,9 +34,9 @@ namespace AppointmentApi.Controllers
                 try{
 
                     var filteredAppointments = repository.GetAppointmentsBydate(date);
-                    if(filteredAppointments.Count() == 0)
+                    if(filteredAppointments == null)
                     {
-                        ErrorDto error  = new ErrorDto(){Message = "Bad Request"};
+                        CustomError error  = new CustomError(){Message = "Bad Request"};
                         return BadRequest(error);
                     }
                     return Ok(filteredAppointments);
@@ -65,12 +65,12 @@ namespace AppointmentApi.Controllers
                    var response = repository.CreateAppointment(appointmentDto);
                    if(response == null)
                    {
-                      ErrorDto error = new ErrorDto() { Message = "Bad Request"};
+                      CustomError error = new CustomError() { Message = "Bad Request"};
                       return BadRequest(error); 
                    }
                    else if(response == "")
                    {
-                       ErrorDto error = new ErrorDto() { Message = "Conflict Error"};
+                       CustomError error = new CustomError() { Message = "Conflict Error"};
                        return  StatusCode(409, error);;
                    }else{
                       // 201 response for post 

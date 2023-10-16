@@ -1,3 +1,4 @@
+// An extension is defined to conevert appointmentDto to appointment which includes Id
 using System;
 using System.Collections.Generic;
 using AppointmentApi.DataAccess;

@@ -278,3 +278,4 @@ D:\Appointment\AppointmentApi\bin\Debug\net8.0\runtimes\win\lib\netstandard2.0\S
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.dll
+D:\Appointment\AppointmentApi\bin\Debug\net8.0\FluentValidation.dll
