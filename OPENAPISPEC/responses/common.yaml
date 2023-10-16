@@ -1,0 +1,39 @@
+components:
+  responses:
+    InternalServerError:
+     description: Exception Occured in the server side
+     content:
+       application/json:
+        schema:
+          $ref: '../schemas/common.yaml#/components/schemas/CustomError'
+        
+    
+
+    BadRequest:
+      description: Given request is malformed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../schemas/common.yaml#/components/schemas/CustomError
+
+
+    
+    ConflictError:
+      description: Appointment Conflict Error
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/common.yaml#/components/schemas/CustomError'
+
+
+
+
+
+                
+
+
+
+       
+    
