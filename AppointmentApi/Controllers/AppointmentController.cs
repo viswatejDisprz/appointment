@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using AppointmentApi.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.OpenApi.Models;
+using YamlDotNet.Core.Tokens;
 
 
 namespace AppointmentApi.Controllers
@@ -14,13 +15,12 @@ namespace AppointmentApi.Controllers
     [Route("v1/appointments")]
     public class AppointmentController : ControllerBase
     {
-       private readonly IAppointmentDL repository;
      
        private readonly IAppointmentBL appointmentBL;
        private readonly ILogger<AppointmentController> _logger;
 
-       public AppointmentController(ILogger<AppointmentController> logger,IAppointmentBL repository){
-         this.appointmentBL = repository;
+       public AppointmentController(ILogger<AppointmentController> logger,IAppointmentBL appointmentBL){
+         this.appointmentBL = appointmentBL;
          _logger = logger;
        }
 
@@ -39,7 +39,7 @@ namespace AppointmentApi.Controllers
                 var filteredAppointments = appointmentBL.GetAppointmentsBydate(date);
                 if(filteredAppointments == null)
                 {
-                    CustomError error  = new CustomError(){Message = "Bad Request"};
+                    CustomError error  = new CustomError(){Message = "Please Enter correct format of Date MM-DD-YYYY"};
                     return BadRequest(error);
                 }
                 return Ok(filteredAppointments);
@@ -64,27 +64,29 @@ namespace AppointmentApi.Controllers
        public IActionResult CreateAppointment(AppointmentDto appointmentDto)
        {
             try{
-                   Appointment appointment = new Appointment
-                    {
-                        StartTime = appointmentDto.StartTime,
-                        EndTime = appointmentDto.EndTime,
-                        Title = appointmentDto.Title,
-                        Id = Guid.NewGuid()
-                    };
-                   var response = appointmentBL.CreateAppointment(appointment);
+                   var response = appointmentBL.CreateAppointment(appointmentDto);
+                   var ConflictString = "conflicting";
                    if(response == "Input Invalid")
                    {
-                      CustomError error = new CustomError() { Message = "Input Invalid"};
-                      return BadRequest(error); 
+                      CustomError Starterror = new CustomError() { Message = "StartTime should be in the folowing format \"2023-10-17T06:04:02.475Z\""};
+                      CustomError Enderror = new CustomError() { Message = "EndTime should be in the folowing format \"2023-10-17T06:04:02.475Z\""};
+                      CustomError titleError = new CustomError() { Message = "Title should not be empty"};
+                      List<CustomError> errArray = new()
+                      {
+                        Starterror,
+                        Enderror,
+                        titleError
+                      };
+                      return BadRequest(errArray); 
                    }
                    else if (response == "End time less than Start Time")
                    {
-                      CustomError error = new CustomError() { Message = "End time less than Start Time"};
-                       return  StatusCode(409, error);
+                      CustomError error = new CustomError() { Message = "End time cannot be less than Start Time"};
+                       return  BadRequest(error);
                    }
-                   else if(response == "")
+                   else if(response.IndexOf(ConflictString, StringComparison.CurrentCultureIgnoreCase) != -1)
                    {
-                       CustomError error = new CustomError() { Message = "Conflict Error"};
+                       CustomError error = new CustomError() { Message = response};
                        return  StatusCode(409, error);
                    }else{
                       // 201 response for post 
@@ -115,12 +117,13 @@ namespace AppointmentApi.Controllers
        public ActionResult DeleteAppointment(Guid id)
        {
                 try{
-                    var appointment = appointmentBL.GetAppointment(id);
-                    if( appointment is null){
-                        return NotFound();
+                    var flag = appointmentBL.DeleteAppointment(id);
+                    if(!flag){
+                        CustomError error = new(){Message = "Appointment not found"};
+                        return NotFound(error);
+                    }else{
+                       return NoContent();
                     }
-                    appointmentBL.DeleteAppointment(id);
-                    return NoContent();
                 }
                 catch (Exception ex)
                 {

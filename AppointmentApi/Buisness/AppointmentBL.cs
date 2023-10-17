@@ -24,10 +24,10 @@ namespace AppointmentApi.Buisness
       // This function fetches appointment by date
       public IEnumerable<Appointment> GetAppointmentsBydate(DateOnly date)
       {
-                    // // to check if the entered date format is correct or not
+                    // to check if the entered date format is correct or not
                     // string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
                     // Regex regex = new Regex(regexPattern);
-                    // if(!regex.Match(date).Success || regexPattern == null)
+                    // if(regex.Match(date.ToString()).Success)
                     // {
                     //     return null;
                     // }
@@ -52,7 +52,7 @@ namespace AppointmentApi.Buisness
       }
 
       //Funtion to create appointment
-      public string CreateAppointment(Appointment appointmentDto){
+      public string CreateAppointment(AppointmentDto appointmentDto){
                 
                 if(appointmentDto.EndTime < appointmentDto.StartTime )
                 {
@@ -93,9 +93,15 @@ namespace AppointmentApi.Buisness
                     
                     if(item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date)
                     {
-                        if((item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime) || (appointment.EndTime>item.StartTime  && appointment.EndTime<item.StartTime))
+                        if(item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime)
                         {
-                            return "";
+                            var ErrorString = appointment.StartTime +" is conflicting with an existing appointment having startTime:" + item.StartTime+ " and endTime:" + item.EndTime;
+                            return ErrorString;
+                        }
+                        if(appointment.EndTime>item.StartTime  && appointment.EndTime<item.StartTime)
+                        {
+                            var ErrorString = appointment.EndTime +" is conflicting with an existing appointment having startTime:" + item.StartTime+ " and endTime:" + item.EndTime;
+                            return ErrorString;
                         }
 
                     }
@@ -110,11 +116,16 @@ namespace AppointmentApi.Buisness
       }
 
         //funtion to delete an appointment
-        public void DeleteAppointment(Guid id)
+        public bool DeleteAppointment(Guid id)
         { 
             var appointments  = appointmentDL.GetAppointments().ToList();
             var index = appointments.FindIndex( existingItem => existingItem.Id == id);
+            if(index == -1)
+            {
+                return false;
+            }
             appointmentDL.DeleteAppointment(id);
+            return true;
         }
     }
 }

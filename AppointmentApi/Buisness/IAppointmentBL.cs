@@ -10,8 +10,8 @@ namespace  AppointmentApi.Buisness
 
         public Appointment GetAppointment(Guid id);
 
-        public void DeleteAppointment(Guid id);
+        public bool DeleteAppointment(Guid id);
 
-        public string CreateAppointment(Appointment appointmentDto);
+        public string CreateAppointment(AppointmentDto appointmentDto);
     }
 }
