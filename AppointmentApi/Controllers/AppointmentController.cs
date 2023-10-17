@@ -2,8 +2,10 @@ using System.Text.RegularExpressions;
 using AppointmentApi.Buisness;
 using AppointmentApi.DataAccess;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using AppointmentApi.Models;
+using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.OpenApi.Models;
+
 
 namespace AppointmentApi.Controllers
 {
@@ -13,11 +15,12 @@ namespace AppointmentApi.Controllers
     public class AppointmentController : ControllerBase
     {
        private readonly IAppointmentDL repository;
-
+     
+       private readonly IAppointmentBL appointmentBL;
        private readonly ILogger<AppointmentController> _logger;
 
-       public AppointmentController(ILogger<AppointmentController> logger,IAppointmentDL repository){
-         this.repository = repository;
+       public AppointmentController(ILogger<AppointmentController> logger,IAppointmentBL repository){
+         this.appointmentBL = repository;
          _logger = logger;
        }
 
@@ -29,25 +32,24 @@ namespace AppointmentApi.Controllers
        /// <returns>List of appointments as List</returns>
        [HttpGet]
        [SwaggerOperation(Summary = "Get appointments for a particular date")]
-       public IActionResult GetAppointments(string date)
-       {
-                try{
+       public ActionResult<List<Appointment>> GetAppointments(DateOnly date)
+        {
+            try{
 
-                    var filteredAppointments = repository.GetAppointmentsBydate(date);
-                    if(filteredAppointments == null)
-                    {
-                        CustomError error  = new CustomError(){Message = "Bad Request"};
-                        return BadRequest(error);
-                    }
-                    return Ok(filteredAppointments);
-                }
-                catch (Exception ex)
+                var filteredAppointments = appointmentBL.GetAppointmentsBydate(date);
+                if(filteredAppointments == null)
                 {
-                    // Return a custom 500 response
-                    return StatusCode(500, "Internal Server Error: " + ex.Message);
+                    CustomError error  = new CustomError(){Message = "Bad Request"};
+                    return BadRequest(error);
                 }
-
-       }
+                return Ok(filteredAppointments);
+            }
+            catch (Exception ex)
+            {
+                // Return a custom 500 response
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
 
        // Post / appointments
        /// <summary>
@@ -62,16 +64,28 @@ namespace AppointmentApi.Controllers
        public IActionResult CreateAppointment(AppointmentDto appointmentDto)
        {
             try{
-                   var response = repository.CreateAppointment(appointmentDto);
-                   if(response == null)
+                   Appointment appointment = new Appointment
+                    {
+                        StartTime = appointmentDto.StartTime,
+                        EndTime = appointmentDto.EndTime,
+                        Title = appointmentDto.Title,
+                        Id = Guid.NewGuid()
+                    };
+                   var response = appointmentBL.CreateAppointment(appointment);
+                   if(response == "Input Invalid")
                    {
-                      CustomError error = new CustomError() { Message = "Bad Request"};
+                      CustomError error = new CustomError() { Message = "Input Invalid"};
                       return BadRequest(error); 
+                   }
+                   else if (response == "End time less than Start Time")
+                   {
+                      CustomError error = new CustomError() { Message = "End time less than Start Time"};
+                       return  StatusCode(409, error);
                    }
                    else if(response == "")
                    {
                        CustomError error = new CustomError() { Message = "Conflict Error"};
-                       return  StatusCode(409, error);;
+                       return  StatusCode(409, error);
                    }else{
                       // 201 response for post 
                       Guid Id1 = new Guid(response);
@@ -101,11 +115,11 @@ namespace AppointmentApi.Controllers
        public ActionResult DeleteAppointment(Guid id)
        {
                 try{
-                    var appointment = repository.GetAppointment(id);
+                    var appointment = appointmentBL.GetAppointment(id);
                     if( appointment is null){
                         return NotFound();
                     }
-                    repository.DeleteAppointment(id);
+                    appointmentBL.DeleteAppointment(id);
                     return NoContent();
                 }
                 catch (Exception ex)

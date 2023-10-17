@@ -9,9 +9,9 @@ namespace AppointmentApi.DataAccess
     Appointment GetAppointment(Guid id);
     IEnumerable<Appointment> GetAppointments();
 
-    IEnumerable<Appointment> GetAppointmentsBydate(string date);
+    IEnumerable<Appointment> GetAppointmentsBydate(DateOnly date);
 
-    string CreateAppointment(AppointmentDto appointmentDto);
+    string CreateAppointment(Appointment appointment);
 
     void DeleteAppointment(Guid id);
   }

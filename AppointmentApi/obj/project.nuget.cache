@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "B6hj4b79awbXp4Oah1CEQQa1zlRsDzQdbNCh6LDxbr5R7/rthy9PENKdkUkHnmkxia2GWwWB5k1kq9MK7jE8OA==",
+  "dgSpecHash": "L+jn3EeFwckluJLR99Kx/rbILtBe4T2BWnNTPBaxq3w3AFJQ40MdSbdnv76cRZmqFNzfwd9bGNv0XW0I0mWYvg==",
   "success": true,
   "projectFilePath": "D:\\Appointment\\AppointmentApi\\AppointmentApi.csproj",
   "expectedPackageFiles": [
@@ -11,7 +11,13 @@
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.server.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.aspnetcore.staticfiles\\2.2.0\\microsoft.aspnetcore.staticfiles.2.2.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.build.framework\\17.3.2\\microsoft.build.framework.17.3.2.nupkg.sha512",
@@ -49,10 +55,13 @@
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.dependencymodel\\7.0.0\\microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\2.2.0\\microsoft.extensions.fileproviders.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\2.2.0\\microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.extensions.webencoders\\2.2.0\\microsoft.extensions.webencoders.2.2.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.identity.client\\4.45.0\\microsoft.identity.client.4.45.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.identity.client.extensions.msal\\2.19.3\\microsoft.identity.client.extensions.msal.2.19.3.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.identitymodel.abstractions\\6.21.0\\microsoft.identitymodel.abstractions.6.21.0.nupkg.sha512",
@@ -61,6 +70,7 @@
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.21.0\\microsoft.identitymodel.protocols.6.21.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.21.0\\microsoft.identitymodel.protocols.openidconnect.6.21.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.21.0\\microsoft.identitymodel.tokens.6.21.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.net.stringtools\\17.3.2\\microsoft.net.stringtools.17.3.2.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.1\\microsoft.netcore.platforms.1.1.1.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
@@ -193,7 +203,8 @@
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\yamldotnet\\13.7.1\\yamldotnet.13.7.1.nupkg.sha512"
   ],
   "logs": []
 }
