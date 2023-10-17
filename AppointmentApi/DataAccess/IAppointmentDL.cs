@@ -6,12 +6,9 @@ namespace AppointmentApi.DataAccess
 {
   public interface IAppointmentDL
   {
-    Appointment GetAppointment(Guid id);
-    List<Appointment> GetAppointments(); // Take parameter here only change to return type List Guid? id=null, DateOnly? date=null
+    List<Appointment> GetAppointments(Guid? id=null, DateOnly? date=null); // Take parameter here only change to return type List Guid? id=null, DateOnly? date=null
 
-    IEnumerable<Appointment> GetAppointmentsBydate(DateOnly date); // Not required
-
-    string CreateAppointment(Appointment appointment); // remove string return type
+    Guid CreateAppointment(Appointment appointment); // remove string return type
 
     void DeleteAppointment(Guid id);
   }

@@ -13,6 +13,8 @@ namespace AppointmentApi.Buisness
         this.appointmentDL = appointmentDL;
       }
 
+
+      // next change here
       public IEnumerable<Appointment> GetAppointments(){
            var SortedAppointments = appointmentDL.GetAppointments().OrderBy(appointment => appointment.StartTime);
            return SortedAppointments;
@@ -35,13 +37,11 @@ namespace AppointmentApi.Buisness
                     List<Appointment> filteredAppointments = new List<Appointment>();
                     TimeOnly timeOnly = new TimeOnly(12, 30, 0);
                     DateTime dt;
-                    //  = DateTime.ParseExact(date, "dd-MM-yyyy", null);
-                    // string x = "15-10-2023";
-                    // DateTime dt;
                     if (DateTime.TryParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                     {
                         Console.WriteLine("The date is valid.");
-                        var appointments = appointmentDL.GetAppointments();
+                        DateOnly dateOnly = new DateOnly(dt.Year, dt.Month, dt.Day);
+                        var appointments = appointmentDL.GetAppointments(null,dateOnly);
                         foreach(var item in appointments)
                         {
                                 if(item.StartTime.Date == dt.Date)
@@ -101,43 +101,47 @@ namespace AppointmentApi.Buisness
                 if((appointment.StartTime == appointment.EndTime) || (appointment.StartTime.Date != appointment.EndTime.Date)){
                         return null;
                 }
+
+                DateOnly dateOnly = new DateOnly(appointment.StartTime.Year, appointment.StartTime.Month, appointment.StartTime.Day);
  
-                var appointments = appointmentDL.GetAppointments();
+                var appointments = appointmentDL.GetAppointments(null,dateOnly);
+
             
             // 409 response when there is a conflict
-                foreach(var item in appointments)
-                {
-                    
-                    if(item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date)
+                // var conflictingAppointments = appointments.Where(item =>
+                //     item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date);
+
+                if (appointments.Any(item =>
+                    item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime))
                     {
-                        if(item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime)
-                        {
-                            var ErrorString = appointment.StartTime +" is conflicting with an existing appointment having startTime:" + item.StartTime+ " and endTime:" + item.EndTime;
-                            return ErrorString;
-                        }
-                        if(appointment.EndTime>item.StartTime  && appointment.EndTime<item.StartTime)
-                        {
-                            var ErrorString = appointment.EndTime +" is conflicting with an existing appointment having startTime:" + item.StartTime+ " and endTime:" + item.EndTime;
-                            return ErrorString;
-                        }
-
+                        var conflictingAppointment = appointments.First(item =>
+                            item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime);
+                        var errorString = appointment.StartTime + " is conflicting with an existing appointment having startTime: " +
+                            conflictingAppointment.StartTime + " and endTime: " + conflictingAppointment.EndTime;
+                        return errorString;
                     }
-                }
 
-                appointmentDL.CreateAppointment(appointment);
-                // add the appointment officially
-                // appointments.Add(appointment);
-                var stringId = appointment.Id.ToString();
-                return stringId;
+                if (appointments.Any(item =>
+                    appointment.EndTime > item.StartTime && appointment.EndTime < item.StartTime))
+                    {
+                        var conflictingAppointment = appointments.First(item =>
+                            appointment.EndTime > item.StartTime && appointment.EndTime < item.StartTime);
+                        var errorString = appointment.EndTime + " is conflicting with an existing appointment having startTime: " +
+                            conflictingAppointment.StartTime + " and endTime: " + conflictingAppointment.EndTime;
+                        return errorString;
+                    }
+
+                var stringId = appointmentDL.CreateAppointment(appointment);
+
+                return stringId.ToString();
             
       }
 
         //funtion to delete an appointment
         public bool DeleteAppointment(Guid id)
         { 
-            var appointments  = appointmentDL.GetAppointments().ToList();
-            var index = appointments.FindIndex( existingItem => existingItem.Id == id);
-            if(index == -1)
+            var appointments  = appointmentDL.GetAppointments(id,null);
+            if(appointments.Count == 0)
             {
                 return false;
             }

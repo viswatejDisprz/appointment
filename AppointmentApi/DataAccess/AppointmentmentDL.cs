@@ -11,41 +11,35 @@ namespace AppointmentApi.Buisness
         new Appointment{ StartTime = new DateTime(2023, 10, 15, 19, 00, 00), EndTime =new DateTime(2023, 10, 15, 19, 59, 00), Title= "go for cohee", Id = Guid.NewGuid()}   
       };
 
-      public List<Appointment> GetAppointments(){
-           var SortedAppointments = appointments.OrderBy(appointment => appointment.StartTime);
-           return SortedAppointments.ToList();
-      }
-
       
       // This function fetches appointment by date
-      public IEnumerable<Appointment> GetAppointmentsBydate(DateOnly date) // change this to data layer
+      public List<Appointment> GetAppointments(Guid? id = null,DateOnly? date = null) // change this to data layer
       {
 
                     // Filter appointments by date
-                    List<Appointment> filteredAppointments = new List<Appointment>();
+                 if(date is not null)
+                 {
                     TimeOnly timeOnly = new TimeOnly(12, 30, 0);
-                    DateTime dt = date.ToDateTime(timeOnly);
+                    DateOnly dateOnly = date.Value;
 
-                    foreach(var item in appointments) // use LINQ's never foreach
-                    {
-                            if(item.StartTime.Date == dt.Date)
-                            {
-                                filteredAppointments.Add(item);
-                            }
-                    }
-         return filteredAppointments.OrderBy(app => app.StartTime);
-      }
-
-      public Appointment GetAppointment(Guid id){ // Notrequired
-        return appointments.Where(appointment => appointment.Id == id).SingleOrDefault();
+                    var filteredAppointments = appointments.Where(app => app.StartTime.Date == dateOnly.ToDateTime(timeOnly).Date);
+                    return filteredAppointments.ToList();
+                 }
+                 else if ( id is not null)
+                 {
+                     var filteredAppointments = appointments.Where(app => app.Id == id);
+                     return filteredAppointments.ToList();
+                 }else
+                 {
+                     return appointments;
+                 }
       }
 
       //Funtion to create appointment
-      public string CreateAppointment(Appointment appointment){ //changes return guid
+      public Guid CreateAppointment(Appointment appointment){ //changes return guid
                 // add the appointment officially
                 appointments.Add(appointment);
-                var stringId = appointment.Id.ToString();
-                return stringId;
+                return appointment.Id;
             
       }
 
