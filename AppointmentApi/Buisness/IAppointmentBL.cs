@@ -6,7 +6,7 @@ namespace  AppointmentApi.Buisness
     {
         public IEnumerable<Appointment> GetAppointments();
 
-        public IEnumerable<Appointment> GetAppointmentsBydate(DateOnly date);
+        public IEnumerable<Appointment> GetAppointmentsBydate(string date);
 
         public Appointment GetAppointment(Guid id);
 

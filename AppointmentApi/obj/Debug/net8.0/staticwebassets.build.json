@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "/HqYXWb6bTREdDamDWtdkET+57lVDDit+MAKp9WGyvc=",
+  "Hash": "hGtdB3fpvNchEEZvgVGtlAEwSp10grdRzP5ncqhZVcU=",
   "Source": "AppointmentApi",
   "BasePath": "_content/AppointmentApi",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "AppointmentApi\\wwwroot",
+      "Source": "AppointmentApi",
+      "ContentRoot": "D:\\Appointment\\AppointmentApi\\wwwroot\\",
+      "BasePath": "_content/AppointmentApi",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

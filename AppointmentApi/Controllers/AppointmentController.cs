@@ -32,14 +32,14 @@ namespace AppointmentApi.Controllers
        /// <returns>List of appointments as List</returns>
        [HttpGet]
        [SwaggerOperation(Summary = "Get appointments for a particular date")]
-       public ActionResult<List<Appointment>> GetAppointments(DateOnly date)
+       public ActionResult<List<Appointment>> GetAppointments(string date)
         {
             try{
 
                 var filteredAppointments = appointmentBL.GetAppointmentsBydate(date);
                 if(filteredAppointments == null)
                 {
-                    CustomError error  = new CustomError(){Message = "Please Enter correct format of Date MM-DD-YYYY"};
+                    CustomError error  = new CustomError(){Message = "Please Enter correct format of Date DD-MM-YYYY"};
                     return BadRequest(error);
                 }
                 return Ok(filteredAppointments);
@@ -79,9 +79,9 @@ namespace AppointmentApi.Controllers
                       };
                       return BadRequest(errArray); 
                    }
-                   else if (response == "End time less than Start Time")
+                   else if (response == "End time cannot be less than or equal to Start Time")
                    {
-                      CustomError error = new CustomError() { Message = "End time cannot be less than Start Time"};
+                      CustomError error = new CustomError() { Message = "End time cannot be less than or equal to Start Time"};
                        return  BadRequest(error);
                    }
                    else if(response.IndexOf(ConflictString, StringComparison.CurrentCultureIgnoreCase) != -1)

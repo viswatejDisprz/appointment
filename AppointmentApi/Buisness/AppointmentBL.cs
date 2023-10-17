@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using AppointmentApi.DataAccess;
 using AppointmentApi.Models;
@@ -22,29 +23,57 @@ namespace AppointmentApi.Buisness
 
       
       // This function fetches appointment by date
-      public IEnumerable<Appointment> GetAppointmentsBydate(DateOnly date)
+      public IEnumerable<Appointment> GetAppointmentsBydate(string date)
       {
                     // to check if the entered date format is correct or not
-                    // string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
-                    // Regex regex = new Regex(regexPattern);
-                    // if(regex.Match(date.ToString()).Success)
-                    // {
-                    //     return null;
-                    // }
+                    string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
+                    Regex regex = new Regex(regexPattern);
+                    if(!regex.Match(date.ToString()).Success)
+                    {
+                        return null;
+                    }
 
                     // Filter appointments by date
                     List<Appointment> filteredAppointments = new List<Appointment>();
                     TimeOnly timeOnly = new TimeOnly(12, 30, 0);
-                    DateTime dt = date.ToDateTime(timeOnly);
-                    var appointments = appointmentDL.GetAppointments();
-                    foreach(var item in appointments)
+                    DateTime dt;
+                    //  = DateTime.ParseExact(date, "dd-MM-yyyy", null);
+                    // string x = "15-10-2023";
+                    // DateTime dt;
+                    if (DateTime.TryParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                     {
-                            if(item.StartTime.Date == dt.Date)
-                            {
-                                filteredAppointments.Add(item);
-                            }
+                        Console.WriteLine("The date is valid.");
+                        var appointments = appointmentDL.GetAppointments();
+                        foreach(var item in appointments)
+                        {
+                                if(item.StartTime.Date == dt.Date)
+                                {
+                                    filteredAppointments.Add(item);
+                                }
+                        }
+                        return filteredAppointments.OrderBy(app => app.StartTime);
                     }
-         return filteredAppointments.OrderBy(app => app.StartTime);
+                    else
+                    {
+                        Console.WriteLine("The date is not valid.");
+                        return null;
+                    }
+                    
+                    // if (dt.Month > 12 || dt.Day > 31)
+                    // {
+                    //     return null;
+                    // }else{
+                    //     // date.ToDateTime(timeOnly);
+                    //     var appointments = appointmentDL.GetAppointments();
+                    //     foreach(var item in appointments)
+                    //     {
+                    //             if(item.StartTime.Date == dt.Date)
+                    //             {
+                    //                 filteredAppointments.Add(item);
+                    //             }
+                    //     }
+                    // }
+        //  return filteredAppointments.OrderBy(app => app.StartTime);
       }
 
       public Appointment GetAppointment(Guid id){
@@ -54,9 +83,9 @@ namespace AppointmentApi.Buisness
       //Funtion to create appointment
       public string CreateAppointment(AppointmentDto appointmentDto){
                 
-                if(appointmentDto.EndTime < appointmentDto.StartTime )
+                if(appointmentDto.EndTime <= appointmentDto.StartTime )
                 {
-                    return "End time less than Start Time";
+                    return "End time cannot be less than or equal to Start Time";
                 }
                 // Convert the dto in main model object
                 Appointment appointment = new Appointment
