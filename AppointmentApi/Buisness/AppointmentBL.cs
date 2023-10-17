@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using AppointmentApi.DataAccess;
@@ -23,8 +20,9 @@ namespace AppointmentApi.Buisness
 
       
       // This function fetches appointment by date
-      public IEnumerable<Appointment> GetAppointmentsBydate(string date)
+      public IEnumerable<Appointment> GetAppointmentsBydate(string date) // GEtAppointments date change the date to custom ApointmentDateRequest dto new and add validator
       {
+             ///// removes all these push it to validationes only single line
                     // to check if the entered date format is correct or not
                     string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
                     Regex regex = new Regex(regexPattern);
@@ -59,30 +57,20 @@ namespace AppointmentApi.Buisness
                         return null;
                     }
                     
-                    // if (dt.Month > 12 || dt.Day > 31)
-                    // {
-                    //     return null;
-                    // }else{
-                    //     // date.ToDateTime(timeOnly);
-                    //     var appointments = appointmentDL.GetAppointments();
-                    //     foreach(var item in appointments)
-                    //     {
-                    //             if(item.StartTime.Date == dt.Date)
-                    //             {
-                    //                 filteredAppointments.Add(item);
-                    //             }
-                    //     }
-                    // }
-        //  return filteredAppointments.OrderBy(app => app.StartTime);
       }
 
+      /// not required
+      
       public Appointment GetAppointment(Guid id){
         return appointmentDL.GetAppointments().Where(appointment => appointment.Id == id).SingleOrDefault();
       }
 
+    //   Http response exception  try to use this last change
+
       //Funtion to create appointment
       public string CreateAppointment(AppointmentDto appointmentDto){
                 
+                // Put all this in validator
                 if(appointmentDto.EndTime <= appointmentDto.StartTime )
                 {
                     return "End time cannot be less than or equal to Start Time";

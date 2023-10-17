@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hGtdB3fpvNchEEZvgVGtlAEwSp10grdRzP5ncqhZVcU=",
+  "Hash": "EmhVFEuCWpTeEAS4hk7fn5oK0waEjs17f1kWyI0TdQQ=",
   "Source": "AppointmentApi",
   "BasePath": "_content/AppointmentApi",
   "Mode": "Default",
@@ -15,5 +15,82 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "D:\\Appointment\\AppointmentApi\\wwwroot\\swagger\\v1\\responses\\common.yaml",
+      "SourceId": "AppointmentApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Appointment\\AppointmentApi\\wwwroot\\",
+      "BasePath": "_content/AppointmentApi",
+      "RelativePath": "swagger/v1/responses/common.yaml",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\swagger\\v1\\responses\\common.yaml"
+    },
+    {
+      "Identity": "D:\\Appointment\\AppointmentApi\\wwwroot\\swagger\\v1\\schemas\\appointment.yaml",
+      "SourceId": "AppointmentApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Appointment\\AppointmentApi\\wwwroot\\",
+      "BasePath": "_content/AppointmentApi",
+      "RelativePath": "swagger/v1/schemas/appointment.yaml",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\swagger\\v1\\schemas\\appointment.yaml"
+    },
+    {
+      "Identity": "D:\\Appointment\\AppointmentApi\\wwwroot\\swagger\\v1\\schemas\\common.yaml",
+      "SourceId": "AppointmentApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Appointment\\AppointmentApi\\wwwroot\\",
+      "BasePath": "_content/AppointmentApi",
+      "RelativePath": "swagger/v1/schemas/common.yaml",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\swagger\\v1\\schemas\\common.yaml"
+    },
+    {
+      "Identity": "D:\\Appointment\\AppointmentApi\\wwwroot\\swagger\\v1\\swagger.yaml",
+      "SourceId": "AppointmentApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Appointment\\AppointmentApi\\wwwroot\\",
+      "BasePath": "_content/AppointmentApi",
+      "RelativePath": "swagger/v1/swagger.yaml",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\swagger\\v1\\swagger.yaml"
+    }
+  ]
 }

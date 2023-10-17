@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 using AppointmentApi.DataAccess;
 using AppointmentApi.Models;
 namespace AppointmentApi.Buisness
@@ -15,14 +11,14 @@ namespace AppointmentApi.Buisness
         new Appointment{ StartTime = new DateTime(2023, 10, 15, 19, 00, 00), EndTime =new DateTime(2023, 10, 15, 19, 59, 00), Title= "go for cohee", Id = Guid.NewGuid()}   
       };
 
-      public IEnumerable<Appointment> GetAppointments(){
+      public List<Appointment> GetAppointments(){
            var SortedAppointments = appointments.OrderBy(appointment => appointment.StartTime);
-           return SortedAppointments;
+           return SortedAppointments.ToList();
       }
 
       
       // This function fetches appointment by date
-      public IEnumerable<Appointment> GetAppointmentsBydate(DateOnly date)
+      public IEnumerable<Appointment> GetAppointmentsBydate(DateOnly date) // change this to data layer
       {
 
                     // Filter appointments by date
@@ -30,7 +26,7 @@ namespace AppointmentApi.Buisness
                     TimeOnly timeOnly = new TimeOnly(12, 30, 0);
                     DateTime dt = date.ToDateTime(timeOnly);
 
-                    foreach(var item in appointments)
+                    foreach(var item in appointments) // use LINQ's never foreach
                     {
                             if(item.StartTime.Date == dt.Date)
                             {
@@ -40,12 +36,12 @@ namespace AppointmentApi.Buisness
          return filteredAppointments.OrderBy(app => app.StartTime);
       }
 
-      public Appointment GetAppointment(Guid id){
+      public Appointment GetAppointment(Guid id){ // Notrequired
         return appointments.Where(appointment => appointment.Id == id).SingleOrDefault();
       }
 
       //Funtion to create appointment
-      public string CreateAppointment(Appointment appointment){
+      public string CreateAppointment(Appointment appointment){ //changes return guid
                 // add the appointment officially
                 appointments.Add(appointment);
                 var stringId = appointment.Id.ToString();

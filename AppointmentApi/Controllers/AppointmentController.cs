@@ -1,11 +1,7 @@
-using System.Text.RegularExpressions;
 using AppointmentApi.Buisness;
-using AppointmentApi.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using AppointmentApi.Models;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.OpenApi.Models;
-using YamlDotNet.Core.Tokens;
 
 
 namespace AppointmentApi.Controllers
@@ -31,9 +27,12 @@ namespace AppointmentApi.Controllers
        /// <param date="12-12-2023">Date string to fetch appointments for a particular day</param>
        /// <returns>List of appointments as List</returns>
        [HttpGet]
-       [SwaggerOperation(Summary = "Get appointments for a particular date")]
+       [ProducesResponseType(typeof(List<Appointment>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<CustomError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
        public ActionResult<List<Appointment>> GetAppointments(string date)
         {
+            /// refer the file in chat to respond from buisnees layer itself
             try{
 
                 var filteredAppointments = appointmentBL.GetAppointmentsBydate(date);
@@ -59,6 +58,7 @@ namespace AppointmentApi.Controllers
        /// <param  EndTime = "2023-10-12T09:09:09.619Z"> EndTime in DateTime format to register the endTime </param>
        /// <param  Title = "Appointment Title string"> Title of the appointment </param>
        /// <returns>The Id of the appointment created</returns>
+       /// Just calling
        [HttpPost]
        [SwaggerOperation(Summary = "Create an Appointment")]
        public IActionResult CreateAppointment(AppointmentDto appointmentDto)

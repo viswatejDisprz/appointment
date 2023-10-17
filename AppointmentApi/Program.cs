@@ -12,6 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll", builder =>
+        {
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        });
+    });
 
 
 builder.Services.AddSingleton<IAppointmentDL, AppointmentDL>();
@@ -21,9 +28,16 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddConsole();
 });
 
+
+
 var app = builder.Build();
 
 var provider = new FileExtensionContentTypeProvider();
+
+app.UseCors("AllowAll");
+
+
+app.UseRouting();
 
 // Add new mappings
 
@@ -51,6 +65,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    // app.UseSwaggerUI(c=>c.SwaggerEndpoint("/swagger/v1/swagger.yaml", "v1"));
 }
 
 
