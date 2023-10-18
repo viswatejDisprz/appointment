@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using AppointmentApi.DataAccess;
 using AppointmentApi.Models;
+using Microsoft.AspNetCore.Authentication;
 namespace AppointmentApi.Buisness
 {
    public class AppointmentBL:IAppointmentBL
@@ -15,94 +16,106 @@ namespace AppointmentApi.Buisness
 
 
       // next change here
-      public IEnumerable<Appointment> GetAppointments(){
-           var SortedAppointments = appointmentDL.GetAppointments().OrderBy(appointment => appointment.StartTime);
-           return SortedAppointments;
-      }
+    //   public IEnumerable<Appointment> GetAppointments(){
+    //        var SortedAppointments = appointmentDL.GetAppointments().OrderBy(appointment => appointment.StartTime);
+    //        return SortedAppointments;
+    //   }
 
       
       // This function fetches appointment by date
-      public IEnumerable<Appointment> GetAppointmentsBydate(string date) // GEtAppointments date change the date to custom ApointmentDateRequest dto new and add validator
+      public List<Appointment> GetAppointments(Guid? id,DateOnly? date) // GEtAppointments date change the date to custom ApointmentDateRequest dto new and add validator
       {
              ///// removes all these push it to validationes only single line
                     // to check if the entered date format is correct or not
-                    string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
-                    Regex regex = new Regex(regexPattern);
-                    if(!regex.Match(date.ToString()).Success)
-                    {
-                        return null;
-                    }
+                    // string regexPattern = @"^\d{2}-\d{2}-\d{4}$";
+                    // Regex regex = new Regex(regexPattern);
+                    // if(!regex.Match(date.ToString()).Success)
+                    // {
+                    //     return null;
+                    // }
 
                     // Filter appointments by date
-                    List<Appointment> filteredAppointments = new List<Appointment>();
-                    TimeOnly timeOnly = new TimeOnly(12, 30, 0);
-                    DateTime dt;
-                    if (DateTime.TryParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                    if(date is not null){
+                    List<Appointment> filteredAppointments = appointmentDL.GetAppointments(null,date);
+                    // TimeOnly timeOnly = new TimeOnly(12, 30, 0);
+                    // DateTime dt;
+                    // if (DateTime.TryParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                    // {
+                    //     Console.WriteLine("The date is valid.");
+                    //     DateOnly dateOnly = new DateOnly(dt.Year, dt.Month, dt.Day);
+                    //     var appointments = appointmentDL.GetAppointments(null,dateOnly);
+                    //     foreach(var item in appointments)
+                    //     {
+                    //             if(item.StartTime.Date == dt.Date)
+                    //             {
+                    //                 filteredAppointments.Add(item);
+                    //             }
+                    //     }
+                        return filteredAppointments.OrderBy(app => app.StartTime).ToList();
+                    }
+                    else if(id is not null)
                     {
-                        Console.WriteLine("The date is valid.");
-                        DateOnly dateOnly = new DateOnly(dt.Year, dt.Month, dt.Day);
-                        var appointments = appointmentDL.GetAppointments(null,dateOnly);
-                        foreach(var item in appointments)
-                        {
-                                if(item.StartTime.Date == dt.Date)
-                                {
-                                    filteredAppointments.Add(item);
-                                }
-                        }
-                        return filteredAppointments.OrderBy(app => app.StartTime);
+                         List<Appointment> filteredAppointments = appointmentDL.GetAppointments(id,null);
+                         return filteredAppointments.OrderBy(app => app.StartTime).ToList();
                     }
                     else
                     {
-                        Console.WriteLine("The date is not valid.");
-                        return null;
+                         List<Appointment> filteredAppointments = appointmentDL.GetAppointments();
+                         return filteredAppointments.ToList();
                     }
-                    
-      }
+                    }
+                    // else
+                    // {
+                    //     Console.WriteLine("The date is not valid.");
+                    //     return null;
+                    // }
 
       /// not required
       
-      public Appointment GetAppointment(Guid id){
-        return appointmentDL.GetAppointments().Where(appointment => appointment.Id == id).SingleOrDefault();
-      }
+    //   public Appointment GetAppointment(Guid id){
+    //     return appointmentDL.GetAppointments().Where(appointment => appointment.Id == id).SingleOrDefault();
+    //   }
 
     //   Http response exception  try to use this last change
 
       //Funtion to create appointment
-      public string CreateAppointment(AppointmentDto appointmentDto){
+      public string CreateAppointment(AppointmentRequest appointmentrequest){
                 
-                // Put all this in validator
-                if(appointmentDto.EndTime <= appointmentDto.StartTime )
-                {
-                    return "End time cannot be less than or equal to Start Time";
-                }
-                // Convert the dto in main model object
-                Appointment appointment = new Appointment
-                {
-                    StartTime = appointmentDto.StartTime,
-                    EndTime = appointmentDto.EndTime,
-                    Title = appointmentDto.Title,
-                    Id = Guid.NewGuid()
-                };
-                
+
                 //checking appointment with validator
-                AppointmentValidator validator = new AppointmentValidator();
-                FluentValidation.Results.ValidationResult results = validator.Validate(appointment);
+                AppointmentRequestValidator validator = new AppointmentRequestValidator();
+                FluentValidation.Results.ValidationResult results = validator.Validate(appointmentrequest);
 
                 if (!results.IsValid)
-                {
+                { 
+                    string endTime = "greater";
                     foreach (var failure in results.Errors)
                     {
+                        if(failure.ErrorMessage.IndexOf(endTime, StringComparison.CurrentCultureIgnoreCase) != -1)
+                        {
+                            return "End time must be greater than Start Time.";
+                        }
                         Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
                     }
                     return "Input Invalid";
                 }
 
+                // Convert the dto in main model object
+                Appointment appointment = new Appointment
+                {
+                    StartTime = appointmentrequest.StartTime,
+                    EndTime = appointmentrequest.EndTime,
+                    Title = appointmentrequest.Title,
+                    Id = Guid.NewGuid()
+                };
+                
+
                 // check for same date of appointment and if startTime == endTime
-                if((appointment.StartTime == appointment.EndTime) || (appointment.StartTime.Date != appointment.EndTime.Date)){
+                if((appointmentrequest.StartTime == appointmentrequest.EndTime) || (appointmentrequest.StartTime.Date != appointmentrequest.EndTime.Date)){
                         return null;
                 }
 
-                DateOnly dateOnly = new DateOnly(appointment.StartTime.Year, appointment.StartTime.Month, appointment.StartTime.Day);
+                DateOnly dateOnly = new DateOnly(appointmentrequest.StartTime.Year, appointmentrequest.StartTime.Month, appointmentrequest.StartTime.Day);
  
                 var appointments = appointmentDL.GetAppointments(null,dateOnly);
 
@@ -112,21 +125,21 @@ namespace AppointmentApi.Buisness
                 //     item.StartTime.Date == appointment.EndTime.Date && item.EndTime.Date == appointment.EndTime.Date);
 
                 if (appointments.Any(item =>
-                    item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime))
+                    item.StartTime < appointmentrequest.StartTime && item.EndTime > appointmentrequest.StartTime))
                     {
                         var conflictingAppointment = appointments.First(item =>
-                            item.StartTime < appointment.StartTime && item.EndTime > appointment.StartTime);
-                        var errorString = appointment.StartTime + " is conflicting with an existing appointment having startTime: " +
+                            item.StartTime < appointmentrequest.StartTime && item.EndTime > appointmentrequest.StartTime);
+                        var errorString = appointmentrequest.StartTime + " is conflicting with an existing appointment having startTime: " +
                             conflictingAppointment.StartTime + " and endTime: " + conflictingAppointment.EndTime;
                         return errorString;
                     }
 
                 if (appointments.Any(item =>
-                    appointment.EndTime > item.StartTime && appointment.EndTime < item.StartTime))
+                    appointmentrequest.EndTime > item.StartTime && appointmentrequest.EndTime < item.StartTime))
                     {
                         var conflictingAppointment = appointments.First(item =>
-                            appointment.EndTime > item.StartTime && appointment.EndTime < item.StartTime);
-                        var errorString = appointment.EndTime + " is conflicting with an existing appointment having startTime: " +
+                            appointmentrequest.EndTime > item.StartTime && appointmentrequest.EndTime < item.StartTime);
+                        var errorString = appointmentrequest.EndTime + " is conflicting with an existing appointment having startTime: " +
                             conflictingAppointment.StartTime + " and endTime: " + conflictingAppointment.EndTime;
                         return errorString;
                     }

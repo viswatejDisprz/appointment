@@ -30,12 +30,12 @@ namespace AppointmentApi.Controllers
        [ProducesResponseType(typeof(List<Appointment>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<CustomError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
-       public ActionResult<List<Appointment>> GetAppointments(string date)
+       public ActionResult<List<Appointment>> GetAppointments(DateOnly date)
         {
             /// refer the file in chat to respond from buisnees layer itself
             try{
 
-                var filteredAppointments = appointmentBL.GetAppointmentsBydate(date);
+                var filteredAppointments = appointmentBL.GetAppointments(null,date);
                 if(filteredAppointments == null)
                 {
                     CustomError error  = new CustomError(){Message = "Please Enter correct format of Date DD-MM-YYYY"};
@@ -61,10 +61,10 @@ namespace AppointmentApi.Controllers
        /// Just calling
        [HttpPost]
        [SwaggerOperation(Summary = "Create an Appointment")]
-       public IActionResult CreateAppointment(AppointmentDto appointmentDto)
+       public IActionResult CreateAppointment(AppointmentRequest appointmentrequest)
        {
             try{
-                   var response = appointmentBL.CreateAppointment(appointmentDto);
+                   var response = appointmentBL.CreateAppointment(appointmentrequest);
                    var ConflictString = "conflicting";
                    if(response == "Input Invalid")
                    {
@@ -79,7 +79,7 @@ namespace AppointmentApi.Controllers
                       };
                       return BadRequest(errArray); 
                    }
-                   else if (response == "End time cannot be less than or equal to Start Time")
+                   else if (response == "End time must be greater than Start Time.")
                    {
                       CustomError error = new CustomError() { Message = "End time cannot be less than or equal to Start Time"};
                        return  BadRequest(error);

@@ -3,9 +3,9 @@ using AppointmentApi.Models;
 
 namespace AppointmentApi.Buisness
 {
-  public class AppointmentValidator : AbstractValidator<Appointment>
+  public class AppointmentRequestValidator : AbstractValidator<AppointmentRequest>
       {
-         public AppointmentValidator()
+         public AppointmentRequestValidator()
          {
 
              // validate startTime for null and firmat
@@ -18,16 +18,14 @@ namespace AppointmentApi.Buisness
              RuleFor(appointment => appointment.EndTime)
              .NotEmpty()
              .Must(BeAValidDate)
-             .WithMessage("End Time must be a valid date and time.");
+             .WithMessage("End Time must be a valid date and time.")
+             .Must((appointmentRequest, endTime) => endTime > appointmentRequest.StartTime)
+             .WithMessage("End time must be greater than Start Time.");
 
              // validate appointment title for null
              RuleFor(appointment => appointment.Title)
              .NotEmpty()
              .WithMessage("Appointment Title should not be empty");
-
-             // validate appointment ID
-             RuleFor(appointment => appointment.Id)
-             .NotEmpty();
          }
 
          // funciton to check format of time and also keep it in bounds

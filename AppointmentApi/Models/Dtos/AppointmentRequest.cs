@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 namespace AppointmentApi.Models
 {
-    public class  AppointmentDto: IResponseDto
+    public class  AppointmentRequest: IResponseDto
    {
         public DateTime StartTime {get; set;}
 

@@ -9,9 +9,9 @@ namespace AppointmentApi
 {
     public static class Extensions
     {
-        public static AppointmentDto AsDto(this Appointment appointment)
+        public static AppointmentRequest AsDto(this Appointment appointment)
         {
-           return new AppointmentDto
+           return new AppointmentRequest
            {
                StartTime = appointment.StartTime,
                EndTime = appointment.EndTime,
