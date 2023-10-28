@@ -1,17 +1,15 @@
 using AppointmentApi.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace  AppointmentApi.Buisness
 {
     public interface IAppointmentBL 
     {
-        // public IEnumerable<Appointment> GetAppointments(); // Not required
 
-        public List<Appointment> GetAppointments(Guid? id,DateOnly? date); // change to data layer type
+        public List<Appointment> GetAppointments(AppointmentDateRequest appointmentDateRequest);
 
-        // public Appointment GetAppointment(Guid id); // Not required
+        public void DeleteAppointment(Guid id);
 
-        public bool DeleteAppointment(Guid id);
-
-        public string CreateAppointment(AppointmentRequest appointmentrequest); // change dto toopenspec AppointmentREquest
+        public Guid CreateAppointment(AppointmentRequest appointmentrequest); 
     }
 }

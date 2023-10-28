@@ -1,73 +1,39 @@
-using Microsoft.EntityFrameworkCore;
 using AppointmentApi.DataAccess;
 using AppointmentApi.Buisness;
-using Microsoft.OpenApi.Models;
-using YamlDotNet.Serialization;
-using System.IO;
-using Microsoft.AspNetCore.StaticFiles;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+  options.Filters.Add(new HttpResponseExceptionFilter()));
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddProblemDetails();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(options =>
-    {
-        options.AddPolicy("AllowAll", builder =>
-        {
-            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-        });
-    });
-
-
-builder.Services.AddSingleton<IAppointmentDL, AppointmentDL>();
-builder.Services.AddSingleton<IAppointmentBL, AppointmentBL>();
-builder.Services.AddLogging(loggingBuilder =>
-{
-    loggingBuilder.AddConsole();
+// builder.Services.AddTransient<ErrorHandlingMiddleware>();
+builder.Services.AddSingleton < IAppointmentDL, AppointmentDL > ();
+builder.Services.AddSingleton < IAppointmentBL, AppointmentBL > ();
+builder.Services.AddLogging(loggingBuilder => {
+  loggingBuilder.AddConsole();
 });
-
-
 
 var app = builder.Build();
 
-var provider = new FileExtensionContentTypeProvider();
-
-app.UseCors("AllowAll");
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseRouting();
 
-// Add new mappings
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
-// Allow YAML files to be served via HTTP request.
-provider.Mappings[".yaml"] = "text/yaml"; 
-
-app.UseStaticFiles(new StaticFileOptions
-{
-  ContentTypeProvider = provider
-});
-
-if (app.Environment.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-    }
-    else
-    {
-        // Use custom error handling for non-development environments
-        // app.UseExceptionHandler("/appointment/Error");
-        app.UseHsts();
-    }
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    // app.UseSwaggerUI(c=>c.SwaggerEndpoint("/swagger/v1/swagger.yaml", "v1"));
+if (app.Environment.IsDevelopment()) {
+  app.UseDeveloperExceptionPage();
+} else {
+  app.UseHsts();
 }
 
+if (app.Environment.IsDevelopment()) {
+  app.UseSwagger();
+  app.UseSwaggerUI();
+
+}
 
 app.UseHttpsRedirection();
 

@@ -1,7 +1,7 @@
 using FluentValidation;
 using AppointmentApi.Models;
 
-namespace AppointmentApi.Buisness
+namespace AppointmentApi.validators
 {
   public class AppointmentRequestValidator : AbstractValidator<AppointmentRequest>
       {
@@ -20,9 +20,12 @@ namespace AppointmentApi.Buisness
              .Must(BeAValidDate)
              .WithMessage("End Time must be a valid date and time.")
              .Must((appointmentRequest, endTime) => endTime > appointmentRequest.StartTime)
-             .WithMessage("End time must be greater than Start Time.");
+             .WithMessage("End time must be greater than Start Time.")
+             .Must((appointmentRequest, endTime) => endTime.Date == appointmentRequest.StartTime.Date)
+             .WithMessage("Appointment can only be set for same day endTime and StartTime should have same date");
 
-             // validate appointment title for null
+             // validate appointment title for null string is null or whitespace check here
+             // write extension method for validation failures that method will handle it
              RuleFor(appointment => appointment.Title)
              .NotEmpty()
              .WithMessage("Appointment Title should not be empty");

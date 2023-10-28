@@ -279,6 +279,5 @@ D:\Appointment\AppointmentApi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Se
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.dll
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\FluentValidation.dll
-D:\Appointment\AppointmentApi\bin\Debug\net8.0\openAPiJSON\appointment.json
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\YamlDotNet.dll
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\AppointmentApi.staticwebassets.runtime.json

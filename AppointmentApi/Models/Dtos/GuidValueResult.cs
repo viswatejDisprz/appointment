@@ -2,7 +2,7 @@
 using System;
 namespace AppointmentApi.Models
 {
-    public class GuidValueResult: IResponseDto
+    public class GuidValueResult
     {
         public Guid Id { get; set; }
     }
