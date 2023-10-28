@@ -1,6 +1,5 @@
 // An extension is defined to conevert appointmentDto to appointment which includes Id
 using AppointmentApi.Models;
-using AppointmentApi.validators;
 using FluentValidation;
 using System.Net;
 
@@ -22,8 +21,6 @@ namespace AppointmentApi
 
         public static HttpResponseException CustomException(this HttpResponseException CustomException, CustomError error, HttpStatusCode statusCode)
         {
-        //    CustomError error = new CustomError(){Message = firstError.ErrorMessage};
-
             return new HttpResponseException((int)statusCode, error);
         }
 
@@ -34,13 +31,45 @@ namespace AppointmentApi
                 var validator = new TValidator();
                 var results = validator.Validate(instance);
                 if (!results.IsValid){
-                    CustomError error = new CustomError(){Message = results.Errors.FirstOrDefault().ErrorMessage};
+                    CustomError error = new CustomError { Message = "End time must be greater than Start Time." };
+                    foreach (var failure in results.Errors)
+                    {
+                        if (failure.ErrorMessage.IndexOf("MM/DD/YYYY", StringComparison.CurrentCultureIgnoreCase) != -1)
+                        {
+                            error.Message = "Date format should be in MM/DD/YYYY";
+                            List<CustomError> errorList = new(){error};
+                            throw new HttpResponseException((int)HttpStatusCode.BadRequest, errorList);
+                        }
+                        else if(failure.ErrorMessage.IndexOf("empty", StringComparison.CurrentCultureIgnoreCase)!= -1)
+                        {
+                            error.Message = "Title cannot be empty";
+                            List<CustomError> errorList = new()
+                            {
+                                error,
+                                new CustomError(){Message= "StartTime should be in UTC format"},
+                                new CustomError(){Message = "EndTime should be in UTC format"}
+                            };
+                            throw new HttpResponseException((int)HttpStatusCode.BadRequest,errorList);
+                        }
+                        else if (failure.ErrorMessage.IndexOf("greater", StringComparison.CurrentCultureIgnoreCase) != -1)
+                        {
+                            error.Message = "End time must be greater than Start Time.";
+                            throw new HttpResponseException(400, error);
+                        }
+                        else if (failure.ErrorMessage.IndexOf("same date", StringComparison.CurrentCultureIgnoreCase) != -1)
+                        {
+                            error.Message = "Appointment can only be set for same day endTime and StartTime should have same date";
+                            throw new HttpResponseException(400, error);
+                        }
+                        else
+                        {
+                            error.Message = "Server Error";
+                            throw new HttpResponseException((int)HttpStatusCode.BadRequest, error);
+                        }
+                    }
 
-                     throw new HttpResponseException((int)HttpStatusCode.BadRequest, error);
                 }
             }
-
-
 
     }
 }

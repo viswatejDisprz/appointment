@@ -29,7 +29,7 @@ namespace AppointmentApi.Controllers {
     [ProducesResponseType(typeof (List < Appointment > ), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof (List < CustomError > ), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof (CustomError), StatusCodes.Status500InternalServerError)]
-    public ActionResult<List<Appointment>> GetAppointments([FromQuery] AppointmentDateRequest appointmentDateRequest) => 
+    public List<Appointment> GetAppointments([FromQuery] AppointmentDateRequest appointmentDateRequest) => 
       _appointmentBL.GetAppointments(appointmentDateRequest);
        
 

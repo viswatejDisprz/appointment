@@ -9,7 +9,13 @@ public class HttpResponseException : Exception
 
     public HttpResponseException(int status ,CustomError error)
     {
-       Value =  error.Message;
+       Value =  error;
        Status = status;
+    }
+
+    public HttpResponseException(int status, List<CustomError> errorList)
+    {
+        Value = errorList;
+        Status = status;
     }
 }

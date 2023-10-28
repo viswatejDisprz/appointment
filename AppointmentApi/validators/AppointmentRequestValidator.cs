@@ -7,6 +7,11 @@ namespace AppointmentApi.validators
       {
          public AppointmentRequestValidator()
          {
+            // validate appointment title for null string is null or whitespace check here
+             // write extension method for validation failures that method will handle it
+             RuleFor(appointment => appointment.Title)
+             .NotEmpty()
+             .WithMessage("Appointment Title should not be empty");
 
              // validate startTime for null and firmat
              RuleFor(appointment => appointment.StartTime)
@@ -24,14 +29,9 @@ namespace AppointmentApi.validators
              .Must((appointmentRequest, endTime) => endTime.Date == appointmentRequest.StartTime.Date)
              .WithMessage("Appointment can only be set for same day endTime and StartTime should have same date");
 
-             // validate appointment title for null string is null or whitespace check here
-             // write extension method for validation failures that method will handle it
-             RuleFor(appointment => appointment.Title)
-             .NotEmpty()
-             .WithMessage("Appointment Title should not be empty");
          }
 
-         // funciton to check format of time and also keep it in bounds
+         // function to check format of time and also keep it in bounds
          private bool BeAValidDate(DateTime date)
           {
              return (date != DateTime.MinValue) || (date != DateTime.MaxValue);
