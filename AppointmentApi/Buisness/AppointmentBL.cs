@@ -16,21 +16,9 @@ namespace AppointmentApi.Buisness
     }
     public List<Appointment> GetAppointments(AppointmentDateRequest appointmentDateRequest)
     {
-      var test=appointmentDateRequest.Date.ToString("MM/DD/YYYY");
-      Console.WriteLine(test);
-      //  AppointmentDateRequestValidator appointmentDateRequestValidator = new AppointmentDateRequestValidator();
-      //  FluentValidation.Results.ValidationResult results = appointmentDateRequestValidator.Validate(appointmentDateRequest);
-      //  if(!results.IsValid)
-      //  {
-
-          // var firstError = results.Errors.FirstOrDefault();
-          // Console.WriteLine(firstError.ErrorMessage);
-          // CustomError error = new CustomError(){Message = firstError.ErrorMessage};
-          // throw new HttpResponseException(error);
-          // return error.CustomException(HttpStatusCode.BadRequest);
-          // throw new HttpResponseException(StatusCodes.Status400BadRequest, error);
-          appointmentDateRequest.Validate<AppointmentDateRequest, AppointmentDateRequestValidator>();
-      //  }
+      // var test=appointmentDateRequest.Date.ToString("MM/DD/YYYY");
+      // Console.WriteLine(test);
+      appointmentDateRequest.Validate<AppointmentDateRequest, AppointmentDateRequestValidator>();
        return _appointmentDL.GetAppointments(date: appointmentDateRequest.Date);
 
     }

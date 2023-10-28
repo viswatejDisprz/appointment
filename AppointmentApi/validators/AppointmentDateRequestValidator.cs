@@ -4,9 +4,9 @@
 
 // namespace AppointmentApi.validators
 // {
-//     public class ApptDateValidator: AbstractValidator<AppointmentDateRequest>
+//     public class AppointmentDateRequestValidator: AbstractValidator<AppointmentDateRequest>
 //     {
-//         public ApptDateValidator()
+//         public AppointmentDateRequestValidator()
 //         {
 //             RuleFor(apptDateRequest => apptDateRequest.Date)
 //                 .NotEmpty().WithMessage("Date format should be in MM-DD-YYYY")
@@ -20,25 +20,35 @@
 //                 bool flag = System.Text.RegularExpressions.Regex.IsMatch(date.ToString(), @"^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$");
 //                 return flag;
 //             }
-//             return false;
+//             return true;
 //         }
 //     }
 // }
 
 using FluentValidation;
 using AppointmentApi.Models;
-using System;
 
 namespace AppointmentApi.validators
 {
     public class AppointmentDateRequestValidator : AbstractValidator<AppointmentDateRequest>
     {
+        /// DateOnly does not support ToString() conversion in C#
+        // public AppointmentDateRequestValidator()
+        // {
+        //     RuleFor(apptDateRequest => apptDateRequest.Date.ToString("MM/dd/yyyy"))
+        //         .NotEmpty().WithMessage("Date format should not be empty")
+        //         .Matches(@"^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/[0-9]{4}$")
+        //         .WithMessage("Date format should be in MM/DD/YYYY");
+        // }
         public AppointmentDateRequestValidator()
         {
-            RuleFor(apptDateRequest => apptDateRequest.Date.ToString("MM/DD/YYYY"))
-                .NotEmpty().WithMessage("Date format should be in 10/15/2023")
-                .Matches(@"^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$")
-                .WithMessage("Date format should be in MM/DD/YYYY");
+            RuleFor(apptDateRequest => apptDateRequest.Date)
+                .NotEmpty().WithMessage("Date format should not be empty")
+                .Must(BeAValidDate).WithMessage("Date format should be in MM/DD/YYYY");
+        }
+        private bool BeAValidDate(DateOnly date)
+        {
+            return DateTime.TryParseExact(date.ToString(), "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out _);
         }
     }
 }
