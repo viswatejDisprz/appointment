@@ -2,6 +2,11 @@ using AppointmentApi.Buisness;
 using Microsoft.AspNetCore.Mvc;
 using AppointmentApi.Models;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Xml;
+
+
+
+
 
 namespace AppointmentApi.Controllers {
 
@@ -17,20 +22,28 @@ namespace AppointmentApi.Controllers {
       _appointmentBL = appointmentBL;
       _logger = logger;
     }
-
-    // GET / appointments
+   
     /// <summary>
-    /// Gets the list of appointments.
+    /// Get Appointments for the day
     /// </summary>
-    /// <param date="12-12-2023">Date string to fetch appointments for a particular day</param>
-    /// <returns>List of appointments as List</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     Get /Appointments
+    ///     {
+    ///         "Date": "DD/mm/yyyy"
+    ///     }
+    ///
+    /// </remarks>
     [HttpGet]
     [SwaggerOperation(Summary = "Get Appointments of the day")]
-    [ProducesResponseType(typeof (List < Appointment > ), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof (List < CustomError > ), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof (CustomError), StatusCodes.Status500InternalServerError)]
-    public List<Appointment> GetAppointments([FromQuery] AppointmentDateRequest appointmentDateRequest) => 
-      _appointmentBL.GetAppointments(appointmentDateRequest);
+    [ProducesResponseType(typeof(List<Appointment>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<CustomError>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
+    public List<Appointment> GetAppointments([FromQuery] AppointmentDateRequest appointmentDateRequest) =>
+        _appointmentBL.GetAppointments(appointmentDateRequest);
+
+
        
 
     // Post / appointments

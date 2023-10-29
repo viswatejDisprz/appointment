@@ -1,9 +1,4 @@
 using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Text.Json;
-
-// CatchBlock exception you have to find out
-
 public class ErrorHandlingMiddleware 
 {
 

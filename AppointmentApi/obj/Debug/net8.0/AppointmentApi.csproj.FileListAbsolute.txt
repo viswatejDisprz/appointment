@@ -281,3 +281,9 @@ D:\Appointment\AppointmentApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotation
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\FluentValidation.dll
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\YamlDotNet.dll
 D:\Appointment\AppointmentApi\bin\Debug\net8.0\AppointmentApi.staticwebassets.runtime.json
+D:\Appointment\AppointmentApi\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Appointment\AppointmentApi\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Appointment\AppointmentApi\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\Appointment\AppointmentApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Newtonsoft.dll
+D:\Appointment\AppointmentApi\bin\Debug\net8.0\AppointmentApi.xml
+D:\Appointment\AppointmentApi\obj\Debug\net8.0\AppointmentApi.xml

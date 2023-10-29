@@ -1,6 +1,7 @@
 // An extension is defined to conevert appointmentDto to appointment which includes Id
 using AppointmentApi.Models;
 using FluentValidation;
+using System.Globalization;
 using System.Net;
 
 namespace AppointmentApi
@@ -70,6 +71,19 @@ namespace AppointmentApi
 
                 }
             }
+
+
+        public static string GetSystemDateFormat(this DateTime dateTime)
+        {
+            // Get the current culture.
+            CultureInfo culture = CultureInfo.CurrentCulture;
+
+            // Get the short date format for the current culture.
+            string dateFormat = culture.DateTimeFormat.ShortDatePattern;
+
+            // Return the date format.
+            return dateFormat;
+        }
 
     }
 }
