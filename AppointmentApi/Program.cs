@@ -16,17 +16,6 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1",
         Title = "Appointment API",
         Description = "An ASP.NET Core Web API for managing Appointments in a day",
-        TermsOfService = new Uri("https://example.com/terms"),
-        Contact = new OpenApiContact
-        {
-            Name = "Example Contact",
-            Url = new Uri("https://example.com/contact")
-        },
-        License = new OpenApiLicense
-        {
-            Name = "Example License",
-            Url = new Uri("https://example.com/license")
-        }
     });
 
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -41,8 +30,6 @@ builder.Services.AddLogging(loggingBuilder => {
 });
 
 var app = builder.Build();
-
-app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseRouting();
 

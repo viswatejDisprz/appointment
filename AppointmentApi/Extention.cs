@@ -18,7 +18,14 @@ namespace AppointmentApi
                Title = appointment.Title,
            };
         }
-
+        
+        public static CustomError DynamicErrorMessage(string error)
+        {
+            return new CustomError()
+            {
+                Message = error
+            };
+        }
 
         public static HttpResponseException CustomException(this HttpResponseException CustomException, CustomError error, HttpStatusCode statusCode)
         {
@@ -32,7 +39,7 @@ namespace AppointmentApi
                 var validator = new TValidator();
                 var results = validator.Validate(instance);
                 if (!results.IsValid){
-                    CustomError error = new CustomError { Message = "End time must be greater than Start Time." };
+                    CustomError error = new CustomError();
                     foreach (var failure in results.Errors)
                     {
                         if (failure.ErrorMessage.IndexOf("MM/DD/YYYY", StringComparison.CurrentCultureIgnoreCase) != -1)
@@ -52,20 +59,10 @@ namespace AppointmentApi
                             };
                             throw new HttpResponseException((int)HttpStatusCode.BadRequest,errorList);
                         }
-                        else if (failure.ErrorMessage.IndexOf("greater", StringComparison.CurrentCultureIgnoreCase) != -1)
-                        {
-                            error.Message = "End time must be greater than Start Time.";
-                            throw new HttpResponseException(400, error);
-                        }
-                        else if (failure.ErrorMessage.IndexOf("same date", StringComparison.CurrentCultureIgnoreCase) != -1)
-                        {
-                            error.Message = "Appointment can only be set for same day endTime and StartTime should have same date";
-                            throw new HttpResponseException(400, error);
-                        }
                         else
                         {
-                            error.Message = "Server Error";
-                            throw new HttpResponseException((int)HttpStatusCode.BadRequest, error);
+                            error.Message = failure.ErrorMessage;
+                            throw new HttpResponseException(400, error);
                         }
                     }
 

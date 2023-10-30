@@ -23,6 +23,7 @@ namespace AppointmentApi.Controllers {
       _logger = logger;
     }
    
+
     /// <summary>
     /// Get Appointments for the day
     /// </summary>
@@ -36,7 +37,6 @@ namespace AppointmentApi.Controllers {
     ///
     /// </remarks>
     [HttpGet]
-    [SwaggerOperation(Summary = "Get Appointments of the day")]
     [ProducesResponseType(typeof(List<Appointment>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(List<CustomError>), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
@@ -60,7 +60,7 @@ namespace AppointmentApi.Controllers {
     [ProducesResponseType(typeof (List < CustomError > ), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof (CustomError), StatusCodes.Status409Conflict)]
     [ProducesResponseType(typeof (CustomError), StatusCodes.Status500InternalServerError)]
-    public ActionResult<GuidValueResult> CreateAppointment(AppointmentRequest appointmentrequest) =>
+    public ActionResult<GuidValueResult> CreateAppointment([FromBody] AppointmentRequest appointmentrequest) =>
        Created("",new GuidValueResult { Id = _appointmentBL.CreateAppointment(appointmentrequest)});
 
 

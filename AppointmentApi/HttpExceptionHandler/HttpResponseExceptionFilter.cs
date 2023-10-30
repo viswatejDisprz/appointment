@@ -12,27 +12,11 @@ public class HttpResponseExceptionFilter : IActionFilter, IOrderedFilter
     {
         if (context.Exception is HttpResponseException exception)
         {
-
-            if(exception.Status == 409)
+            context.Result = new ObjectResult(exception.Value)
             {
-                context.Result = new ObjectResult(exception.Value)
-                {
-                    StatusCode = 409
-                };
-            }
-            else if(exception.Status == 404)
-            {
-                context.Result = new ObjectResult(exception.Value)
-                {
-                    StatusCode = 404
-                };
-            }
-            else{
-                context.Result = new ObjectResult(exception.Value)
-                {
-                    StatusCode = 400
-                };
-            }
+                StatusCode = exception.Status
+            };
+            context.ExceptionHandled = true;
         }
         else if(context.Exception is Exception ex)
         {
@@ -40,8 +24,9 @@ public class HttpResponseExceptionFilter : IActionFilter, IOrderedFilter
             {
                 StatusCode = 500
             };
+            context.ExceptionHandled = true;
         }
 
-        context.ExceptionHandled = true;
+        
     }
 }
