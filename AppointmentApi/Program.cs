@@ -2,6 +2,8 @@ using AppointmentApi.DataAccess;
 using AppointmentApi.Buisness;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Xml;
+using AppointmentApi;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options =>
@@ -19,6 +21,15 @@ builder.Services.AddSwaggerGen(options =>
     });
 
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlDocFilePath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+    var xmlDoc = new XmlDocument();
+    xmlDoc.Load(xmlDocFilePath);
+    var xmlComments = xmlDoc.InnerXml;
+    var replacedXmlComments = Extensions.ReplaceDynamicDateFormat(xmlComments);
+
+    xmlDoc.LoadXml(replacedXmlComments);
+    xmlDoc.Save(xmlDocFilePath);
+
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 

@@ -20,22 +20,28 @@ namespace AppointmentApi.AppointmentUnitTests
         [Fact]
         public void GetAppointments_ShouldReturnListOfAppointments()
         {
-            // Arrange
-            var appointmentDateRequest = new AppointmentDateRequest { Date = DateOnly.Parse("2023-10-29") };
-            var expectedAppointments = new List<Appointment> { new Appointment { Id = Guid.NewGuid(), StartTime = DateTime.Parse("2023-10-29 10:00:00"), EndTime = DateTime.Parse("2023-10-29 11:00:00") } };
+            var mockAppointmentDL = new Mock<IAppointmentDL>();
+            var appointmentDateRequest = new AppointmentDateRequest { Date = new DateOnly(2023, 10, 15) };
+            var appointments = new List<Appointment>
+            {
+                new Appointment { Title = "Go To Gym", StartTime = new DateTime(2023, 10, 15), EndTime = new DateTime(2023, 10, 15) }
+            };
+            mockAppointmentDL.Setup(x => x.GetAppointments(null, appointmentDateRequest.Date)).Returns(appointments);
+            var appointmentBL = new AppointmentBL(mockAppointmentDL.Object);
 
             // Act
-            var appointments = _appointmentBL.GetAppointments(appointmentDateRequest);
+            var result = appointmentBL.GetAppointments(appointmentDateRequest);
 
             // Assert
-            Assert.Equal(expectedAppointments, appointments);
+            Assert.Single(result);
+            Assert.Equal("Go To Gym", result[0].Title);
         }
 
         [Fact]
         public void CreateAppointment_ShouldCreateNewAppointment()
         {
             // Arrange
-            var appointmentRequest = new AppointmentRequest { StartTime = DateTime.Parse("2023-10-29 12:00:00"), EndTime = DateTime.Parse("2023-10-29 13:00:00") };
+            var appointmentRequest = new AppointmentRequest { StartTime = DateTime.Parse("2023-10-29 12:00:00"), EndTime = DateTime.Parse("2023-10-29 13:00:00"), Title="Jogging" };
             var expectedAppointmentId = Guid.NewGuid();
 
             _appointmentDLMock.Setup(x => x.CreateAppointment(appointmentRequest)).Returns(expectedAppointmentId);
@@ -48,16 +54,18 @@ namespace AppointmentApi.AppointmentUnitTests
         }
 
         [Fact]
-        public void DeleteAppointment_ShouldDeleteExistingAppointment()
+        public void TestDeleteAppointment()
         {
             // Arrange
-            var appointmentId = Guid.NewGuid();
+            var mockAppointmentDL = new Mock<IAppointmentDL>();
+            var mockappointmentBL = new AppointmentBL(mockAppointmentDL.Object);
+            var id = Guid.NewGuid();
 
             // Act
-            _appointmentBL.DeleteAppointment(appointmentId);
+            mockappointmentBL.DeleteAppointment(id);
 
             // Assert
-            _appointmentDLMock.Verify(x => x.DeleteAppointment(appointmentId), Times.Once);
+            mockAppointmentDL.Verify(x => x.DeleteAppointment(id), Times.Once);
         }
 
         [Fact]

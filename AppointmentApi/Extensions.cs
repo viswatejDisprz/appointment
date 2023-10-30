@@ -19,17 +19,12 @@ namespace AppointmentApi
            };
         }
         
-        public static CustomError DynamicErrorMessage(string error)
+        public static CustomError DynamicErrorMessage(string errorString)
         {
             return new CustomError()
             {
-                Message = error
+                Message = errorString
             };
-        }
-
-        public static HttpResponseException CustomException(this HttpResponseException CustomException, CustomError error, HttpStatusCode statusCode)
-        {
-            return new HttpResponseException((int)statusCode, error);
         }
 
         public static void Validate<TObject, TValidator>(this TObject instance)
@@ -39,48 +34,48 @@ namespace AppointmentApi
                 var validator = new TValidator();
                 var results = validator.Validate(instance);
                 if (!results.IsValid){
-                    CustomError error = new CustomError();
-                    foreach (var failure in results.Errors)
+                   results.Errors.ForEach(failure =>
                     {
                         if (failure.ErrorMessage.IndexOf("MM/DD/YYYY", StringComparison.CurrentCultureIgnoreCase) != -1)
                         {
-                            error.Message = "Date format should be in MM/DD/YYYY";
-                            List<CustomError> errorList = new(){error};
+                            List<CustomError> errorList = new(){DynamicErrorMessage(failure.ErrorMessage.ToString())};
                             throw new HttpResponseException((int)HttpStatusCode.BadRequest, errorList);
                         }
                         else if(failure.ErrorMessage.IndexOf("empty", StringComparison.CurrentCultureIgnoreCase)!= -1)
                         {
-                            error.Message = "Title cannot be empty";
                             List<CustomError> errorList = new()
                             {
-                                error,
-                                new CustomError(){Message= "StartTime should be in UTC format"},
-                                new CustomError(){Message = "EndTime should be in UTC format"}
+                                DynamicErrorMessage(failure.ErrorMessage),
+                                DynamicErrorMessage("StartTime should be in UTC format"),
+                                DynamicErrorMessage("EndTime should be in UTC format")
                             };
                             throw new HttpResponseException((int)HttpStatusCode.BadRequest,errorList);
                         }
                         else
                         {
-                            error.Message = failure.ErrorMessage;
-                            throw new HttpResponseException(400, error);
+                            throw new HttpResponseException(400, DynamicErrorMessage(failure.ErrorMessage));
                         }
-                    }
+
+                    });
 
                 }
             }
 
 
-        public static string GetSystemDateFormat(this DateTime dateTime)
-        {
-            // Get the current culture.
-            CultureInfo culture = CultureInfo.CurrentCulture;
+        public static string ReplaceDynamicDateFormat(this string xmlComments)
+            {
+                // Logic to determine the dynamic date format based on the system environment
+                string dynamicDateFormat = GetDynamicDateFormat(); // Replace with your logic to determine the dynamic date format
 
-            // Get the short date format for the current culture.
-            string dateFormat = culture.DateTimeFormat.ShortDatePattern;
+                return xmlComments.Replace("{DynamicDateFormat}", dynamicDateFormat);
+            }
 
-            // Return the date format.
-            return dateFormat;
-        }
-
+        private static string GetDynamicDateFormat()
+            {
+                // Logic to determine the dynamic date format based on the system environment
+                // For example, you can use a conditional check based on the operating system
+                string dynamicDateFormat = Environment.OSVersion.Platform == PlatformID.Unix ? "DD/MM/YYYY" : "MM/DD/YYYY";
+                return dynamicDateFormat;
+            }
     }
 }

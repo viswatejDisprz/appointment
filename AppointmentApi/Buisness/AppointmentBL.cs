@@ -25,7 +25,7 @@ namespace AppointmentApi.Buisness
        DateOnly dateOnly = new DateOnly(appointmentrequest.StartTime.Year, appointmentrequest.StartTime.Month, appointmentrequest.StartTime.Day);
        var appointments = _appointmentDL.GetAppointments(null,dateOnly);
 
-       var conflictingAppointment = appointments.FirstOrDefault(item =>
+       var conflictingAppointment = appointments?.FirstOrDefault(item =>
         (item.StartTime < appointmentrequest.StartTime && item.EndTime > appointmentrequest.StartTime) ||
         (appointmentrequest.EndTime > item.StartTime && appointmentrequest.EndTime < item.StartTime));
 

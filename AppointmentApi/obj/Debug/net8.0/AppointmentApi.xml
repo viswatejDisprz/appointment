@@ -13,7 +13,7 @@
             
                  Get /Appointments
                  {
-                     "Date": "DD/mm/yyyy"
+                     "Date": "{DynamicDateFormat}"
                  }
             
              </remarks>
@@ -33,9 +33,6 @@
             </summary>
             <param Guid="3fa85f64-5717-4562-b3fc-2c963f66afa6">Guid to delete a particular appointment</param>
             <returns>No Content</returns>
-        </member>
-        <member name="M:AppointmentApi.validators.AppointmentDateRequestValidator.#ctor">
-            DateOnly does not support ToString() conversion in C#
         </member>
     </members>
 </doc>

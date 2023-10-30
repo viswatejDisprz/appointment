@@ -16,11 +16,9 @@ namespace AppointmentApi.Controllers {
   public class AppointmentController: ControllerBase {
 
     private readonly IAppointmentBL _appointmentBL;
-    private readonly ILogger < AppointmentController > _logger;
 
-    public AppointmentController(ILogger < AppointmentController > logger, IAppointmentBL appointmentBL) {
+    public AppointmentController(IAppointmentBL appointmentBL) {
       _appointmentBL = appointmentBL;
-      _logger = logger;
     }
    
 
@@ -32,7 +30,7 @@ namespace AppointmentApi.Controllers {
     ///
     ///     Get /Appointments
     ///     {
-    ///         "Date": "DD/mm/yyyy"
+    ///         "Date": "{DynamicDateFormat}"
     ///     }
     ///
     /// </remarks>

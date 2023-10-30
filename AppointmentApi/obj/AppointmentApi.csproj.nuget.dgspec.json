@@ -66,6 +66,10 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.7.2, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[7.0.0, )"
@@ -91,6 +95,16 @@
               "version": "[13.7.1, )"
             },
             "xunit": {
+              "target": "Package",
+              "version": "[2.5.3, )"
+            },
+            "xunit.analyzers": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[2.5.3, )"
             }
