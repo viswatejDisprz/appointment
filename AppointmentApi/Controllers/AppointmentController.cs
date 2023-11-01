@@ -8,19 +8,22 @@ using System.Xml;
 
 
 
-namespace AppointmentApi.Controllers {
+namespace AppointmentApi.Controllers
+{
 
   // GET /appointments
   // [ApiController]
   [Route("v1/appointments")]
-  public class AppointmentController: ControllerBase {
+  public class AppointmentController : ControllerBase
+  {
 
     private readonly IAppointmentBL _appointmentBL;
 
-    public AppointmentController(IAppointmentBL appointmentBL) {
+    public AppointmentController(IAppointmentBL appointmentBL)
+    {
       _appointmentBL = appointmentBL;
     }
-   
+
 
     /// <summary>
     /// Get Appointments for the day
@@ -42,7 +45,7 @@ namespace AppointmentApi.Controllers {
         _appointmentBL.GetAppointments(appointmentDateRequest);
 
 
-       
+
 
     // Post / appointments
     /// <summary>
@@ -54,12 +57,12 @@ namespace AppointmentApi.Controllers {
     /// <returns>The Id of the appointment created</returns>
     [HttpPost]
     [SwaggerOperation(Summary = "Create an Appointment")]
-    [ProducesResponseType(typeof (GuidValueResult), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof (List < CustomError > ), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof (CustomError), StatusCodes.Status409Conflict)]
-    [ProducesResponseType(typeof (CustomError), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(GuidValueResult), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(List<CustomError>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(CustomError), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
     public ActionResult<GuidValueResult> CreateAppointment([FromBody] AppointmentRequest appointmentrequest) =>
-       Created("",new GuidValueResult { Id = _appointmentBL.CreateAppointment(appointmentrequest)});
+       Created("", new GuidValueResult { Id = _appointmentBL.CreateAppointment(appointmentrequest) });
 
 
 
@@ -73,11 +76,12 @@ namespace AppointmentApi.Controllers {
     [HttpDelete("{id}")]
     [SwaggerOperation(Summary = "Delete an Appointment")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof (CustomError), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof (CustomError), StatusCodes.Status500InternalServerError)]
-    public ActionResult DeleteAppointment(Guid id) {
-       _appointmentBL.DeleteAppointment(id);
-       return NoContent();
-       }
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
+    public ActionResult DeleteAppointment(Guid id)
+    {
+      _appointmentBL.DeleteAppointment(id);
+      return NoContent();
+    }
   }
-}  
+}

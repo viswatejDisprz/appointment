@@ -5,12 +5,12 @@ public class HttpResponseException : Exception
 {
     public int Status { get; set; } = 500;
 
-    public object Value { get; set; } 
+    public object Value { get; set; }
 
-    public HttpResponseException(int status ,CustomError error)
+    public HttpResponseException(int status, CustomError error)
     {
-       Value =  error;
-       Status = status;
+        Value = error;
+        Status = status;
     }
 
     public HttpResponseException(int status, List<CustomError> errorList)

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentApi", "AppointmentApi\AppointmentApi.csproj", "{D915FEB7-8A0C-4A97-9B34-FBA291C4B0E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentApiTests", "AppointmentApiTests\AppointmentApiTests.csproj", "{12A0400F-B53C-4CA6-AF22-17B84D0B198C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D915FEB7-8A0C-4A97-9B34-FBA291C4B0E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D915FEB7-8A0C-4A97-9B34-FBA291C4B0E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D915FEB7-8A0C-4A97-9B34-FBA291C4B0E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A0400F-B53C-4CA6-AF22-17B84D0B198C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A0400F-B53C-4CA6-AF22-17B84D0B198C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A0400F-B53C-4CA6-AF22-17B84D0B198C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A0400F-B53C-4CA6-AF22-17B84D0B198C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

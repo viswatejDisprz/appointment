@@ -8,12 +8,14 @@ namespace AppointmentApi.validators
         public AppointmentDateRequestValidator()
         {
             RuleFor(apptDateRequest => apptDateRequest.Date)
-                .NotEmpty().WithMessage("Date format should be in MM/DD/YYYY")
-                .Must(BeAValidDate).WithMessage("Date format should be in MM/DD/YYYY");
+                .NotEmpty()
+                .WithMessage(ValidDateFormat);
         }
-        private bool BeAValidDate(DateOnly date)
+
+        private string ValidDateFormat(AppointmentDateRequest request)
         {
-            return DateTime.TryParseExact(date.ToString(), "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out _);
+            var Dateformat = Extensions.GetDynamicDateFormat();
+            return $"Please enter the Correct date format in : {Dateformat}";
         }
     }
 }

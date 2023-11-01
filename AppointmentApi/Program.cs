@@ -13,30 +13,31 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Appointment API",
-        Description = "An ASP.NET Core Web API for managing Appointments in a day",
-    });
+  options.SwaggerDoc("v1", new OpenApiInfo
+  {
+    Version = "v1",
+    Title = "Appointment API",
+    Description = "An ASP.NET Core Web API for managing Appointments in a day",
+  });
 
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlDocFilePath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
-    var xmlDoc = new XmlDocument();
-    xmlDoc.Load(xmlDocFilePath);
-    var xmlComments = xmlDoc.InnerXml;
-    var replacedXmlComments = Extensions.ReplaceDynamicDateFormat(xmlComments);
+  var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+  var xmlDocFilePath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+  var xmlDoc = new XmlDocument();
+  xmlDoc.Load(xmlDocFilePath);
+  var xmlComments = xmlDoc.InnerXml;
+  var replacedXmlComments = Extensions.ReplaceDynamicDateFormat(xmlComments);
 
-    xmlDoc.LoadXml(replacedXmlComments);
-    xmlDoc.Save(xmlDocFilePath);
+  xmlDoc.LoadXml(replacedXmlComments);
+  xmlDoc.Save(xmlDocFilePath);
 
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+  options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
 
-builder.Services.AddSingleton < IAppointmentDL, AppointmentDL > ();
-builder.Services.AddSingleton < IAppointmentBL, AppointmentBL > ();
-builder.Services.AddLogging(loggingBuilder => {
+builder.Services.AddSingleton<IAppointmentDL, AppointmentDL>();
+builder.Services.AddSingleton<IAppointmentBL, AppointmentBL>();
+builder.Services.AddLogging(loggingBuilder =>
+{
   loggingBuilder.AddConsole();
 });
 
@@ -47,13 +48,17 @@ app.UseRouting();
 app.UseExceptionHandler();
 app.UseStatusCodePages();
 
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment())
+{
   app.UseDeveloperExceptionPage();
-} else {
+}
+else
+{
   app.UseHsts();
 }
 
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment())
+{
   app.UseSwagger();
   app.UseSwaggerUI();
 

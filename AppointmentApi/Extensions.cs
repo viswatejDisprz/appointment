@@ -1,21 +1,11 @@
+using System.Globalization;
 using AppointmentApi.Models;
 using FluentValidation;
-using AppointmentApi;
 
 namespace AppointmentApi
 {
     public static class Extensions
     {
-
-        public static AppointmentRequest AsDto(this Appointment appointment)
-        {
-            return new AppointmentRequest
-            {
-                StartTime = appointment.StartTime,
-                EndTime = appointment.EndTime,
-                Title = appointment.Title,
-            };
-        }
 
         public static void Validate<TObject, TValidator>(this TObject instance)
             where TObject : class
@@ -25,22 +15,32 @@ namespace AppointmentApi
             var results = validator.Validate(instance);
             if (!results.IsValid)
             {
-                 results.Errors.CustomException();
+                results.Errors.CustomException();
             }
         }
 
 
         public static string ReplaceDynamicDateFormat(this string xmlComments)
         {
-            string dynamicDateFormat = GetDynamicDateFormat();
-
-            return xmlComments.Replace("{DynamicDateFormat}", dynamicDateFormat);
+            return xmlComments.Replace("{DynamicDateFormat}", GetDynamicDateFormat());
         }
 
-        private static string GetDynamicDateFormat()
+        public static string GetDynamicDateFormat()
         {
-            string dynamicDateFormat = Environment.OSVersion.Platform == PlatformID.Unix ? "DD/MM/YYYY" : "MM/DD/YYYY";
-            return dynamicDateFormat;
+            CultureInfo culture = CultureInfo.CurrentCulture;
+            DateTimeFormatInfo dateFormat = culture.DateTimeFormat;
+            string shortDatePattern = dateFormat.ShortDatePattern;
+            return shortDatePattern;
+        }
+
+        public static HttpResponseException CustomException(this CustomError error, int statusCode)
+        {
+            return new HttpResponseException(statusCode, error);
+        }
+
+        public static HttpResponseException CustomException(this List<CustomError> error, int statusCode)
+        {
+            return new HttpResponseException(statusCode, error);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace AppointmentApi.Models
 {
     public class AppointmentDateRequest
     {
-        public DateOnly Date{get; set;}
+        public DateOnly Date { get; set; }
     }
-      
+
 }
