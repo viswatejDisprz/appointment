@@ -1,0 +1,859 @@
+{
+  "AppointmentApi.dll": {
+    "D:\\Appointment\\AppointmentApi\\Controllers\\GetAppointmetsAttribute.cs": {
+      "DynamicDateFormatExtension": {
+        "System.String DynamicDateFormatExtension::ReplaceDynamicDateFormat(System.String)": {
+          "Lines": {
+            "8": 0,
+            "9": 0,
+            "10": 0,
+            "12": 0,
+            "13": 0,
+            "16": 0,
+            "17": 0
+          },
+          "Branches": [
+            {
+              "Line": 9,
+              "Offset": 14,
+              "EndOffset": 16,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 9,
+              "Offset": 14,
+              "EndOffset": 38,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.String DynamicDateFormatExtension::GetDynamicDateFormat()": {
+          "Lines": {
+            "20": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "37": 0,
+            "38": 0,
+            "40": 0
+          },
+          "Branches": [
+            {
+              "Line": 24,
+              "Offset": 8,
+              "EndOffset": 10,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 8,
+              "EndOffset": 19,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 28,
+              "Offset": 26,
+              "EndOffset": 28,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 28,
+              "Offset": 26,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 32,
+              "Offset": 44,
+              "EndOffset": 46,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 32,
+              "Offset": 44,
+              "EndOffset": 55,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Errors\\AppointmentErros.cs": {
+      "ResponseErrors": {
+        "AppointmentApi.Models.CustomError ResponseErrors::get_NotFound()": {
+          "Lines": {
+            "5": 1
+          },
+          "Branches": []
+        },
+        "AppointmentApi.Models.CustomError ResponseErrors::BadRequest(System.String)": {
+          "Lines": {
+            "7": 5
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\HttpExceptionHandler\\HttpResponseException.cs": {
+      "HttpResponseException": {
+        "System.Int32 HttpResponseException::get_Status()": {
+          "Lines": {
+            "6": 2
+          },
+          "Branches": []
+        },
+        "System.Object HttpResponseException::get_Value()": {
+          "Lines": {
+            "8": 1
+          },
+          "Branches": []
+        },
+        "System.Void HttpResponseException::.ctor(System.Int32,AppointmentApi.Models.CustomError)": {
+          "Lines": {
+            "10": 0,
+            "11": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0
+          },
+          "Branches": []
+        },
+        "System.Void HttpResponseException::.ctor(System.Int32,System.Collections.Generic.List`1<AppointmentApi.Models.CustomError>)": {
+          "Lines": {
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Program.cs": {
+      "Program": {
+        "System.Void Program::<Main>$(System.String[])": {
+          "Lines": {
+            "7": 0,
+            "9": 0,
+            "10": 0,
+            "11": 0,
+            "12": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "44": 0,
+            "46": 0,
+            "48": 0,
+            "49": 0,
+            "51": 0,
+            "52": 0,
+            "53": 0,
+            "54": 0,
+            "56": 0,
+            "57": 0,
+            "58": 0,
+            "60": 0,
+            "61": 0,
+            "62": 0,
+            "63": 0,
+            "65": 0,
+            "67": 0,
+            "69": 0,
+            "71": 0,
+            "73": 0
+          },
+          "Branches": [
+            {
+              "Line": 51,
+              "Offset": 225,
+              "EndOffset": 227,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 51,
+              "Offset": 225,
+              "EndOffset": 238,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 60,
+              "Offset": 260,
+              "EndOffset": 262,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 60,
+              "Offset": 260,
+              "EndOffset": 280,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\viswatej.p_disprz\\.nuget\\packages\\microsoft.net.test.sdk\\17.7.2\\build\\netcoreapp3.1\\Microsoft.NET.Test.Sdk.Program.cs": {
+      "AutoGeneratedProgram": {
+        "System.Void AutoGeneratedProgram::Main(System.String[])": {
+          "Lines": {
+            "4": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Extensions.cs": {
+      "AppointmentApi.Extensions": {
+        "System.Void AppointmentApi.Extensions::Validate(TObject)": {
+          "Lines": {
+            "13": 4,
+            "14": 4,
+            "15": 4,
+            "16": 4,
+            "17": 1,
+            "18": 1,
+            "19": 0,
+            "20": 3
+          },
+          "Branches": [
+            {
+              "Line": 16,
+              "Offset": 31,
+              "EndOffset": 33,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 16,
+              "Offset": 31,
+              "EndOffset": 47,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            }
+          ]
+        },
+        "System.String AppointmentApi.Extensions::ReplaceDynamicDateFormat(System.String)": {
+          "Lines": {
+            "24": 1,
+            "25": 1,
+            "26": 1
+          },
+          "Branches": []
+        },
+        "System.String AppointmentApi.Extensions::GetDynamicDateFormat()": {
+          "Lines": {
+            "29": 3,
+            "30": 3,
+            "31": 3,
+            "32": 3,
+            "33": 3,
+            "34": 3
+          },
+          "Branches": []
+        },
+        "HttpResponseException AppointmentApi.Extensions::CustomException(AppointmentApi.Models.CustomError,System.Int32)": {
+          "Lines": {
+            "37": 0,
+            "38": 0,
+            "39": 0
+          },
+          "Branches": []
+        },
+        "HttpResponseException AppointmentApi.Extensions::CustomException(System.Collections.Generic.List`1<AppointmentApi.Models.CustomError>,System.Int32)": {
+          "Lines": {
+            "42": 1,
+            "43": 1,
+            "44": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\HttpExceptionHandler\\HttpResponseExceptionFilter.cs": {
+      "AppointmentApi.HttpResponseExceptionFilter": {
+        "System.Int32 AppointmentApi.HttpResponseExceptionFilter::get_Order()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.Void AppointmentApi.HttpResponseExceptionFilter::OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.Void AppointmentApi.HttpResponseExceptionFilter::OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)": {
+          "Lines": {
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0
+          },
+          "Branches": [
+            {
+              "Line": 14,
+              "Offset": 19,
+              "EndOffset": 21,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 14,
+              "Offset": 19,
+              "EndOffset": 69,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 22,
+              "Offset": 82,
+              "EndOffset": 84,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 22,
+              "Offset": 82,
+              "EndOffset": 141,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\ValidationFailureExtension.cs": {
+      "AppointmentApi.ValidationFailureExtension": {
+        "System.Void AppointmentApi.ValidationFailureExtension::CustomException(System.Collections.Generic.List`1<FluentValidation.Results.ValidationFailure>)": {
+          "Lines": {
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 4,
+            "11": 4,
+            "12": 5,
+            "13": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\validators\\AppointmentDateRequestValidator.cs": {
+      "AppointmentApi.validators.AppointmentDateRequestValidator": {
+        "System.String AppointmentApi.validators.AppointmentDateRequestValidator::ValidDateFormat(AppointmentApi.Models.AppointmentDateRequest)": {
+          "Lines": {
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1
+          },
+          "Branches": []
+        },
+        "System.Void AppointmentApi.validators.AppointmentDateRequestValidator::.ctor()": {
+          "Lines": {
+            "8": 3,
+            "9": 3,
+            "10": 3,
+            "11": 3,
+            "12": 3,
+            "13": 3
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\validators\\AppointmentRequestValidator.cs": {
+      "AppointmentApi.validators.AppointmentRequestValidator": {
+        "System.Void AppointmentApi.validators.AppointmentRequestValidator::.ctor()": {
+          "Lines": {
+            "8": 7,
+            "9": 7,
+            "10": 7,
+            "11": 7,
+            "12": 7,
+            "15": 7,
+            "16": 7,
+            "17": 7,
+            "20": 7,
+            "21": 7,
+            "22": 7,
+            "23": 7,
+            "24": 7,
+            "25": 7,
+            "27": 7
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Models\\Appointment.cs": {
+      "AppointmentApi.Models.Appointment": {
+        "System.DateTime AppointmentApi.Models.Appointment::get_StartTime()": {
+          "Lines": {
+            "6": 24
+          },
+          "Branches": []
+        },
+        "System.DateTime AppointmentApi.Models.Appointment::get_EndTime()": {
+          "Lines": {
+            "8": 15
+          },
+          "Branches": []
+        },
+        "System.String AppointmentApi.Models.Appointment::get_Title()": {
+          "Lines": {
+            "10": 17
+          },
+          "Branches": []
+        },
+        "System.Guid AppointmentApi.Models.Appointment::get_Id()": {
+          "Lines": {
+            "12": 6
+          },
+          "Branches": []
+        },
+        "System.Object AppointmentApi.Models.Appointment::AsDto()": {
+          "Lines": {
+            "15": 0,
+            "16": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Models\\Dtos\\AppointmentDateRequest.cs": {
+      "AppointmentApi.Models.AppointmentDateRequest": {
+        "System.DateOnly AppointmentApi.Models.AppointmentDateRequest::get_Date()": {
+          "Lines": {
+            "8": 9
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Models\\Dtos\\AppointmentRequest.cs": {
+      "AppointmentApi.Models.AppointmentRequest": {
+        "System.DateTime AppointmentApi.Models.AppointmentRequest::get_StartTime()": {
+          "Lines": {
+            "10": 33
+          },
+          "Branches": []
+        },
+        "System.DateTime AppointmentApi.Models.AppointmentRequest::get_EndTime()": {
+          "Lines": {
+            "12": 13
+          },
+          "Branches": []
+        },
+        "System.String AppointmentApi.Models.AppointmentRequest::get_Title()": {
+          "Lines": {
+            "14": 13
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Models\\Dtos\\CustomError.cs": {
+      "AppointmentApi.Models.CustomError": {
+        "System.String AppointmentApi.Models.CustomError::get_Message()": {
+          "Lines": {
+            "6": 9
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Models\\Dtos\\GuidValueResult.cs": {
+      "AppointmentApi.Models.GuidValueResult": {
+        "System.Guid AppointmentApi.Models.GuidValueResult::get_Id()": {
+          "Lines": {
+            "7": 2
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Controllers\\AppointmentController.cs": {
+      "AppointmentApi.Controllers.AppointmentController": {
+        "System.Collections.Generic.List`1<AppointmentApi.Models.Appointment> AppointmentApi.Controllers.AppointmentController::GetAppointments(AppointmentApi.Models.AppointmentDateRequest)": {
+          "Lines": {
+            "45": 1
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Mvc.ActionResult`1<AppointmentApi.Models.GuidValueResult> AppointmentApi.Controllers.AppointmentController::CreateAppointment(AppointmentApi.Models.AppointmentRequest)": {
+          "Lines": {
+            "65": 1
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Mvc.ActionResult AppointmentApi.Controllers.AppointmentController::DeleteAppointment(System.Guid)": {
+          "Lines": {
+            "82": 1,
+            "83": 1,
+            "84": 1,
+            "85": 1
+          },
+          "Branches": []
+        },
+        "System.Void AppointmentApi.Controllers.AppointmentController::.ctor(AppointmentApi.Buisness.IAppointmentBL)": {
+          "Lines": {
+            "22": 3,
+            "23": 3,
+            "24": 3,
+            "25": 3
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\Buisness\\AppointmentBL.cs": {
+      "AppointmentApi.Buisness.AppointmentBL": {
+        "System.Collections.Generic.List`1<AppointmentApi.Models.Appointment> AppointmentApi.Buisness.AppointmentBL::GetAppointments(AppointmentApi.Models.AppointmentDateRequest)": {
+          "Lines": {
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "20": 1
+          },
+          "Branches": []
+        },
+        "System.Guid AppointmentApi.Buisness.AppointmentBL::CreateAppointment(AppointmentApi.Models.AppointmentRequest)": {
+          "Lines": {
+            "22": 2,
+            "23": 2,
+            "25": 2,
+            "26": 2,
+            "28": 2,
+            "29": 2,
+            "30": 2,
+            "32": 2,
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "40": 0,
+            "43": 2,
+            "44": 2
+          },
+          "Branches": [
+            {
+              "Line": 28,
+              "Offset": 122,
+              "EndOffset": 124,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 2
+            },
+            {
+              "Line": 28,
+              "Offset": 122,
+              "EndOffset": 127,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 32,
+              "Offset": 154,
+              "EndOffset": 159,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 34,
+              "Offset": 182,
+              "EndOffset": 184,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 34,
+              "Offset": 182,
+              "EndOffset": 272,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 32,
+              "Offset": 154,
+              "EndOffset": 385,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 2
+            },
+            {
+              "Line": 29,
+              "Offset": 22,
+              "EndOffset": 24,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 22,
+              "EndOffset": 48,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 46,
+              "EndOffset": 48,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 70,
+              "EndOffset": 72,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 70,
+              "EndOffset": 96,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 46,
+              "EndOffset": 99,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void AppointmentApi.Buisness.AppointmentBL::DeleteAppointment(System.Guid)": {
+          "Lines": {
+            "46": 1,
+            "47": 1,
+            "48": 1,
+            "49": 0,
+            "50": 0,
+            "52": 1,
+            "53": 1
+          },
+          "Branches": [
+            {
+              "Line": 48,
+              "Offset": 39,
+              "EndOffset": 41,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 48,
+              "Offset": 39,
+              "EndOffset": 58,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        },
+        "System.Void AppointmentApi.Buisness.AppointmentBL::.ctor(AppointmentApi.DataAccess.IAppointmentDL)": {
+          "Lines": {
+            "11": 3,
+            "12": 3,
+            "13": 3,
+            "14": 3
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Appointment\\AppointmentApi\\DataAccess\\AppointmentmentDL.cs": {
+      "AppointmentApi.Buisness.AppointmentDL": {
+        "System.Collections.Generic.List`1<AppointmentApi.Models.Appointment> AppointmentApi.Buisness.AppointmentDL::GetAppointments(System.Nullable`1<System.Guid>,System.Nullable`1<System.DateOnly>)": {
+          "Lines": {
+            "19": 1,
+            "20": 4,
+            "21": 1,
+            "22": 1
+          },
+          "Branches": [
+            {
+              "Line": 20,
+              "Offset": 11,
+              "EndOffset": 13,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 20,
+              "Offset": 34,
+              "EndOffset": 36,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 20,
+              "Offset": 34,
+              "EndOffset": 39,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 20,
+              "Offset": 11,
+              "EndOffset": 54,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            },
+            {
+              "Line": 20,
+              "Offset": 80,
+              "EndOffset": 82,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 20,
+              "Offset": 80,
+              "EndOffset": 85,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 3
+            }
+          ]
+        },
+        "System.Guid AppointmentApi.Buisness.AppointmentDL::CreateAppointment(AppointmentApi.Models.AppointmentRequest)": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "36": 0,
+            "38": 0
+          },
+          "Branches": []
+        },
+        "System.Void AppointmentApi.Buisness.AppointmentDL::DeleteAppointment(System.Guid)": {
+          "Lines": {
+            "40": 0,
+            "41": 0,
+            "46": 0,
+            "47": 0
+          },
+          "Branches": []
+        },
+        "System.Void AppointmentApi.Buisness.AppointmentDL::.ctor()": {
+          "Lines": {
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}
