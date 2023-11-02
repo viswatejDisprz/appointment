@@ -14,9 +14,7 @@ namespace AppointmentApi
             var validator = new TValidator();
             var results = validator.Validate(instance);
             if (!results.IsValid)
-            {
                 results.Errors.CustomException();
-            }
         }
 
 

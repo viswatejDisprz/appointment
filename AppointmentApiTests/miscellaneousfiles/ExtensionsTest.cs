@@ -38,7 +38,7 @@ public class ExtensionsTests
     }
 
     [Fact]
-    public void CustomException_should_throw_an_HttpResponseException_with_the_specified_status_code()
+    public void CustomException_should_throw_an_HttpResponseException_with_the_InternalServer_status_code()
     {
         var error = new CustomError
         {
@@ -46,6 +46,18 @@ public class ExtensionsTests
         };
 
         Assert.IsType<System.Func<HttpResponseException>>(() => error.CustomException(StatusCodes.Status500InternalServerError));
+    }
+
+    [Fact]
+    public void CustomException_should_throw_an_HttpResponseException_with_the_BadRequest_status_code()
+    {
+        var error = new CustomError
+        {
+            Message = "This is a sample error message."
+        };
+        var exception = error.CustomException(StatusCodes.Status400BadRequest);
+
+        Assert.IsType<HttpResponseException>(exception);
     }
 
     [Fact]

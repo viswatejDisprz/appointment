@@ -10,9 +10,4 @@ public class Appointment
     public string? Title { get; set; }
 
     public Guid Id { get; set; }
-
-    public object AsDto()
-    {
-        throw new NotImplementedException();
-    }
 }
