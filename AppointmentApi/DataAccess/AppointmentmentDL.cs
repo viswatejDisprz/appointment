@@ -38,11 +38,6 @@ namespace AppointmentApi.Buisness
     }
     public void DeleteAppointment(Guid id)
     {
-      var index = appointments.FindIndex(existingItem => existingItem.Id == id);
-      // if(index == -1)
-      // {
-      //   return;
-      // }
       appointments.RemoveAt(appointments.FindIndex(existingItem => existingItem.Id == id));
     }
 

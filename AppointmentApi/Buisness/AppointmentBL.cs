@@ -31,13 +31,12 @@ namespace AppointmentApi.Buisness
 
       if (conflictingAppointment != null)
       {
-        var errorString = conflictingAppointment.StartTime < appointmentrequest.StartTime ?
-            appointmentrequest.StartTime + " is conflicting with an existing appointment having startTime: " +
-            conflictingAppointment.StartTime + " and endTime: " + conflictingAppointment.EndTime :
-            appointmentrequest.EndTime + " is conflicting with an existing appointment having startTime: " +
-            conflictingAppointment.StartTime + " and endTime: " + conflictingAppointment.EndTime;
 
-        throw new HttpResponseException(StatusCodes.Status409Conflict, new CustomError { Message = errorString });
+        var errorString = (conflictingAppointment.StartTime < appointmentrequest.StartTime ?
+                           appointmentrequest.StartTime : appointmentrequest.EndTime) +
+                          "is conflicting with an existing appointment having startTime:" +
+                         $"{conflictingAppointment.StartTime} and endTime: {conflictingAppointment.EndTime}";        
+            throw new HttpResponseException(StatusCodes.Status409Conflict, new CustomError { Message = errorString });
       }
 
       return _appointmentDL.CreateAppointment(appointmentrequest);
@@ -47,7 +46,7 @@ namespace AppointmentApi.Buisness
       var result = _appointmentDL.GetAppointments(id, null);
       if (result.Count == 0)
       {
-        throw ResponseErrors.NotFound.CustomException(StatusCodes.Status404NotFound); // empty response
+          throw new HttpResponseException(StatusCodes.Status404NotFound, new CustomError(){Message="Appointment not found"}); 
       }
       _appointmentDL.DeleteAppointment(id);
     }
