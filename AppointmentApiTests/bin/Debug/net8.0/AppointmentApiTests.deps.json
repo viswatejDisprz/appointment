@@ -10,6 +10,8 @@
         "dependencies": {
           "AppointmentApi": "1.0.0",
           "Microsoft.NET.Test.Sdk": "17.7.2",
+          "ReportGenerator": "5.1.26",
+          "coverlet.collector": "6.0.0",
           "coverlet.msbuild": "6.0.0",
           "xunit": "2.5.3",
           "xunit.runner.visualstudio": "2.4.5"
@@ -63,6 +65,7 @@
           }
         }
       },
+      "coverlet.collector/6.0.0": {},
       "coverlet.msbuild/6.0.0": {},
       "FluentAssertions/6.12.0": {
         "dependencies": {
@@ -1862,6 +1865,7 @@
           }
         }
       },
+      "ReportGenerator/5.1.26": {},
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
@@ -2895,6 +2899,13 @@
       "path": "castle.core/5.1.1",
       "hashPath": "castle.core.5.1.1.nupkg.sha512"
     },
+    "coverlet.collector/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tW3lsNS+dAEII6YGUX/VMoJjBS1QvsxqJeqLaJXub08y1FSjasFPtQ4UBUsudE9PNrzLjooClMsPtY2cZLdXpQ==",
+      "path": "coverlet.collector/6.0.0",
+      "hashPath": "coverlet.collector.6.0.0.nupkg.sha512"
+    },
     "coverlet.msbuild/6.0.0": {
       "type": "package",
       "serviceable": true,
@@ -3594,6 +3605,13 @@
       "sha512": "sha512-T/igBDLXCd+pH3YTWgGVNvYSOwbwaT30NyyM9ONjvlHlmaUjKBJpr9kH0AeL+Ado4EJsBhU3qxXVc6lyrpRcMw==",
       "path": "nuget.versioning/6.3.1",
       "hashPath": "nuget.versioning.6.3.1.nupkg.sha512"
+    },
+    "ReportGenerator/5.1.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Y2ORj0DxxoyUOQbcGP4psBpVhe6WO1kQjPxpE9mgRcpl0rWmeGlYtsgyXAWTgHsKrg4eeLP50iwByBgoTA3S6A==",
+      "path": "reportgenerator/5.1.26",
+      "hashPath": "reportgenerator.5.1.26.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",

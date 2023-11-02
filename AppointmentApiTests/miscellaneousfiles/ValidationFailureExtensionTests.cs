@@ -31,8 +31,18 @@ public class ValidationFailureExtensionTests
 
     //     // Act
     //     r.Errors.CustomException();
+    //     var exception = Record.Exception(() => results.CustomException(StatusCodes.Status400BadRequest));
 
     //     // Assert
-    //     Assert.Throws<HttpResponseException>(() => results.CustomException(StatusCodes.Status400BadRequest));
+    //     // Assert.Throws<HttpResponseException>(() => results.CustomException(StatusCodes.Status400BadRequest));
+    //     // Assert.IsType<System.Func<HttpResponseException>>(() => results.CustomException(400));
+    //     // var exception = Assert.Throws<HttpResponseException>(() => results.CustomException(StatusCodes.Status400BadRequest));
+
+    //     // Assert.Equal(StatusCodes.Status400BadRequest, exception.Status);
+    //     Assert.NotNull(exception);
+    //     Assert.IsType<HttpResponseException>(exception);
+
+    //     HttpResponseException httpResponseException = (HttpResponseException)exception;
+    //     Assert.Equal(StatusCodes.Status400BadRequest, httpResponseException.Status);
     // }
 }

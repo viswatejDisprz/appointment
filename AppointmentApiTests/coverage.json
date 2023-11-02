@@ -100,7 +100,7 @@
         }
       }
     },
-    "D:\\Appointment\\AppointmentApi\\Errors\\AppointmentErros.cs": {
+    "D:\\Appointment\\AppointmentApi\\Errors\\ResponseErros.cs": {
       "ResponseErrors": {
         "AppointmentApi.Models.CustomError ResponseErrors::get_NotFound()": {
           "Lines": {
@@ -401,10 +401,9 @@
       "AppointmentApi.ValidationFailureExtension": {
         "System.Void AppointmentApi.ValidationFailureExtension::CustomException(System.Collections.Generic.List`1<FluentValidation.Results.ValidationFailure>)": {
           "Lines": {
-            "7": 1,
             "8": 1,
             "9": 1,
-            "10": 4,
+            "10": 5,
             "11": 4,
             "12": 5,
             "13": 1
@@ -465,25 +464,25 @@
       "AppointmentApi.Models.Appointment": {
         "System.DateTime AppointmentApi.Models.Appointment::get_StartTime()": {
           "Lines": {
-            "6": 24
+            "6": 43
           },
           "Branches": []
         },
         "System.DateTime AppointmentApi.Models.Appointment::get_EndTime()": {
           "Lines": {
-            "8": 15
+            "8": 20
           },
           "Branches": []
         },
         "System.String AppointmentApi.Models.Appointment::get_Title()": {
           "Lines": {
-            "10": 17
+            "10": 22
           },
           "Branches": []
         },
         "System.Guid AppointmentApi.Models.Appointment::get_Id()": {
           "Lines": {
-            "12": 6
+            "12": 15
           },
           "Branches": []
         },
@@ -510,19 +509,19 @@
       "AppointmentApi.Models.AppointmentRequest": {
         "System.DateTime AppointmentApi.Models.AppointmentRequest::get_StartTime()": {
           "Lines": {
-            "10": 33
+            "10": 37
           },
           "Branches": []
         },
         "System.DateTime AppointmentApi.Models.AppointmentRequest::get_EndTime()": {
           "Lines": {
-            "12": 13
+            "12": 17
           },
           "Branches": []
         },
         "System.String AppointmentApi.Models.AppointmentRequest::get_Title()": {
           "Lines": {
-            "14": 13
+            "14": 17
           },
           "Branches": []
         }
@@ -532,7 +531,7 @@
       "AppointmentApi.Models.CustomError": {
         "System.String AppointmentApi.Models.CustomError::get_Message()": {
           "Lines": {
-            "6": 9
+            "6": 10
           },
           "Branches": []
         }
@@ -604,7 +603,6 @@
             "30": 2,
             "32": 2,
             "33": 0,
-            "34": 0,
             "35": 0,
             "36": 0,
             "37": 0,
@@ -639,7 +637,7 @@
               "Hits": 0
             },
             {
-              "Line": 34,
+              "Line": 35,
               "Offset": 182,
               "EndOffset": 184,
               "Path": 0,
@@ -647,9 +645,9 @@
               "Hits": 0
             },
             {
-              "Line": 34,
+              "Line": 35,
               "Offset": 182,
-              "EndOffset": 272,
+              "EndOffset": 197,
               "Path": 1,
               "Ordinal": 5,
               "Hits": 0
@@ -657,7 +655,7 @@
             {
               "Line": 32,
               "Offset": 154,
-              "EndOffset": 385,
+              "EndOffset": 312,
               "Path": 1,
               "Ordinal": 3,
               "Hits": 2
@@ -756,10 +754,10 @@
       "AppointmentApi.Buisness.AppointmentDL": {
         "System.Collections.Generic.List`1<AppointmentApi.Models.Appointment> AppointmentApi.Buisness.AppointmentDL::GetAppointments(System.Nullable`1<System.Guid>,System.Nullable`1<System.DateOnly>)": {
           "Lines": {
-            "19": 1,
-            "20": 4,
-            "21": 1,
-            "22": 1
+            "19": 5,
+            "20": 22,
+            "21": 5,
+            "22": 5
           },
           "Branches": [
             {
@@ -792,7 +790,7 @@
               "EndOffset": 54,
               "Path": 1,
               "Ordinal": 1,
-              "Hits": 3
+              "Hits": 17
             },
             {
               "Line": 20,
@@ -808,48 +806,47 @@
               "EndOffset": 85,
               "Path": 1,
               "Ordinal": 5,
-              "Hits": 3
+              "Hits": 17
             }
           ]
         },
         "System.Guid AppointmentApi.Buisness.AppointmentDL::CreateAppointment(AppointmentApi.Models.AppointmentRequest)": {
           "Lines": {
-            "25": 0,
-            "26": 0,
-            "28": 0,
-            "29": 0,
-            "30": 0,
-            "31": 0,
-            "32": 0,
-            "33": 0,
-            "34": 0,
-            "36": 0,
-            "38": 0
+            "25": 2,
+            "26": 2,
+            "28": 2,
+            "29": 2,
+            "30": 2,
+            "31": 2,
+            "32": 2,
+            "33": 2,
+            "34": 2,
+            "36": 2,
+            "38": 2
           },
           "Branches": []
         },
         "System.Void AppointmentApi.Buisness.AppointmentDL::DeleteAppointment(System.Guid)": {
           "Lines": {
-            "40": 0,
-            "41": 0,
-            "46": 0,
-            "47": 0
+            "40": 1,
+            "41": 5,
+            "42": 1
           },
           "Branches": []
         },
         "System.Void AppointmentApi.Buisness.AppointmentDL::.ctor()": {
           "Lines": {
-            "7": 1,
-            "8": 1,
-            "9": 1,
-            "10": 1,
-            "11": 1,
-            "12": 1,
-            "13": 1,
-            "14": 1,
-            "15": 1,
-            "16": 1,
-            "17": 1
+            "7": 3,
+            "8": 3,
+            "9": 3,
+            "10": 3,
+            "11": 3,
+            "12": 3,
+            "13": 3,
+            "14": 3,
+            "15": 3,
+            "16": 3,
+            "17": 3
           },
           "Branches": []
         }

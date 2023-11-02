@@ -35,5 +35,4 @@ public class AppointmentDateRequestValidatorTests
 
         Assert.True(result.IsValid);
     }
-
 }

@@ -9,23 +9,50 @@ namespace AppointmentApiTests
         public void GetAppointments_ValidDate_ReturnsMatchingAppointments()
         {
             // Arrange
-            var appointments = new List<Appointment>
-            {
-                new Appointment { StartTime = new DateTime(2023, 10, 15, 23, 00, 00), EndTime = new DateTime(2023, 10, 15, 23, 59, 00), Title = "go to Gym", Id = Guid.NewGuid() },
-                new Appointment { StartTime = new DateTime(2023, 10, 15, 13, 00, 00), EndTime = new DateTime(2023, 10, 15, 13, 59, 00), Title = "go for a walk", Id = Guid.NewGuid() },
-                new Appointment { StartTime = new DateTime(2023, 10, 15, 19, 00, 00), EndTime = new DateTime(2023, 10, 15, 19, 59, 00), Title = "go for cohee", Id = Guid.NewGuid() }
-            };
             var appointmentDL = new AppointmentDL();
 
             // Act
             var result = appointmentDL.GetAppointments(null, new DateOnly(2023, 10, 15));
 
             // Assert
-            Assert.Equal(appointments.Count, result.Count);
-            foreach (var appointment in appointments)
+            Assert.Equal(3, result.Count);
+            foreach (var appointment in result)
             {
                 Assert.Contains(result, app => app.StartTime == appointment.StartTime && app.EndTime == appointment.EndTime && app.Title == appointment.Title);
             }
+        }
+
+        [Fact]
+        public void CreateAppointment_Validate_Returns_HigherCount()
+        {
+            var appointmentDL = new AppointmentDL();
+            
+            // Act
+            var initialCount = appointmentDL.GetAppointments(null, new DateOnly(2023, 10, 15));
+            var appointmentRequest = new AppointmentRequest(){StartTime=DateTime.Parse("2023/10/15 11:00"),EndTime=DateTime.Parse("2023/10/15 12:00"),Title="Walking"};
+            var id = appointmentDL.CreateAppointment(appointmentRequest);
+            var PostCount = appointmentDL.GetAppointments(null, new DateOnly(2023, 10, 15));
+
+            // Assert
+            Assert.IsType<Guid>(id);
+            Assert.Equal(initialCount.Count + 1 ,PostCount.Count);
+        }
+
+        [Fact]
+        public void DeleteAppointment_Validate_Returns_LowerCount()
+        {
+            var appointmentDL = new AppointmentDL();
+            
+            // Act
+            var appointmentRequest = new AppointmentRequest(){StartTime=DateTime.Parse("2023/10/15 11:00"),EndTime=DateTime.Parse("2023/10/15 12:00"),Title="Walking"};
+            var id = appointmentDL.CreateAppointment(appointmentRequest);
+            var initialCount = appointmentDL.GetAppointments(null, new DateOnly(2023, 10, 15));
+            appointmentDL.DeleteAppointment(id);
+            var PostCount = appointmentDL.GetAppointments(null, new DateOnly(2023, 10, 15));
+
+            // Assert
+            Assert.IsType<Guid>(id);
+            Assert.Equal(initialCount.Count - 1 ,PostCount.Count);
         }
     }
 }
