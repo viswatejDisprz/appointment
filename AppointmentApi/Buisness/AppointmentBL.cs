@@ -1,6 +1,7 @@
 using AppointmentApi.DataAccess;
 using AppointmentApi.Models;
 using AppointmentApi.validators;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace AppointmentApi.Buisness
 {
@@ -25,9 +26,13 @@ namespace AppointmentApi.Buisness
       DateOnly dateOnly = new DateOnly(appointmentrequest.StartTime.Year, appointmentrequest.StartTime.Month, appointmentrequest.StartTime.Day);
       var appointments = _appointmentDL.GetAppointments(null, dateOnly);
 
+      // var conflictingAppointment = appointments?.FirstOrDefault(item =>
+      //  (item.StartTime < appointmentrequest.StartTime && item.EndTime > appointmentrequest.StartTime) ||
+      //  (appointmentrequest.EndTime > item.StartTime && appointmentrequest.EndTime < item.StartTime));
+
       var conflictingAppointment = appointments?.FirstOrDefault(item =>
-       (item.StartTime < appointmentrequest.StartTime && item.EndTime > appointmentrequest.StartTime) ||
-       (appointmentrequest.EndTime > item.StartTime && appointmentrequest.EndTime < item.StartTime));
+       (item.StartTime < appointmentrequest.EndTime) ||
+       (appointmentrequest.StartTime > item.EndTime));
 
       if (conflictingAppointment != null)
       {
@@ -46,7 +51,7 @@ namespace AppointmentApi.Buisness
       var result = _appointmentDL.GetAppointments(id, null);
       if (result.Count == 0)
       {
-          throw new HttpResponseException(StatusCodes.Status404NotFound, new CustomError(){Message="Appointment not found"}); 
+          throw ResponseErrors.NotFound.CustomException(StatusCodes.Status404NotFound); 
       }
       _appointmentDL.DeleteAppointment(id);
     }

@@ -221,11 +221,11 @@ var assemblies = [
   {
     "name": "AppointmentApi",
     "classes": [
-      { "name": "AppointmentApi.Buisness.AppointmentBL", "rp": "AppointmentApi_AppointmentBL.html", "cl": 23, "ucl": 8, "cal": 31, "tl": 54, "cb": 3, "tb": 14, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "AppointmentApi.Buisness.AppointmentDL", "rp": "AppointmentApi_AppointmentDL.html", "cl": 29, "ucl": 0, "cal": 29, "tl": 45, "cb": 2, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "AppointmentApi.Buisness.AppointmentBL", "rp": "AppointmentApi_AppointmentBL.html", "cl": 31, "ucl": 0, "cal": 31, "tl": 59, "cb": 9, "tb": 10, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "AppointmentApi.Buisness.AppointmentDL", "rp": "AppointmentApi_AppointmentDL.html", "cl": 29, "ucl": 0, "cal": 29, "tl": 45, "cb": 5, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "AppointmentApi.Controllers.AppointmentController", "rp": "AppointmentApi_AppointmentController.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 87, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "AppointmentApi.Extensions", "rp": "AppointmentApi_Extensions.html", "cl": 21, "ucl": 0, "cal": 21, "tl": 44, "cb": 2, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "AppointmentApi.HttpResponseExceptionFilter", "rp": "AppointmentApi_HttpResponseExceptionFilter.html", "cl": 0, "ucl": 20, "cal": 20, "tl": 33, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "AppointmentApi.HttpResponseExceptionFilter", "rp": "AppointmentApi_HttpResponseExceptionFilter.html", "cl": 20, "ucl": 0, "cal": 20, "tl": 33, "cb": 4, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "AppointmentApi.Models.Appointment", "rp": "AppointmentApi_Appointment.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "AppointmentApi.Models.AppointmentDateRequest", "rp": "AppointmentApi_AppointmentDateRequest.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "AppointmentApi.Models.AppointmentRequest", "rp": "AppointmentApi_AppointmentRequest.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 16, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },

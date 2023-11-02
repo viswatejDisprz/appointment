@@ -51,58 +51,91 @@ namespace Appointment_copy.Tests
             Assert.Equal(expectedGuid, result);
         }
 
-        // [Fact]
-        // public void TestCreateAppointment_Throws_conflictError()
-        // {
-        //     var mockAppointmentDL = new Mock<IAppointmentDL>();
-        //     var appointmentBL = new AppointmentBL(mockAppointmentDL.Object);
-        //     var appointmentRequest2 = new AppointmentRequest
-        //     {
-        //         Title = "New Test Appointment",
-        //         StartTime = DateTime.Parse("2023/10/3 10:20"),
-        //         EndTime = DateTime.Parse("2023/10/3 11:00")
-        //     };
-        //     var appointmentRequest1 = new AppointmentRequest
-        //     {
-        //         Title = "New Test Appointment",
-        //         StartTime = DateTime.Parse("2023/10/3 09:00"),
-        //         EndTime = DateTime.Parse("2023/10/3 10:20")
-        //     };
-        //     var appointments = new List<Appointment>
-        //     {
-        //         new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 10:00"), EndTime = DateTime.Parse("2023/10/3 11:00") }
-        //     };
-        //     DateOnly dateOnly = new DateOnly(appointmentRequest2.StartTime.Year, appointmentRequest2.StartTime.Month, appointmentRequest2.StartTime.Day);
-        //     mockAppointmentDL.Setup(x => x.GetAppointments(null, dateOnly)).Returns(appointments);
-        //     var expectedGuid = Guid.NewGuid();
-        //     mockAppointmentDL.Setup(x => x.CreateAppointment(appointmentRequest2)).Returns(expectedGuid);
-        //     var errorDto = new CustomError() { Message = "Appoinment conflict" };
-        //     // Act
-        //     var result = appointmentBL.CreateAppointment(appointmentRequest2);
-        //     var result2 = appointmentBL.CreateAppointment(appointmentRequest1);
+        [Fact]
+        public void TestCreateAppointment_Throws_conflictError_startTime()
+        {
+            var mockAppointmentDL = new Mock<IAppointmentDL>();
+            var appointmentBL = new AppointmentBL(mockAppointmentDL.Object);
+            var appointmentRequest1 = new AppointmentRequest
+            {
+                Title = "New Test Appointment",
+                StartTime = DateTime.Parse("2023/10/3 09:00"),
+                EndTime = DateTime.Parse("2023/10/3 10:20")
+            };
+            var appointments = new List<Appointment>
+            {
+                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 10:00"), EndTime = DateTime.Parse("2023/10/3 11:00") }
+            };
+            DateOnly dateOnly = new DateOnly(appointmentRequest1.StartTime.Year, appointmentRequest1.StartTime.Month, appointmentRequest1.StartTime.Day);
+            mockAppointmentDL.Setup(x => x.GetAppointments(null, dateOnly)).Returns(appointments);
+            var expectedGuid = Guid.NewGuid();
+            mockAppointmentDL.Setup(x => x.CreateAppointment(appointmentRequest1)).Returns(expectedGuid);
+            var errorDto = new CustomError() { Message = "Appoinment conflict" };
+            // Act
+            Assert.Throws<HttpResponseException>(() => appointmentBL.CreateAppointment(appointmentRequest1));
 
-        //     // Assert
-        //     Assert.Throws<HttpResponseException>(() => appointmentBL.CreateAppointment(appointmentRequest2));
-        //     var exception = Assert.Throws<HttpResponseException>(() => appointmentBL.CreateAppointment(appointmentRequest2));
-        //     Assert.Equal(409, exception.Status);
+            // Assert
+            mockAppointmentDL.Verify(x => x.GetAppointments(null,dateOnly),Times.Once);
 
-        //     //failed
-        //     // try
-        //     // {
-        //     //     appointmentBL.CreateAppointment(appointmentRequest2);
-        //     // }
-        //     // catch (HttpResponseException exception)
-        //     // {
-        //     //     Assert.Equal(StatusCodes.Status409Conflict, exception.Status);
-        //     // }
+        }
 
-        //     //failed
-        //     // var exception = Record.Exception(() => appointmentBL.CreateAppointment(appointmentRequest2));
-        //     // Assert.NotNull(exception);
-        //     // Assert.IsType<HttpResponseException>(exception);
-        //     // var httpResponseException = (HttpResponseException)exception;
-        //     // Assert.Equal(409, httpResponseException.Status);
-        // }
+
+
+        [Fact]
+        public void TestCreateAppointment_Throws_conflictError_endTime()
+        {
+            var mockAppointmentDL = new Mock<IAppointmentDL>();
+            var appointmentBL = new AppointmentBL(mockAppointmentDL.Object);
+            var appointmentRequest2 = new AppointmentRequest
+            {
+                Title = "New Test Appointment",
+                StartTime = DateTime.Parse("2023/10/3 10:20"),
+                EndTime = DateTime.Parse("2023/10/3 11:00")
+            };
+            var appointments = new List<Appointment>
+            {
+                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 10:00"), EndTime = DateTime.Parse("2023/10/3 11:00") }
+            };
+            DateOnly dateOnly = new DateOnly(appointmentRequest2.StartTime.Year, appointmentRequest2.StartTime.Month, appointmentRequest2.StartTime.Day);
+            mockAppointmentDL.Setup(x => x.GetAppointments(null, dateOnly)).Returns(appointments);
+            var expectedGuid = Guid.NewGuid();
+            mockAppointmentDL.Setup(x => x.CreateAppointment(appointmentRequest2)).Returns(expectedGuid);
+            var errorDto = new CustomError() { Message = "Appoinment conflict" };
+            // Act
+            Assert.Throws<HttpResponseException>(() => appointmentBL.CreateAppointment(appointmentRequest2));
+
+            // Assert
+            mockAppointmentDL.Verify(x => x.GetAppointments(null,dateOnly),Times.Once);
+
+        }
+
+        [Fact]
+        public void TestCreateAppointment_Throws_conflictError_endTime2()
+        {
+            var mockAppointmentDL = new Mock<IAppointmentDL>();
+            var appointmentBL = new AppointmentBL(mockAppointmentDL.Object);
+            var appointmentRequest2 = new AppointmentRequest
+            {
+                Title = "New Test Appointment",
+                StartTime = DateTime.Parse("2023/10/3 09:20"),
+                EndTime = DateTime.Parse("2023/10/3 10:30")
+            };
+            var appointments = new List<Appointment>
+            {
+                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 10:00"), EndTime = DateTime.Parse("2023/10/3 11:00") }
+            };
+            DateOnly dateOnly = new DateOnly(appointmentRequest2.StartTime.Year, appointmentRequest2.StartTime.Month, appointmentRequest2.StartTime.Day);
+            mockAppointmentDL.Setup(x => x.GetAppointments(null, dateOnly)).Returns(appointments);
+            var expectedGuid = Guid.NewGuid();
+            mockAppointmentDL.Setup(x => x.CreateAppointment(appointmentRequest2)).Returns(expectedGuid);
+            var errorDto = new CustomError() { Message = "Appoinment conflict" };
+            // Act
+            Assert.Throws<HttpResponseException>(() => appointmentBL.CreateAppointment(appointmentRequest2));
+
+            // Assert
+            mockAppointmentDL.Verify(x => x.GetAppointments(null,dateOnly),Times.Once);
+
+        }
 
         [Fact]
         public void TestDeleteAppointment_CallsDeleteMethodInDL()
@@ -131,30 +164,24 @@ namespace Appointment_copy.Tests
             mockAppointmentDL.Verify(x => x.DeleteAppointment(id), Times.Once);
         }
 
-        // [Fact]
-        // public void TestDeleteAppointment_checkss_NotFound_ID_DeleteMethod()
-        // {
-        //     // Arrange
-        //     var mockAppointmentDL = new Mock<IAppointmentDL>();
-        //     var appointmentBL = new AppointmentBL(mockAppointmentDL.Object);
+        [Fact]
+        public void TestDeleteAppointment_checkss_NotFound_ID_DeleteMethod()
+        {
+            // Arrange
+            var mockAppointmentDL = new Mock<IAppointmentDL>();
+            var appointmentBL = new AppointmentBL(mockAppointmentDL.Object);
 
-        //     var id = Guid.NewGuid();
-        //     var appointments = new List<Appointment>() { };
-        //     mockAppointmentDL.Setup(x => x.GetAppointments(id, null)).Returns(appointments);
+            var id = Guid.NewGuid();
+            var appointments = new List<Appointment>() { };
+            mockAppointmentDL.Setup(x => x.GetAppointments(id, null)).Returns(appointments);
 
-        //     // Act
-        //     appointmentBL.DeleteAppointment(id);
+            // Act
+            Assert.Throws<HttpResponseException>(() => appointmentBL.DeleteAppointment(id));
 
-        //     // Assert
-        //     try
-        //     {
-        //         appointmentBL.DeleteAppointment(id);
-        //     }
-        //     catch (HttpResponseException exception)
-        //     {
-        //         Assert.Equal(StatusCodes.Status404NotFound, exception.Status);
-        //     }
-        // }
+            // Assert
+            mockAppointmentDL.Verify(m => m.GetAppointments(It.IsAny<Guid>(), null), Times.Once);
+
+        }
 
     }
 }
