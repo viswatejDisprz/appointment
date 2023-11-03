@@ -1,8 +1,6 @@
 using AppointmentApi.DataAccess;
 using AppointmentApi.Models;
 using AppointmentApi.validators;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Razor.Language;
 
 namespace AppointmentApi.Buisness
 {
@@ -28,9 +26,9 @@ namespace AppointmentApi.Buisness
       var appointments = _appointmentDL.GetAppointments(null, dateOnly);
 
       var conflictingAppointment = appointments?.FirstOrDefault(item =>
-       (item.StartTime < appointmentrequest.EndTime && item.EndTime > appointmentrequest.EndTime) ||
-       (appointmentrequest.StartTime < item.EndTime && appointmentrequest.StartTime > item.StartTime) ||
-       (item.StartTime > appointmentrequest.StartTime && item.EndTime < appointmentrequest.EndTime));
+        (item.StartTime >= appointmentrequest.StartTime && item.EndTime <= appointmentrequest.EndTime) ||
+       (item.StartTime <= appointmentrequest.EndTime && item.EndTime >= appointmentrequest.EndTime) ||
+       (appointmentrequest.StartTime <= item.EndTime && appointmentrequest.StartTime >= item.StartTime));
 
       if (conflictingAppointment != null)
       {

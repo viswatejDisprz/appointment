@@ -60,6 +60,8 @@ namespace Appointment_copy.Tests
         [InlineData("10:20", "12:00")]
         [InlineData("09:20", "12:30")]
         [InlineData("10:20", "10:40")]
+        [InlineData("09:00", "14:00")]
+        [InlineData("10:00", "11:00")]
         public void TestCreateAppointment_Throws_conflictError(string startTime, string endTime)
         {
             // Arrange

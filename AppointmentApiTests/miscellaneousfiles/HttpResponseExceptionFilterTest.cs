@@ -15,7 +15,6 @@ public class HttpResponseExceptionFilterTest
     {
         // Arrange
         var error = new CustomError{Message="Not Found"};
-        var actionContext1 = new HttpResponseException(StatusCodes.Status400BadRequest,error);
         var routeData = new RouteData();
         routeData.Values["key"] = "value";
         var actionContext = new ActionContext(new DefaultHttpContext(), routeData , new ActionDescriptor());
@@ -40,7 +39,6 @@ public class HttpResponseExceptionFilterTest
     {
         // Arrange
         var error = new CustomError{Message="Not Found"};
-        var actionContext1 = new HttpResponseException(StatusCodes.Status400BadRequest,error);
         var filter = new HttpResponseExceptionFilter();
         var routeData = new RouteData();
         routeData.Values["key"] = "value";
