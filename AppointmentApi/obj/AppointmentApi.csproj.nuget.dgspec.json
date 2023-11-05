@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[11.7.1, )"
             },
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
             "Microsoft.AspNetCore.StaticFiles": {
               "target": "Package",
               "version": "[2.2.0, )"

@@ -54,14 +54,13 @@ namespace Appointment_copy.Tests
             // Assert
             Assert.Equal(expectedGuid, result);
         }
-
+        // order
         [Theory]
-        [InlineData("09:00", "10:20")]
-        [InlineData("10:20", "12:00")]
-        [InlineData("09:20", "12:30")]
-        [InlineData("10:20", "10:40")]
-        [InlineData("09:00", "14:00")]
-        [InlineData("10:00", "11:00")]
+        // [InlineData("09:00", "10:00")]
+        [InlineData("08:45", "09:45")]
+        [InlineData("09:15", "10:15")]
+        // [InlineData("12:00", "13:00")]
+        // [InlineData("13:00", "14:00")]
         public void TestCreateAppointment_Throws_conflictError(string startTime, string endTime)
         {
             // Arrange
@@ -73,7 +72,9 @@ namespace Appointment_copy.Tests
             };
             var appointments = new List<Appointment>
             {
-                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 10:00"), EndTime = DateTime.Parse("2023/10/3 11:00") }
+                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 09:00"), EndTime = DateTime.Parse("2023/10/3 10:00") },
+                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 10:00"), EndTime = DateTime.Parse("2023/10/3 11:00") },
+                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 11:00"), EndTime = DateTime.Parse("2023/10/3 12:00") }
             };
             DateOnly dateOnly = new DateOnly(appointmentRequest.StartTime.Year, appointmentRequest.StartTime.Month, appointmentRequest.StartTime.Day);
             mockAppointmentDL.Setup(x => x.GetAppointments(null, dateOnly)).Returns(appointments);

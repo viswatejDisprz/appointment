@@ -7,13 +7,14 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
-    <!-- <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies> -->
     <PublishWithAspNetCoreTargetManifest>False</PublishWithAspNetCoreTargetManifest>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="FluentValidation" Version="11.7.1" />
+    <InternalsVisibleTo Include="AppointmentApiTests" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

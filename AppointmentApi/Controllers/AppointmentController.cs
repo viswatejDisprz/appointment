@@ -2,7 +2,6 @@ using AppointmentApi.Buisness;
 using Microsoft.AspNetCore.Mvc;
 using AppointmentApi.Models;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Xml;
 
 
 

@@ -1,38 +1,38 @@
 <?xml version="1.0"?>
 <doc>
-    <assembly>
-        <name>AppointmentApi</name>
-    </assembly>
-    <members>
-        <member name="M:AppointmentApi.Controllers.AppointmentController.GetAppointments(AppointmentApi.Models.AppointmentDateRequest)">
-             <summary>
+  <assembly>
+    <name>AppointmentApi</name>
+  </assembly>
+  <members>
+    <member name="M:AppointmentApi.Controllers.AppointmentController.GetAppointments(AppointmentApi.Models.AppointmentDateRequest)">
+      <summary>
              Get Appointments for the day
              </summary>
-             <remarks>
+      <remarks>
              Sample request:
             
                  Get /Appointments
                  {
-                     "Date": "{DynamicDateFormat}"
+                     "Date": "M/d/yyyy"
                  }
             
              </remarks>
-        </member>
-        <member name="M:AppointmentApi.Controllers.AppointmentController.CreateAppointment(AppointmentApi.Models.AppointmentRequest)">
-            <summary>
+    </member>
+    <member name="M:AppointmentApi.Controllers.AppointmentController.CreateAppointment(AppointmentApi.Models.AppointmentRequest)">
+      <summary>
             Creates an appointment
             </summary>
-            <param startTime="2023-10-12T09:09:09.619Z"> Start time in DateTime format to register appointment start time </param>
-            <param  EndTime = "2023-10-12T09:09:09.619Z"> EndTime in DateTime format to register the endTime </param>
-            <param  Title = "Appointment Title string"> Title of the appointment </param>
-            <returns>The Id of the appointment created</returns>
-        </member>
-        <member name="M:AppointmentApi.Controllers.AppointmentController.DeleteAppointment(System.Guid)">
-            <summary>
+      <param startTime="2023-10-12T09:09:09.619Z"> Start time in DateTime format to register appointment start time </param>
+      <param EndTime="2023-10-12T09:09:09.619Z"> EndTime in DateTime format to register the endTime </param>
+      <param Title="Appointment Title string"> Title of the appointment </param>
+      <returns>The Id of the appointment created</returns>
+    </member>
+    <member name="M:AppointmentApi.Controllers.AppointmentController.DeleteAppointment(System.Guid)">
+      <summary>
             Delete the selected appointment
             </summary>
-            <param Guid="3fa85f64-5717-4562-b3fc-2c963f66afa6">Guid to delete a particular appointment</param>
-            <returns>No Content</returns>
-        </member>
-    </members>
+      <param Guid="3fa85f64-5717-4562-b3fc-2c963f66afa6">Guid to delete a particular appointment</param>
+      <returns>No Content</returns>
+    </member>
+  </members>
 </doc>

@@ -24,10 +24,13 @@ namespace AppointmentApi.Buisness
 
       DateOnly dateOnly = new DateOnly(appointmentrequest.StartTime.Year, appointmentrequest.StartTime.Month, appointmentrequest.StartTime.Day);
       var appointments = _appointmentDL.GetAppointments(null, dateOnly);
-
+ 
+      var requestStartTimeLessThanEqualItemStartTime = new Func<DateTime,DateTime,bool>((item1,item2) => item1 <= item2 );
+      var requestEndTimeGreaterThanEqualItemEndTime = new Func<DateTime,DateTime,bool>((item1,item2) => item1 >= item2 );
+      
       var conflictingAppointment = appointments?.FirstOrDefault(item =>
-        (item.StartTime >= appointmentrequest.StartTime && item.EndTime <= appointmentrequest.EndTime) ||
-       (item.StartTime <= appointmentrequest.EndTime && item.EndTime >= appointmentrequest.EndTime) ||
+       ( requestStartTimeLessThanEqualItemStartTime(appointmentrequest.StartTime,item.StartTime) &&  requestEndTimeGreaterThanEqualItemEndTime(appointmentrequest.EndTime,item.EndTime)) ||
+       (appointmentrequest.EndTime >= item.StartTime  &&  appointmentrequest.EndTime <= item.EndTime ) ||
        (appointmentrequest.StartTime <= item.EndTime && appointmentrequest.StartTime >= item.StartTime));
 
       if (conflictingAppointment != null)
@@ -50,5 +53,6 @@ namespace AppointmentApi.Buisness
       }
       _appointmentDL.DeleteAppointment(id);
     }
+ 
   }
 }

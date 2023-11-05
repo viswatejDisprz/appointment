@@ -22,6 +22,7 @@ namespace AppointmentApiTests
             // Act
             var id = appointmentDL.CreateAppointment(appointmentRequest);
             var result = appointmentDL.GetAppointments(id: id, null);
+            var result6 = appointmentDL.GetAppointments(id: id);
             var result2 = appointmentDL.GetAppointments(null, null);
             var result4 = appointmentDL.GetAppointments();
             var result3 = appointmentDL.GetAppointments(null, date);
@@ -33,6 +34,7 @@ namespace AppointmentApiTests
             Assert.Single(result3);
             Assert.Empty(result4);
             Assert.NotEmpty(result5);
+            Assert.NotEmpty(result6);
         }
 
 

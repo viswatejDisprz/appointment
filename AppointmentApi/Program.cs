@@ -48,21 +48,12 @@ app.UseRouting();
 app.UseExceptionHandler();
 app.UseStatusCodePages();
 
-if (app.Environment.IsDevelopment())
-{
-  app.UseDeveloperExceptionPage();
-}
-else
-{
-  app.UseHsts();
-}
 
-if (app.Environment.IsDevelopment())
-{
+  app.UseDeveloperExceptionPage();
   app.UseSwagger();
   app.UseSwaggerUI();
 
-}
+
 
 app.UseHttpsRedirection();
 
@@ -71,3 +62,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
