@@ -1,5 +1,4 @@
 using AppointmentApi.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentApi.Buisness
 {

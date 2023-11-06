@@ -32,9 +32,10 @@ namespace AppointmentApi.Buisness
 
       if (conflictingAppointment != null)
       {
-        var ApptTime = conflictingAppointment.StartTime < appointmentrequest.StartTime ?
+        var ConflictTime = conflictingAppointment.StartTime < appointmentrequest.StartTime ?
                         appointmentrequest.StartTime : appointmentrequest.EndTime;
-        throw ResponseErrors.ConflictError(ApptTime, conflictingAppointment.StartTime, conflictingAppointment.EndTime)
+                        
+        throw ResponseErrors.ConflictError(ConflictTime, conflictingAppointment.StartTime, conflictingAppointment.EndTime)
               .CustomException(StatusCodes.Status409Conflict);
       }
 

@@ -1,4 +1,3 @@
-using System.Net;
 using AppointmentApi.Models;
 
 public class HttpResponseException : Exception

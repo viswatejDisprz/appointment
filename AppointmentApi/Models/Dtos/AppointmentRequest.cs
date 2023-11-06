@@ -1,8 +1,3 @@
-
-// Appointment Dto take input of required fields
-using System;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.IdentityModel.Tokens;
 namespace AppointmentApi.Models
 {
      public class AppointmentRequest

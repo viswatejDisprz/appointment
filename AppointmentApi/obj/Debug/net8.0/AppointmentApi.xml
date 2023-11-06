@@ -17,6 +17,7 @@
                  }
             
              </remarks>
+             <returns>List of appointments</returns>
         </member>
         <member name="M:AppointmentApi.Controllers.AppointmentController.CreateAppointment(AppointmentApi.Models.AppointmentRequest)">
             <summary>

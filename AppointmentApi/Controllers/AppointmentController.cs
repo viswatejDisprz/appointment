@@ -4,9 +4,6 @@ using AppointmentApi.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
 
-
-
-
 namespace AppointmentApi.Controllers
 {
 

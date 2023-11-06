@@ -16,8 +16,8 @@ namespace AppointmentApiTests
         public void GetAppointments_ValidDate_ReturnsMatchingAppointments()
         {
             // Arrange
-            var date = new DateOnly(2023, 10, 03);
-            var appointmentRequest = new AppointmentRequest { StartTime = DateTime.Parse("2023/10/03 11:00"), EndTime = DateTime.Parse("2023/10/03 12:00"), Title = "Walking" };
+            var date = new DateOnly(2023, 10, 15);
+            var appointmentRequest = new AppointmentRequest { StartTime = DateTime.Parse("2023/10/15 11:00"), EndTime = DateTime.Parse("2023/10/15 12:00"), Title = "Walking" };
 
             // Act
             var id = appointmentDL.CreateAppointment(appointmentRequest);
