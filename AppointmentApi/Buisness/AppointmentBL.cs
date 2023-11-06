@@ -22,23 +22,20 @@ namespace AppointmentApi.Buisness
     {
       appointmentrequest.Validate<AppointmentRequest, AppointmentRequestValidator>();
 
-      DateOnly dateOnly = new DateOnly(appointmentrequest.StartTime.Year, appointmentrequest.StartTime.Month, appointmentrequest.StartTime.Day);
-      var appointments = _appointmentDL.GetAppointments(null, dateOnly);
- 
-      var requestStartTimeLessThanEqualItemStartTime = new Func<DateTime,DateTime,bool>((item1,item2) => item1 <= item2 );
-      var requestEndTimeGreaterThanEqualItemEndTime = new Func<DateTime,DateTime,bool>((item1,item2) => item1 >= item2 );
-      
+      var appointments = _appointmentDL.GetAppointments(null,
+          new DateOnly(appointmentrequest.StartTime.Year, appointmentrequest.StartTime.Month, appointmentrequest.StartTime.Day));
+
       var conflictingAppointment = appointments?.FirstOrDefault(item =>
-       ( requestStartTimeLessThanEqualItemStartTime(appointmentrequest.StartTime,item.StartTime) &&  requestEndTimeGreaterThanEqualItemEndTime(appointmentrequest.EndTime,item.EndTime)) ||
-       (appointmentrequest.EndTime >= item.StartTime  &&  appointmentrequest.EndTime <= item.EndTime ) ||
+       (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime) ||
+       (appointmentrequest.EndTime >= item.StartTime && appointmentrequest.EndTime <= item.EndTime) ||
        (appointmentrequest.StartTime <= item.EndTime && appointmentrequest.StartTime >= item.StartTime));
 
       if (conflictingAppointment != null)
       {
-          var ApptTime = conflictingAppointment.StartTime < appointmentrequest.StartTime ? 
-                          appointmentrequest.StartTime : appointmentrequest.EndTime;
-          throw ResponseErrors.ConflictError(ApptTime, conflictingAppointment.StartTime, conflictingAppointment.EndTime)
-                .CustomException(StatusCodes.Status409Conflict);
+        var ApptTime = conflictingAppointment.StartTime < appointmentrequest.StartTime ?
+                        appointmentrequest.StartTime : appointmentrequest.EndTime;
+        throw ResponseErrors.ConflictError(ApptTime, conflictingAppointment.StartTime, conflictingAppointment.EndTime)
+              .CustomException(StatusCodes.Status409Conflict);
       }
 
       return _appointmentDL.CreateAppointment(appointmentrequest);
@@ -48,10 +45,10 @@ namespace AppointmentApi.Buisness
       var result = _appointmentDL.GetAppointments(id, null);
       if (result.Count == 0)
       {
-          throw ResponseErrors.NotFound.CustomException(StatusCodes.Status404NotFound); 
+        throw ResponseErrors.NotFound.CustomException(StatusCodes.Status404NotFound);
       }
       _appointmentDL.DeleteAppointment(id);
     }
- 
+
   }
 }

@@ -221,7 +221,7 @@ var assemblies = [
   {
     "name": "AppointmentApi",
     "classes": [
-      { "name": "AppointmentApi.Buisness.AppointmentBL", "rp": "AppointmentApi_AppointmentBL.html", "cl": 33, "ucl": 0, "cal": 33, "tl": 57, "cb": 17, "tb": 18, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "AppointmentApi.Buisness.AppointmentBL", "rp": "AppointmentApi_AppointmentBL.html", "cl": 31, "ucl": 0, "cal": 31, "tl": 54, "cb": 17, "tb": 18, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "AppointmentApi.Buisness.AppointmentDL", "rp": "AppointmentApi_AppointmentDL.html", "cl": 29, "ucl": 0, "cal": 29, "tl": 45, "cb": 5, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "AppointmentApi.Controllers.AppointmentController", "rp": "AppointmentApi_AppointmentController.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 86, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "AppointmentApi.Extensions", "rp": "AppointmentApi_Extensions.html", "cl": 21, "ucl": 0, "cal": 21, "tl": 44, "cb": 2, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },

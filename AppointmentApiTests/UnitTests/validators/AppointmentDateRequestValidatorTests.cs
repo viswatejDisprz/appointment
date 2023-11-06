@@ -1,5 +1,3 @@
-using System;
-using FluentValidation.TestHelper;
 using AppointmentApi.validators;
 using AppointmentApi.Models;
 

@@ -1,54 +1,7 @@
-// using AppointmentApi.Buisness;
-// using AppointmentApi.Models;
-// using Microsoft.AspNetCore.Mvc.Testing;
-// using AppointmentApi.Tests;
-// using AppointmentApi.Controllers;
-// using AppointmentApi.DataAccess;
-
-// public class BasicTests : IClassFixture<CustomWebApplicationFactory<Program>>
-// {
-//     private readonly HttpClient _client;
-//     private readonly CustomWebApplicationFactory<Program> _factory;
-
-//     public BasicTests(CustomWebApplicationFactory<Program> factory)
-//     {
-//         _factory = factory;
-//         _client = _factory.CreateClient(new WebApplicationFactoryClientOptions
-//         {
-//             AllowAutoRedirect = false
-//         });
-//     }
-
-//     [Fact]
-//     public void Post_DeleteAllMessagesHandler_ReturnsRedirectToRoot()
-//     {
-//         // Arrange
-//         var client = _factory.CreateClient();
-
-//         // Act
-//         var appointmentDateRequest = new AppointmentDateRequest { Date = DateOnly.Parse("2023-10-15") };
-
-//         // Act
-//         var response = client;
-
-//         // Assert
-//         Assert.NotEmpty(response);
-//     }
-// }
-
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using AppointmentApi.Models;
-using AppointmentApi.Controllers;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Http;
 
 namespace AppointmentApi.Tests
 {

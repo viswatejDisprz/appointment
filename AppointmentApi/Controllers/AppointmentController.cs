@@ -36,6 +36,7 @@ namespace AppointmentApi.Controllers
     ///     }
     ///
     /// </remarks>
+    /// <returns>List of appointments</returns>
     [HttpGet]
     [ProducesResponseType(typeof(List<Appointment>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(List<CustomError>), StatusCodes.Status400BadRequest)]
