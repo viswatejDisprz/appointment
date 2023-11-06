@@ -3,11 +3,14 @@ components:
     GuidValueResult:
       title: GuidValueResult
       type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-      additionalProperties: false
+      content:
+       application/json:
+        schema:
+          properties:
+            id:
+              type: string
+              format: uuid
+          additionalProperties: false
 
     CustomError:
       title: CustomError
