@@ -56,11 +56,8 @@ namespace Appointment_copy.Tests
         }
         // order
         [Theory]
-        // [InlineData("09:00", "10:00")]
         [InlineData("08:45", "09:45")]
         [InlineData("09:15", "10:15")]
-        // [InlineData("12:00", "13:00")]
-        // [InlineData("13:00", "14:00")]
         public void TestCreateAppointment_Throws_conflictError(string startTime, string endTime)
         {
             // Arrange

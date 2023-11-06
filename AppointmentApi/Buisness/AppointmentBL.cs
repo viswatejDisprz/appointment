@@ -22,13 +22,9 @@ namespace AppointmentApi.Buisness
     {
       appointmentrequest.Validate<AppointmentRequest, AppointmentRequestValidator>();
 
-      var appointments = _appointmentDL.GetAppointments(null,
-          new DateOnly(appointmentrequest.StartTime.Year, appointmentrequest.StartTime.Month, appointmentrequest.StartTime.Day));
+      var appointments = _appointmentDL.GetAppointments(null, DateOnly.FromDateTime(appointmentrequest.StartTime));
 
-      var conflictingAppointment = appointments?.FirstOrDefault(item =>
-       (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime) ||
-       (appointmentrequest.EndTime >= item.StartTime && appointmentrequest.EndTime <= item.EndTime) ||
-       (appointmentrequest.StartTime <= item.EndTime && appointmentrequest.StartTime >= item.StartTime));
+      var conflictingAppointment = FilterConflictingAppointments(appointments,appointmentrequest);
 
       if (conflictingAppointment != null)
       {
@@ -44,12 +40,20 @@ namespace AppointmentApi.Buisness
     public void DeleteAppointment(Guid id)
     {
       var result = _appointmentDL.GetAppointments(id, null);
-      if (result.Count == 0)
+      if (!result.Any())
       {
-        throw ResponseErrors.NotFound.CustomException(StatusCodes.Status404NotFound);
+        throw Extensions.CustomException(StatusCodes.Status404NotFound); 
       }
       _appointmentDL.DeleteAppointment(id);
     }
 
+
+   private Appointment? FilterConflictingAppointments(List<Appointment> appointments, AppointmentRequest appointmentrequest)
+   {
+      return appointments?.FirstOrDefault(item =>
+       (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime) ||
+       (appointmentrequest.EndTime >= item.StartTime && appointmentrequest.EndTime <= item.EndTime) ||
+       (appointmentrequest.StartTime <= item.EndTime && appointmentrequest.StartTime >= item.StartTime));
+   }
   }
 }

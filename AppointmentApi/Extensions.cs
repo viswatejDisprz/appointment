@@ -36,6 +36,11 @@ namespace AppointmentApi
             return new HttpResponseException(statusCode, error);
         }
 
+         public static HttpResponseException CustomException(int statusCode)
+        {
+            return new HttpResponseException(statusCode);
+        }
+
         public static HttpResponseException CustomException(this List<CustomError> error, int statusCode)
         {
             return new HttpResponseException(statusCode, error);
