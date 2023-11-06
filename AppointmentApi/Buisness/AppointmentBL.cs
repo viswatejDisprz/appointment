@@ -35,11 +35,10 @@ namespace AppointmentApi.Buisness
 
       if (conflictingAppointment != null)
       {
-      var errorString = (conflictingAppointment.StartTime < appointmentrequest.StartTime ?
-                          appointmentrequest.StartTime : appointmentrequest.EndTime) +
-                        "is conflicting with an existing appointment having startTime:" +
-                        $"{conflictingAppointment.StartTime} and endTime: {conflictingAppointment.EndTime}";        
-          throw new HttpResponseException(StatusCodes.Status409Conflict, new CustomError { Message = errorString });
+          var ApptTime = conflictingAppointment.StartTime < appointmentrequest.StartTime ? 
+                          appointmentrequest.StartTime : appointmentrequest.EndTime;
+          throw ResponseErrors.ConflictError(ApptTime, conflictingAppointment.StartTime, conflictingAppointment.EndTime)
+                .CustomException(StatusCodes.Status409Conflict);
       }
 
       return _appointmentDL.CreateAppointment(appointmentrequest);
