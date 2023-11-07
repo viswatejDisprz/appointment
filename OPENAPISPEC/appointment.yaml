@@ -59,7 +59,11 @@ paths:
               $ref: 'schemas/appointment.yaml#/components/schemas/AppointmentRequest'
       responses:
         '201':
-          $ref: 'schemas/common.yaml#/components/schemas/GuidValueResult'
+          description: GuidValueResult
+          content:
+           application/json:
+            schema:
+             $ref: 'schemas/common.yaml#/components/schemas/GuidValueResult'
           
         '400':
           $ref: 'responses/common.yaml#/components/responses/BadRequest'
