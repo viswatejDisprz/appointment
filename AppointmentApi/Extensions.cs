@@ -25,8 +25,7 @@ namespace AppointmentApi
 
         public static string GetDynamicDateFormat()
         {
-            CultureInfo culture = CultureInfo.CurrentCulture;
-            DateTimeFormatInfo dateFormat = culture.DateTimeFormat;
+            DateTimeFormatInfo dateFormat = CultureInfo.CurrentCulture.DateTimeFormat;
             string shortDatePattern = dateFormat.ShortDatePattern;
             return shortDatePattern;
         }

@@ -49,9 +49,9 @@ app.UseExceptionHandler();
 app.UseStatusCodePages();
 
 
-  app.UseDeveloperExceptionPage();
-  app.UseSwagger();
-  app.UseSwaggerUI();
+app.UseDeveloperExceptionPage();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 
