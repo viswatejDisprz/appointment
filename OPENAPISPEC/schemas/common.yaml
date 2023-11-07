@@ -1,16 +1,14 @@
 components:
   schemas:
     GuidValueResult:
+      GuidValueResult:
       title: GuidValueResult
       type: object
-      content:
-       application/json:
-        schema:
-          properties:
-            id:
-              type: string
-              format: uuid
-          additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+      additionalProperties: false
 
     CustomError:
       title: CustomError
