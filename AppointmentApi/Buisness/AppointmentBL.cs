@@ -36,7 +36,7 @@ namespace AppointmentApi.Buisness
 
       _appointmentDL.DeleteAppointment(id);
     }
-
+    //
 
     // Appointment Conflict checking function
     private void ValidateAppointmentConflicts(AppointmentRequest appointmentrequest)
