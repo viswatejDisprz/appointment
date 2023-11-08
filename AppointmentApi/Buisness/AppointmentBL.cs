@@ -12,12 +12,13 @@ namespace AppointmentApi.Buisness
     {
       _appointmentDL = appointmentDL;
     }
+
     public List<Appointment> GetAppointments(AppointmentDateRequest appointmentDateRequest)
     {
       appointmentDateRequest.Validate<AppointmentDateRequest, AppointmentDateRequestValidator>();
       return _appointmentDL.GetAppointments(date: appointmentDateRequest.Date);
-
     }
+
     public Guid CreateAppointment(AppointmentRequest appointmentrequest)
     {
       appointmentrequest.Validate<AppointmentRequest, AppointmentRequestValidator>();
@@ -27,35 +28,35 @@ namespace AppointmentApi.Buisness
       return _appointmentDL.CreateAppointment(appointmentrequest);
     }
 
-
     public void DeleteAppointment(Guid id)
     {
       var appointments = _appointmentDL.GetAppointments(id);
-      if(!appointments.Any())
+      if (!appointments.Any())
         throw new HttpResponseException(StatusCodes.Status404NotFound);
-      
+
       _appointmentDL.DeleteAppointment(id);
     }
 
 
-   private void ValidateAppointmentConflicts(AppointmentRequest appointmentrequest)
-   {
+    // Appointment Conflict checking function
+    private void ValidateAppointmentConflicts(AppointmentRequest appointmentrequest)
+    {
 
-      var appointments = _appointmentDL.GetAppointments(null,DateOnly.FromDateTime(appointmentrequest.StartTime));
+      var appointments = _appointmentDL.GetAppointments(null, DateOnly.FromDateTime(appointmentrequest.StartTime));
 
       var conflictingAppointment = appointments?.FirstOrDefault(item =>
        (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime) ||
        (appointmentrequest.EndTime >= item.StartTime && appointmentrequest.EndTime <= item.EndTime) ||
        (appointmentrequest.StartTime <= item.EndTime && appointmentrequest.StartTime >= item.StartTime));
 
-       if (conflictingAppointment != null)
-        {
-          var ConflictTime = conflictingAppointment.StartTime < appointmentrequest.StartTime ?
-                          appointmentrequest.StartTime : appointmentrequest.EndTime;
-                          
-          throw ResponseErrors.ConflictError(ConflictTime, conflictingAppointment.StartTime, conflictingAppointment.EndTime)
-                .CustomException(StatusCodes.Status409Conflict);
-        }
-   }
+      if (conflictingAppointment != null)
+      {
+        var ConflictTime = conflictingAppointment.StartTime < appointmentrequest.StartTime ?
+                        appointmentrequest.StartTime : appointmentrequest.EndTime;
+
+        throw ResponseErrors.ConflictError(ConflictTime, conflictingAppointment.StartTime, conflictingAppointment.EndTime)
+              .CustomException(StatusCodes.Status409Conflict);
+      }
+    }
   }
 }

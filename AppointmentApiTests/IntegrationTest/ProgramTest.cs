@@ -17,7 +17,7 @@ namespace AppointmentApi.Tests
         [Fact]
         public async Task GetAppointments_ReturnsSuccessStatusCode()
         {
-            var appointmentDateRequest = new AppointmentDateRequest { Date = new DateOnly(2023, 10, 15) };
+            var appointmentDateRequest = new AppointmentDateRequest { Date = new DateOnly(2023, 11, 30) };
             var request = $"/v1/appointments?Date={appointmentDateRequest.Date}";
 
             // Act
@@ -33,8 +33,8 @@ namespace AppointmentApi.Tests
             // Arrange
             var appointmentRequest = new AppointmentRequest
             {
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now.AddHours(1),
+                StartTime = DateTime.Now.AddHours(1),
+                EndTime = DateTime.Now.AddHours(2),
                 Title = "Sample Appointment"
             };
 

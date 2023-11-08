@@ -20,10 +20,10 @@ namespace Appointment_copy.Tests
         public void TestGetAppointments_ReturnsMatchingAppointments()
         {
             // Arrange
-            var appointmentDateRequest = new AppointmentDateRequest { Date = new DateOnly(2023, 10, 15) };
+            var appointmentDateRequest = new AppointmentDateRequest { Date = new DateOnly(2023, 11, 30) };
             var appointments = new List<Appointment>
             {
-                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/15 10:00"), EndTime = DateTime.Parse("2023/10/15 11:00") }
+                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/11/30 10:00"), EndTime = DateTime.Parse("2023/11/30 11:00") }
             };
             mockAppointmentDL.Setup(x => x.GetAppointments(null, appointmentDateRequest.Date)).Returns(appointments);
 
@@ -42,8 +42,8 @@ namespace Appointment_copy.Tests
             var appointmentRequest = new AppointmentRequest
             {
                 Title = "New Test Appointment",
-                StartTime = DateTime.Parse("2023/10/3 11:00"),
-                EndTime = DateTime.Parse("2023/10/3 12:00")
+                StartTime = DateTime.Parse("2023/11/30 11:00"),
+                EndTime = DateTime.Parse("2023/11/30 12:00")
             };
             var expectedGuid = Guid.NewGuid();
             mockAppointmentDL.Setup(x => x.CreateAppointment(appointmentRequest)).Returns(expectedGuid);
@@ -54,24 +54,26 @@ namespace Appointment_copy.Tests
             // Assert
             Assert.Equal(expectedGuid, result);
         }
-        // order
+        
+
+
         [Theory]
         [InlineData("08:45", "09:45")]
         [InlineData("09:15", "10:15")]
+        [InlineData("08:00", "11:15")]
+        [InlineData("09:20", "09:40")]
         public void TestCreateAppointment_Throws_conflictError(string startTime, string endTime)
         {
             // Arrange
             var appointmentRequest = new AppointmentRequest
             {
                 Title = "New Test Appointment",
-                StartTime = DateTime.Parse($"2023/10/3 {startTime}"),
-                EndTime = DateTime.Parse($"2023/10/3 {endTime}")
+                StartTime = DateTime.Parse($"2023/11/30 {startTime}"),
+                EndTime = DateTime.Parse($"2023/11/30 {endTime}")
             };
             var appointments = new List<Appointment>
             {
-                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 09:00"), EndTime = DateTime.Parse("2023/10/3 10:00") },
-                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 10:00"), EndTime = DateTime.Parse("2023/10/3 11:00") },
-                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/10/3 11:00"), EndTime = DateTime.Parse("2023/10/3 12:00") }
+                new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/11/30 09:00"), EndTime = DateTime.Parse("2023/11/30 10:00") }
             };
             DateOnly dateOnly = new DateOnly(appointmentRequest.StartTime.Year, appointmentRequest.StartTime.Month, appointmentRequest.StartTime.Day);
             mockAppointmentDL.Setup(x => x.GetAppointments(null, dateOnly)).Returns(appointments);
@@ -88,13 +90,13 @@ namespace Appointment_copy.Tests
             var appointmentRequest = new AppointmentRequest
             {
                 Title = "New Test Appointment",
-                StartTime = DateTime.Parse("2023/10/3 11:00"),
-                EndTime = DateTime.Parse("2023/10/3 12:00")
+                StartTime = DateTime.Parse("2023/11/30 11:00"),
+                EndTime = DateTime.Parse("2023/11/30 12:00")
             };
             var id = appointmentBL.CreateAppointment(appointmentRequest);
             var appointments = new List<Appointment>
             {
-                new Appointment { Title = "Go To Gym", StartTime = new DateTime(2023, 10, 15), EndTime = new DateTime(2023, 10, 15) }
+                new Appointment { Title = "Go To Gym", StartTime = new DateTime(2023, 11, 30), EndTime = new DateTime(2023, 11, 30) }
             };
             mockAppointmentDL.Setup(x => x.GetAppointments(id, null)).Returns(appointments);
             mockAppointmentDL.Setup(x => x.DeleteAppointment(id));

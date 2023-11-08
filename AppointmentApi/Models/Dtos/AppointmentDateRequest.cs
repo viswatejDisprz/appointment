@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 
 namespace AppointmentApi.Models
 {

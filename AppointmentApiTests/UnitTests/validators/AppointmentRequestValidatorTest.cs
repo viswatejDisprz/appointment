@@ -20,7 +20,7 @@ public class AppointmentRequestValidatorTests
         Assert.False(result.IsValid);
         Assert.Contains("Appointment Title should not be empty", result.Errors.FirstOrDefault().ErrorMessage);
         Assert.Contains("Appointment StartTime should not be empty", result.Errors.Skip(1).First().ErrorMessage);
-        Assert.Contains("Appointment EndTime should not be empty", result.Errors.Skip(2).First().ErrorMessage);
+        Assert.Contains("Appointment EndTime should not be empty", result.Errors.Skip(3).First().ErrorMessage);
     }
 
     [Fact]
@@ -29,8 +29,8 @@ public class AppointmentRequestValidatorTests
         var appointmentRequest = new AppointmentRequest
         {
             Title = "My Appointment",
-            StartTime = DateTime.Parse("2023-11-01 10:00:00"),
-            EndTime = DateTime.Parse("2023-11-01 11:00:00")
+            StartTime = DateTime.Parse("2023-11-30 10:00:00"),
+            EndTime = DateTime.Parse("2023-11-30 11:00:00")
         };
 
         var result = _validator.Validate(appointmentRequest);
@@ -44,8 +44,8 @@ public class AppointmentRequestValidatorTests
         var appointmentRequest = new AppointmentRequest
         {
             Title = "My Appointment",
-            StartTime = DateTime.Parse("2023-11-01 11:00:00"),
-            EndTime = DateTime.Parse("2023-11-01 10:00:00")
+            StartTime = DateTime.Parse("2023-11-30 11:00:00"),
+            EndTime = DateTime.Parse("2023-11-30 10:00:00")
         };
 
         var result = _validator.Validate(appointmentRequest);
@@ -60,14 +60,31 @@ public class AppointmentRequestValidatorTests
         var appointmentRequest = new AppointmentRequest
         {
             Title = "My Appointment",
-            StartTime = DateTime.Parse("2023-11-01 10:00:00"),
-            EndTime = DateTime.Parse("2023-11-02 11:00:00")
+            StartTime = DateTime.Parse("2023-11-29 10:00:00"),
+            EndTime = DateTime.Parse("2023-11-30 11:00:00")
         };
 
         var result = _validator.Validate(appointmentRequest);
 
         Assert.False(result.IsValid);
         Assert.Contains("Appointment can only be set for same day endTime and StartTime should have same date", result.Errors.FirstOrDefault().ErrorMessage);
+    }
+
+    [Fact]
+    public void Should_fail_validation_when_endTime_and_startTime_are_in_the_past()
+    {
+        var appointmentRequest = new AppointmentRequest
+        {
+            Title = "My Appointment",
+            StartTime = DateTime.Parse("2023-11-01 10:00:00"),
+            EndTime = DateTime.Parse("2023-11-01 11:00:00")
+        };
+
+        var result = _validator.Validate(appointmentRequest);
+
+        Assert.False(result.IsValid);
+        Assert.Contains("Appointment StartTime should be greater than Current Time", result.Errors.FirstOrDefault().ErrorMessage);
+        Assert.Contains("Appointment EndTime should be greater than Current Time", result.Errors.Skip(1).First().ErrorMessage);
     }
 }
 

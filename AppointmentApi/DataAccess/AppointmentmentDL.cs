@@ -8,8 +8,16 @@ namespace AppointmentApi.Buisness
     
     public List<Appointment> GetAppointments(Guid? id = null, DateOnly? date = null)
     {
-      var condition = new Func<Appointment, bool>(app => date.HasValue ? DateOnly.FromDateTime(app.StartTime) == date : app.Id == id);
-      return appointments.Where(condition).ToList();
+      // var condition = new Func<Appointment, bool>(app => date.HasValue ? DateOnly.FromDateTime(app.StartTime) == date : app.Id == id);
+      // return appointments.Where(condition).ToList();
+      if(date.HasValue) 
+         return appointments.Where(app => DateOnly.FromDateTime(app.StartTime) == date).ToList();
+      
+      // else if(id.HasValue)
+      return appointments.Where(app => app.Id == id).ToList();
+
+      // else
+      //    return appointments.ToList();
     }
 
     public Guid CreateAppointment(AppointmentRequest appointment)
@@ -27,10 +35,9 @@ namespace AppointmentApi.Buisness
       return id;
 
     }
-    public void DeleteAppointment(Guid id)
-    {
+
+    public void DeleteAppointment(Guid id) =>
       appointments.RemoveAt(appointments.FindIndex(existingItem => existingItem.Id == id));
-    }
 
   }
 }

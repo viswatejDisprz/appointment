@@ -7,6 +7,7 @@ namespace AppointmentApi
     public static class Extensions
     {
 
+        // Generic validator
         public static void Validate<TObject, TValidator>(this TObject instance)
             where TObject : class
             where TValidator : AbstractValidator<TObject>, new()
@@ -18,11 +19,13 @@ namespace AppointmentApi
         }
 
 
+        // Replace Date format xml comments
         public static string ReplaceDynamicDateFormat(this string xmlComments)
         {
             return xmlComments.Replace("{DynamicDateFormat}", GetDynamicDateFormat());
         }
 
+         // fetch the date format of current os
         public static string GetDynamicDateFormat()
         {
             DateTimeFormatInfo dateFormat = CultureInfo.CurrentCulture.DateTimeFormat;
@@ -30,6 +33,7 @@ namespace AppointmentApi
             return shortDatePattern;
         }
 
+        // Response exception extensions for list and object type
         public static HttpResponseException CustomException(this CustomError error, int statusCode)
         {
             return new HttpResponseException(statusCode, error);

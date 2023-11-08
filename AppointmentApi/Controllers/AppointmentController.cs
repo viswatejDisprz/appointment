@@ -25,12 +25,9 @@ namespace AppointmentApi.Controllers
     /// Get Appointments for the day
     /// </summary>
     /// <remarks>
-    /// Sample request:
+    /// Sample request Format:
     ///
-    ///     Get /Appointments
-    ///     {
-    ///         "Date": "{DynamicDateFormat}"
-    ///     }
+    /// "Date": "{DynamicDateFormat}"
     ///
     /// </remarks>
     /// <returns>List of appointments</returns>
