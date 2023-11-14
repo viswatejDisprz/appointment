@@ -34,7 +34,6 @@ namespace AppointmentApi.Controllers
     [HttpGet]
     [ProducesResponseType(typeof(List<Appointment>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(List<CustomError>), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
     public List<Appointment> GetAppointments([FromQuery] AppointmentDateRequest appointmentDateRequest) =>
         _appointmentBL.GetAppointments(appointmentDateRequest);
 
@@ -54,7 +53,6 @@ namespace AppointmentApi.Controllers
     [ProducesResponseType(typeof(GuidValueResult), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(List<CustomError>), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(CustomError), StatusCodes.Status409Conflict)]
-    [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
     public ActionResult<GuidValueResult> CreateAppointment([FromBody] AppointmentRequest appointmentrequest) =>
        Created("", new GuidValueResult { Id = _appointmentBL.CreateAppointment(appointmentrequest) });
 
@@ -71,7 +69,6 @@ namespace AppointmentApi.Controllers
     [SwaggerOperation(Summary = "Delete an Appointment")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(CustomError), StatusCodes.Status500InternalServerError)]
     public ActionResult DeleteAppointment(Guid id)
     {
       _appointmentBL.DeleteAppointment(id);

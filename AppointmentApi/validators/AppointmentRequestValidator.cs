@@ -1,5 +1,6 @@
 using FluentValidation;
 using AppointmentApi.Models;
+using Azure;
 
 namespace AppointmentApi.validators
 {
@@ -9,24 +10,24 @@ namespace AppointmentApi.validators
          {
              RuleFor(appointment => appointment.Title)
              .NotEmpty()
-             .WithMessage("Appointment Title should not be empty");
+             .WithMessage(ResponseErrors.NotEmpty("Title"));
 
 
              RuleFor(appointment => appointment.StartTime)
              .NotNull()
-             .NotEmpty().WithMessage("Appointment StartTime should not be empty")
+             .NotEmpty().WithMessage(ResponseErrors.NotEmpty("StartTime"))
              .Must(NotBeOutDated)
-             .WithMessage("Appointment StartTime should be greater than Current Time");
+             .WithMessage(ResponseErrors.GreaterThanCurrentTime("StartTime"));
 
 
              RuleFor(appointment => appointment.EndTime)
-             .NotEmpty().WithMessage("Appointment EndTime should not be empty")
+             .NotEmpty().WithMessage(ResponseErrors.NotEmpty("EndTime"))
              .Must((appointmentRequest, endTime) => endTime > appointmentRequest.StartTime)
-             .WithMessage("End time must be greater than Start Time.")
+             .WithMessage(ResponseErrors.EndtimeGreaterThanStartTime())
              .Must((appointmentRequest, endTime) => endTime.Date == appointmentRequest.StartTime.Date)
-             .WithMessage("Appointment can only be set for same day endTime and StartTime should have same date")
+             .WithMessage(ResponseErrors.SameDay())
              .Must(NotBeOutDated)
-             .WithMessage("Appointment EndTime should be greater than Current Time");
+             .WithMessage(ResponseErrors.GreaterThanCurrentTime("EndTime"));
 
          }
 

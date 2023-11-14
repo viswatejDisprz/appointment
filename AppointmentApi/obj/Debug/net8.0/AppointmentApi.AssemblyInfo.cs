@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AppointmentApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e972106e7780f82118251ae9dc988f8419b23fb6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f13e5b3dc5c66fc54576090b5c7aff9ebad0dd5")]
 [assembly: System.Reflection.AssemblyProductAttribute("AppointmentApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AppointmentApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,4 +1,3 @@
-using System.Globalization;
 using AppointmentApi.Models;
 using FluentValidation;
 
@@ -16,21 +15,6 @@ namespace AppointmentApi
             var results = validator.Validate(instance);
             if (!results.IsValid)
                 results.Errors.CustomException();
-        }
-
-
-        // Replace Date format xml comments
-        public static string ReplaceDynamicDateFormat(this string xmlComments)
-        {
-            return xmlComments.Replace("{DynamicDateFormat}", GetDynamicDateFormat());
-        }
-
-         // fetch the date format of current os
-        public static string GetDynamicDateFormat()
-        {
-            DateTimeFormatInfo dateFormat = CultureInfo.CurrentCulture.DateTimeFormat;
-            string shortDatePattern = dateFormat.ShortDatePattern;
-            return shortDatePattern;
         }
 
         // Response exception extensions for list and object type

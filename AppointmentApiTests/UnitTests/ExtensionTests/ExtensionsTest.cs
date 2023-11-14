@@ -14,30 +14,6 @@ public class ExtensionsTests
     }
 
     [Fact]
-    public void ReplaceDynamicDateFormat_ShouldReplaceDateFormat()
-    {
-        // Arrange
-        string xmlComments = "Some example XML comments with {DynamicDateFormat}";
-
-        // Act
-        var replacedXmlComments = Extensions.ReplaceDynamicDateFormat(xmlComments);
-
-        // Assert
-        Assert.DoesNotContain("{DynamicDateFormat}", replacedXmlComments);
-    }
-
-    [Fact]
-    public void GetDynamicDateFormat_should_return_the_current_culture_short_date_pattern()
-    {
-        var dynamicDateFormat = Extensions.GetDynamicDateFormat();
-
-        var culture = CultureInfo.CurrentCulture;
-        var shortDatePattern = culture.DateTimeFormat.ShortDatePattern;
-
-        Assert.Equal(shortDatePattern, dynamicDateFormat);
-    }
-
-    [Fact]
     public void CustomException_should_throw_an_HttpResponseException_with_the_InternalServer_status_code()
     {
         var error = new CustomError

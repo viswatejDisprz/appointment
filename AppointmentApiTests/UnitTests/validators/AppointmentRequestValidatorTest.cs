@@ -51,7 +51,7 @@ public class AppointmentRequestValidatorTests
         var result = _validator.Validate(appointmentRequest);
 
         Assert.False(result.IsValid);
-        Assert.Contains("End time must be greater than Start Time.", result.Errors.FirstOrDefault().ErrorMessage);
+        Assert.Contains("End Time must be greater than start time", result.Errors.FirstOrDefault().ErrorMessage);
     }
 
     [Fact]
@@ -67,7 +67,7 @@ public class AppointmentRequestValidatorTests
         var result = _validator.Validate(appointmentRequest);
 
         Assert.False(result.IsValid);
-        Assert.Contains("Appointment can only be set for same day endTime and StartTime should have same date", result.Errors.FirstOrDefault().ErrorMessage);
+        Assert.Contains("StartTime and EndTime should have the same day", result.Errors.FirstOrDefault().ErrorMessage);
     }
 
     [Fact]

@@ -45,14 +45,18 @@ namespace AppointmentApi.Buisness
       var appointments = _appointmentDL.GetAppointments(null, DateOnly.FromDateTime(appointmentrequest.StartTime));
 
       var conflictingAppointment = appointments?.FirstOrDefault(item =>
-       (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime) ||
+       (appointmentrequest.StartTime >= item.StartTime && appointmentrequest.StartTime <= item.EndTime) ||
        (appointmentrequest.EndTime >= item.StartTime && appointmentrequest.EndTime <= item.EndTime) ||
-       (appointmentrequest.StartTime <= item.EndTime && appointmentrequest.StartTime >= item.StartTime));
+       (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime));
 
       if (conflictingAppointment != null)
       {
-        var ConflictTime = conflictingAppointment.StartTime < appointmentrequest.StartTime ?
-                        appointmentrequest.StartTime : appointmentrequest.EndTime;
+        var ConflictTime = (conflictingAppointment.StartTime > appointmentrequest.StartTime  && conflictingAppointment.EndTime < appointmentrequest.EndTime) ||
+                           (conflictingAppointment.StartTime < appointmentrequest.StartTime  && conflictingAppointment.EndTime > appointmentrequest.EndTime)
+                            ?
+                          "StartTime and EndTime" :
+                          (conflictingAppointment.StartTime < appointmentrequest.StartTime ?
+                          "StartTime" : "EndTime");
 
         throw ResponseErrors.ConflictError(ConflictTime, conflictingAppointment.StartTime, conflictingAppointment.EndTime)
               .CustomException(StatusCodes.Status409Conflict);

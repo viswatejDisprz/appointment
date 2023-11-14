@@ -9,13 +9,8 @@ namespace AppointmentApi.validators
         {
             RuleFor(apptDateRequest => apptDateRequest.Date)
                 .NotEmpty()
-                .WithMessage(ValidDateFormat);
+                .WithMessage("Please enter the Correct date format in : MM/dd/yyyy");
         }
 
-        private string ValidDateFormat(AppointmentDateRequest request)
-        {
-            var Dateformat = Extensions.GetDynamicDateFormat();
-            return $"Please enter the Correct date format in : {Dateformat}";
-        }
     }
 }
