@@ -30,8 +30,8 @@ namespace AppointmentApi.Buisness
 
     public void DeleteAppointment(Guid id)
     {
-      var appointments = _appointmentDL.GetAppointments(id);
-      if (!appointments.Any())
+      var appointment = _appointmentDL.GetAppointment(id);
+      if (appointment is null)
         throw new HttpResponseException(StatusCodes.Status404NotFound);
 
       _appointmentDL.DeleteAppointment(id);
@@ -42,17 +42,18 @@ namespace AppointmentApi.Buisness
     private void ValidateAppointmentConflicts(AppointmentRequest appointmentrequest)
     {
 
-      var appointments = _appointmentDL.GetAppointments(null, DateOnly.FromDateTime(appointmentrequest.StartTime));
+      var appointments = _appointmentDL.GetAppointments(DateOnly.FromDateTime(appointmentrequest.StartTime));
 
       var conflictingAppointment = appointments?.FirstOrDefault(item =>
-       (appointmentrequest.StartTime >= item.StartTime && appointmentrequest.StartTime <= item.EndTime) ||
-       (appointmentrequest.EndTime >= item.StartTime && appointmentrequest.EndTime <= item.EndTime) ||
-       (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime));
+        (appointmentrequest.StartTime >= item.StartTime && appointmentrequest.StartTime <= item.EndTime) ||
+        (appointmentrequest.EndTime >= item.StartTime && appointmentrequest.EndTime <= item.EndTime) ||
+        (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime)
+      );
 
       if (conflictingAppointment != null)
       {
-        var ConflictTime = (conflictingAppointment.StartTime > appointmentrequest.StartTime  && conflictingAppointment.EndTime < appointmentrequest.EndTime) ||
-                           (conflictingAppointment.StartTime < appointmentrequest.StartTime  && conflictingAppointment.EndTime > appointmentrequest.EndTime)
+        var ConflictTime = (conflictingAppointment.StartTime >= appointmentrequest.StartTime && conflictingAppointment.EndTime <= appointmentrequest.EndTime) ||
+                           (conflictingAppointment.StartTime < appointmentrequest.StartTime && conflictingAppointment.EndTime > appointmentrequest.EndTime)
                             ?
                           "StartTime and EndTime" :
                           (conflictingAppointment.StartTime < appointmentrequest.StartTime ?

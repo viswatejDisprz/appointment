@@ -9,7 +9,7 @@ namespace AppointmentApi.validators
         {
             RuleFor(apptDateRequest => apptDateRequest.Date)
                 .NotEmpty()
-                .WithMessage("Please enter the Correct date format in : MM/dd/yyyy");
+                .WithMessage(ResponseErrors.DateFormatError());
         }
 
     }

@@ -12,7 +12,7 @@ public static class ResponseErrors
    
    /////// validation errors
    
-   public static string NotEmpty(string s) => $"Appointment {s} should not be empty";
+   public static string NotEmpty() => $"Appointment Request Title should not be empty";
 
    public static string GreaterThanCurrentTime(string s) => $"Appointment {s} should be greater than Current Time";
 
@@ -20,6 +20,6 @@ public static class ResponseErrors
 
    public static string SameDay() => "StartTime and EndTime should have the same day";
 
-
+   public static string DateFormatError() => "Please enter the Correct date format in : MM/dd/yyyy"; 
 
 }

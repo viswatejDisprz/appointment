@@ -6,7 +6,9 @@ namespace AppointmentApi.DataAccess
     // Used to fetch appointments
     // GetAppointments takes id or date as input
     // returns list of appointments 
-    List<Appointment> GetAppointments(Guid? id = null, DateOnly? date = null);
+    List<Appointment> GetAppointments(DateOnly date);
+
+    Appointment GetAppointment(Guid id);
 
     // Used to Add a new appointment to the list
     //CreateAppointment takes AppointmentRequest Dto as input

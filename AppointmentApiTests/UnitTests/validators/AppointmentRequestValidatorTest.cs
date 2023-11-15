@@ -11,16 +11,14 @@ public class AppointmentRequestValidatorTests
     }
 
     [Fact]
-    public void Should_fail_validation_when_all_fields_are_empty()
+    public void Should_fail_validation_when_Title_field_is_empty()
     {
         var appointmentRequest = new AppointmentRequest();
 
         var result = _validator.Validate(appointmentRequest);
 
         Assert.False(result.IsValid);
-        Assert.Contains("Appointment Title should not be empty", result.Errors.FirstOrDefault().ErrorMessage);
-        Assert.Contains("Appointment StartTime should not be empty", result.Errors.Skip(1).First().ErrorMessage);
-        Assert.Contains("Appointment EndTime should not be empty", result.Errors.Skip(3).First().ErrorMessage);
+        Assert.Contains("Appointment Request Title should not be empty", result.Errors.FirstOrDefault().ErrorMessage);
     }
 
     [Fact]

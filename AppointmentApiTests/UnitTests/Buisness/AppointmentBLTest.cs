@@ -25,7 +25,7 @@ namespace Appointment_copy.Tests
             {
                 new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/11/30 10:00"), EndTime = DateTime.Parse("2023/11/30 11:00") }
             };
-            mockAppointmentDL.Setup(x => x.GetAppointments(null, appointmentDateRequest.Date)).Returns(appointments);
+            mockAppointmentDL.Setup(x => x.GetAppointments(appointmentDateRequest.Date)).Returns(appointments);
 
             // Act
             var result = appointmentBL.GetAppointments(appointmentDateRequest);
@@ -76,11 +76,11 @@ namespace Appointment_copy.Tests
                 new Appointment { Title = "Go To Gym", StartTime = DateTime.Parse("2023/11/30 09:00"), EndTime = DateTime.Parse("2023/11/30 10:00") }
             };
             DateOnly dateOnly = new DateOnly(appointmentRequest.StartTime.Year, appointmentRequest.StartTime.Month, appointmentRequest.StartTime.Day);
-            mockAppointmentDL.Setup(x => x.GetAppointments(null, dateOnly)).Returns(appointments);
+            mockAppointmentDL.Setup(x => x.GetAppointments(dateOnly)).Returns(appointments);
 
             // Act & Assert
             Assert.Throws<HttpResponseException>(() => appointmentBL.CreateAppointment(appointmentRequest));
-            mockAppointmentDL.Verify(x => x.GetAppointments(null, dateOnly), Times.Once);
+            mockAppointmentDL.Verify(x => x.GetAppointments(dateOnly), Times.Once);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace Appointment_copy.Tests
             {
                 new Appointment { Title = "Go To Gym", StartTime = new DateTime(2023, 11, 30), EndTime = new DateTime(2023, 11, 30) }
             };
-            mockAppointmentDL.Setup(x => x.GetAppointments(id, null)).Returns(appointments);
+            mockAppointmentDL.Setup(x => x.GetAppointment(It.IsAny<Guid>())).Returns(appointments.FirstOrDefault());
             mockAppointmentDL.Setup(x => x.DeleteAppointment(id));
 
             // Act
@@ -114,11 +114,11 @@ namespace Appointment_copy.Tests
             // Arrange
             var id = Guid.NewGuid();
             var appointments = new List<Appointment>();
-            mockAppointmentDL.Setup(x => x.GetAppointments(id, null)).Returns(appointments);
+            mockAppointmentDL.Setup(x => x.GetAppointment(id)).Returns((Appointment)null);
 
             // Act & Assert
             Assert.Throws<HttpResponseException>(() => appointmentBL.DeleteAppointment(id));
-            mockAppointmentDL.Verify(m => m.GetAppointments(It.IsAny<Guid>(), null), Times.Once);
+            mockAppointmentDL.Verify(m => m.GetAppointment(It.IsAny<Guid>()), Times.Once);
         }
     }
 }

@@ -1,6 +1,5 @@
 using AppointmentApi.Models;
 using AppointmentApi;
-using System.Globalization;
 using AppointmentApi.validators;
 using Microsoft.AspNetCore.Http;
 public class ExtensionsTests

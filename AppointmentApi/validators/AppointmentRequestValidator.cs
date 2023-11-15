@@ -1,6 +1,5 @@
 using FluentValidation;
 using AppointmentApi.Models;
-using Azure;
 
 namespace AppointmentApi.validators
 {
@@ -10,18 +9,15 @@ namespace AppointmentApi.validators
          {
              RuleFor(appointment => appointment.Title)
              .NotEmpty()
-             .WithMessage(ResponseErrors.NotEmpty("Title"));
+             .WithMessage(ResponseErrors.NotEmpty());
 
 
              RuleFor(appointment => appointment.StartTime)
-             .NotNull()
-             .NotEmpty().WithMessage(ResponseErrors.NotEmpty("StartTime"))
              .Must(NotBeOutDated)
              .WithMessage(ResponseErrors.GreaterThanCurrentTime("StartTime"));
 
 
              RuleFor(appointment => appointment.EndTime)
-             .NotEmpty().WithMessage(ResponseErrors.NotEmpty("EndTime"))
              .Must((appointmentRequest, endTime) => endTime > appointmentRequest.StartTime)
              .WithMessage(ResponseErrors.EndtimeGreaterThanStartTime())
              .Must((appointmentRequest, endTime) => endTime.Date == appointmentRequest.StartTime.Date)

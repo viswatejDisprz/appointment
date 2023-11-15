@@ -6,19 +6,10 @@ namespace AppointmentApi.Buisness
   {
     private List<Appointment> appointments = new();
     
-    public List<Appointment> GetAppointments(Guid? id = null, DateOnly? date = null)
-    {
-      // var condition = new Func<Appointment, bool>(app => date.HasValue ? DateOnly.FromDateTime(app.StartTime) == date : app.Id == id);
-      // return appointments.Where(condition).ToList();
-      if(date.HasValue) 
-         return appointments.Where(app => DateOnly.FromDateTime(app.StartTime) == date).ToList();
-      
-      // else if(id.HasValue)
-      return appointments.Where(app => app.Id == id).ToList();
-
-      // else
-      //    return appointments.ToList();
-    }
+    public List<Appointment> GetAppointments(DateOnly date)
+      => appointments.Where(app => DateOnly.FromDateTime(app.StartTime) == date).ToList();
+     
+    public Appointment GetAppointment(Guid id) => appointments.Find(item => item.Id == id);
 
     public Guid CreateAppointment(AppointmentRequest appointment)
     {
