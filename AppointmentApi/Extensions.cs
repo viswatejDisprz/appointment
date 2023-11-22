@@ -14,7 +14,10 @@ namespace AppointmentApi
             var validator = new TValidator();
             var results = validator.Validate(instance);
             if (!results.IsValid)
-                results.Errors.CustomException();
+              if(instance is AppointmentDateRequest)
+                results.Errors.CustomException(01);
+              else
+                results.Errors.CustomException(02);
         }
 
         // Response exception extensions for list and object type

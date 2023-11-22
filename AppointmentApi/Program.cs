@@ -23,17 +23,13 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddSingleton<IAppointmentDL, AppointmentDL>();
 builder.Services.AddSingleton<IAppointmentBL, AppointmentBL>();
-builder.Services.AddLogging(loggingBuilder =>
-{
-  loggingBuilder.AddConsole();
-});
+
 
 var app = builder.Build();
 
 app.UseRouting();
 
 app.UseExceptionHandler();
-app.UseStatusCodePages();
 
 
 app.UseDeveloperExceptionPage();
@@ -43,8 +39,6 @@ app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

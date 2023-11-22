@@ -36,7 +36,6 @@ namespace AppointmentApi.Buisness
 
       _appointmentDL.DeleteAppointment(id);
     }
-    //
 
     // Appointment Conflict checking function
     private void ValidateAppointmentConflicts(AppointmentRequest appointmentrequest)
@@ -44,7 +43,7 @@ namespace AppointmentApi.Buisness
 
       var appointments = _appointmentDL.GetAppointments(DateOnly.FromDateTime(appointmentrequest.StartTime));
 
-      var conflictingAppointment = appointments?.FirstOrDefault(item =>
+      var conflictingAppointment = appointments.FirstOrDefault(item =>
         (appointmentrequest.StartTime >= item.StartTime && appointmentrequest.StartTime <= item.EndTime) ||
         (appointmentrequest.EndTime >= item.StartTime && appointmentrequest.EndTime <= item.EndTime) ||
         (appointmentrequest.StartTime <= item.StartTime && appointmentrequest.EndTime >= item.EndTime)

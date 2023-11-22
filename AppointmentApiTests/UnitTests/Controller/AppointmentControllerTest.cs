@@ -3,6 +3,7 @@ using AppointmentApi.Buisness;
 using AppointmentApi.Controllers;
 using AppointmentApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using MockAppointmentApiTests;
 
 namespace Appointment_copy.Tests
 {
@@ -10,44 +11,44 @@ namespace Appointment_copy.Tests
     {
         private Mock<IAppointmentBL> mockAppointmentBL;
         private AppointmentController appointmentController;
-
+        private MockAppointments mock;
+        
         public AppointmentControllerTests()
         {
             mockAppointmentBL = new Mock<IAppointmentBL>();
             appointmentController = new AppointmentController(mockAppointmentBL.Object);
+            mock = new MockAppointments();
         }
 
+
+        /// <summary>
+        /// Get Appointment Testing
+        /// </summary>
         [Fact]
         public void TestGetAppointments_ReturnsListOfAppointments()
         {
             // Arrange
-            var appointmentDateRequest = new AppointmentDateRequest { Date = new DateOnly(2023, 10, 15) };
-            var appointments = new List<Appointment>
-            {
-                new Appointment { Title = "Go To Gym", StartTime = new DateTime(2023, 10, 15), EndTime = new DateTime(2023, 10, 15) }
-            };
-            mockAppointmentBL.Setup(x => x.GetAppointments(appointmentDateRequest)).Returns(appointments);
-
+            var appointmentDateRequest = mock.aptDateRequest();
+            mock.GetAppointmentMock(mockAppointmentBL,appointmentDateRequest: appointmentDateRequest);
+            
             // Act
             var result = appointmentController.GetAppointments(appointmentDateRequest);
 
             // Assert
-            Assert.Collection(result, item =>
-            {
-                Assert.Equal("Go To Gym", item.Title);
-            });
+            Assert.Single(result);
+            Assert.Equal("Go To Gym", result[0].Title);
         }
 
+
+
+        /// <summary>
+        /// Create Appointment Testing
+        /// </summary>
         [Fact]
         public void TestCreateAppointment_ReturnsCreatedAtActionResult()
         {
             // Arrange
-            var appointmentRequest = new AppointmentRequest
-            {
-                Title = "New Test Appointment",
-                StartTime = new DateTime(2023, 10, 3),
-                EndTime = new DateTime(2023, 10, 4)
-            };
+            var appointmentRequest = mock.aptRequest();
             var expectedGuid = Guid.NewGuid();            
 
             // Act
@@ -60,6 +61,10 @@ namespace Appointment_copy.Tests
             Assert.Equal(expectedGuid, model.Id);
         }
 
+
+        /// <summary>
+        /// Delete Appointment Testing
+        /// </summary>
         [Fact]
         public void TestDeleteAppointment_ReturnsNoContentResult()
         {

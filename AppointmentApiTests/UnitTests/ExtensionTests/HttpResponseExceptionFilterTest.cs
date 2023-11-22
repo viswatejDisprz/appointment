@@ -5,16 +5,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
+using MockAppointmentApiTests;
 
 public class HttpResponseExceptionFilterTest
 {
+    private MockAppointments mock;
     private HttpResponseExceptionFilter _filter = new HttpResponseExceptionFilter();
+
+    public HttpResponseExceptionFilterTest()
+    {
+        mock = new MockAppointments();
+    }
 
     [Fact]
     public void TestOnActionExecutedWithHttpResponseException()
     {
         // Arrange
-        var error = new CustomError{Message="Not Found"};
+        var error = mock.customError();
         var routeData = new RouteData();
         routeData.Values["key"] = "value";
         var actionContext = new ActionContext(new DefaultHttpContext(), routeData , new ActionDescriptor());
@@ -31,14 +38,13 @@ public class HttpResponseExceptionFilterTest
         // Assert
         Assert.True(context.ExceptionHandled);
         Assert.IsType<ObjectResult>(context.Result);
-        var result = (ObjectResult)context.Result;
     }
 
     [Fact]
     public void TestOnActionExecutedWithHttpResponseException1()
     {
         // Arrange
-        var error = new CustomError{Message="Not Found"};
+        var error = mock.customError();
         var filter = new HttpResponseExceptionFilter();
         var routeData = new RouteData();
         routeData.Values["key"] = "value";

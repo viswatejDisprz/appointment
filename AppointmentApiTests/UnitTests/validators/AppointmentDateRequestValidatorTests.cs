@@ -1,13 +1,17 @@
 using AppointmentApi.validators;
 using AppointmentApi.Models;
+using MockAppointmentApiTests;
 
 public class AppointmentDateRequestValidatorTests
 {
     private AppointmentDateRequestValidator _validator;
 
+    private MockAppointments mock;
+
     public AppointmentDateRequestValidatorTests()
     {
         _validator = new AppointmentDateRequestValidator();
+        mock = new MockAppointments();
     }
 
     [Fact]
@@ -24,10 +28,7 @@ public class AppointmentDateRequestValidatorTests
     [Fact]
     public void Should_pass_validation_when_date_is_in_correct_format()
     {
-        var appointmentDateRequest = new AppointmentDateRequest
-        {
-            Date = DateOnly.Parse("2023-11-01")
-        };
+        var appointmentDateRequest = mock.aptDateRequest();
 
         var result = _validator.Validate(appointmentDateRequest);
 
